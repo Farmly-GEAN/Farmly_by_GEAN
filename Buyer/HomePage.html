@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Farmly - Home Page</title>
+    <link rel="stylesheet" href="HomePage.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="logo">FARMLY</div>
+
+      <div class="search-container">
+        <form action="/search" method="get">
+          <input type="text" class="search-bar" placeholder="SEARCH BAR" />
+        </form>
+      </div>
+
+      <nav class="user-nav">
+        <a href="cart.html">CART</a>
+        <a href="profile.html">PROFILE</a>
+      </nav>
+    </header>
+
+    <div class="main-container">
+      <aside class="sidebar-nav">
+        <ul>
+          <li><a href="all-products.html">All Products</a></li>
+          <li><a href="fruits.html">Fruits</a></li>
+          <li><a href="vegetables.html">Vegetables</a></li>
+          <li><a href="dairy.html">Dairy Products</a></li>
+        </ul>
+      </aside>
+
+      <main class="product-listing">
+        <div class="product-card">
+          <img
+            src="https://via.placeholder.com/200x150/FF6347/FFFFFF?text=Apple"
+            alt="Red Apple"
+          />
+          <h3>Apple</h3>
+          <p class="product-info">1kg / $2.99</p>
+          <button class="add-to-cart-btn">ADD TO CART</button>
+        </div>
+
+        <div class="product-card">
+          <img
+            src="https://via.placeholder.com/200x150/90EE90/FFFFFF?text=Lettuce"
+            alt="Fresh Lettuce"
+          />
+          <h3>Lettuce</h3>
+          <p class="product-info">1 Head / $1.49</p>
+          <button class="add-to-cart-btn">ADD TO CART</button>
+        </div>
+
+        <div class="product-card">
+          <img
+            src="https://via.placeholder.com/200x150/FFA500/FFFFFF?text=Carrots"
+            alt="Carrots"
+          />
+          <h3>Carrots</h3>
+          <p class="product-info">1 bunch / $1.99</p>
+          <button class="add-to-cart-btn">ADD TO CART</button>
+        </div>
+
+        <div class="product-card">
+          <img
+            src="https://via.placeholder.com/200x150/F0F8FF/000000?text=Milk"
+            alt="Milk Bottle"
+          />
+          <h3>Fresh Milk</h3>
+          <p class="product-info">1 Liter / $3.50</p>
+          <button class="add-to-cart-btn">ADD TO CART</button>
+        </div>
+      </main>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-column footer-logo-social">
+        <div class="logo">FARMLY</div>
+        <div class="social-icons">
+          <a href="#">WhatsApp</a>
+          <a href="#">Facebook</a>
+          <a href="#">Instagram</a>
+        </div>
+      </div>
+
+      <div class="footer-column footer-links">
+        <a href="faq.html">FAQ</a>
+        <a href="terms.html">Terms and Condition</a>
+      </div>
+
+      <div class="footer-column footer-links">
+        <a href="contact.html">Contact-us</a>
+        <a href="feedback.html">Feedback</a>
+      </div>
+    </footer>
+  </body>
+</html>
