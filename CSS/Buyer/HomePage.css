@@ -120,9 +120,9 @@ a:hover {
 }
 
 .sidebar-nav li :hover {
-  background-color: grey; /* Green */
+  background-color: black; 
   color: white;
-  border-color: grey;
+  border-color:black;
 }
 
 /* Product Listing */
@@ -188,7 +188,7 @@ a:hover {
 /************** FOOTER STYLES ****************/
 .site-footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding: 40px;
   background-color: #f9f9f9;
   border-top: 2px solid #f0f0f0;
@@ -228,4 +228,8 @@ a:hover {
   padding: 5px 7px;
   border-radius: 10px;
   transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
 }
