@@ -185,12 +185,11 @@ a:hover {
   border-color: rgb(19, 0, 128);
 }
 
-/************** FOOTER STYLES ****************/
 .site-footer {
   display: flex;
   justify-content: space-evenly;
   padding: 40px;
-  background-color: #f9f9f9;
+  background-color:darkgray;
   border-top: 2px solid #f0f0f0;
   margin-top: 40px;
 }
@@ -207,7 +206,7 @@ a:hover {
 
 .footer-column a {
   margin-bottom: 10px;
-  color: #555;
+  color: #333232;
 }
 
 .footer-logo-social .logo {
