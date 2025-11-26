@@ -1,106 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Buyer Register</title>
-    <link rel="stylesheet" href="../CSS/Buyer_Register.css" />
-  </head>
-  <body>
-    <header class="site-header">
-      <div class="logo">
-        <a href="HomePage.html">
-          <img src="./Logo/Team Logo.png" alt="Farmly Logo" />
-        </a>
-      </div>
-    </header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Buyer</title>
+    <link rel="stylesheet" href="../CSS/Buyer_Register.css">
+</head>
+<body>
 
-    <div class="page-container">
-      <div class="register-box">
-        <h2 class="register-heading">Register - Buyer</h2>
+<header class="top-header">
+  <a href="HomePage.html">
+    <img src="./Logo/Team Logo.png" alt="Farmly Logo" class="header-logo">
+  </a>
+</header>
+
+<div class="main-section">
+    <div class="register-card">
+
+        <h2 class="register-title">Register - Buyer</h2>
 
         <form class="register-form">
-          <div class="input-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" />
-          </div>
 
-          <div class="input-group">
-            <label for="new-password">New Password</label>
-            <input type="password" id="new-password" name="new-password" />
-          </div>
+            <div class="form-field">
+                <label>Email</label>
+                <input type="email" placeholder="Enter your email" required>
+            </div>
 
-          <div class="input-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" />
-          </div>
+            <div class="form-field password-wrapper">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Enter a strong password" required>
+                <span class="toggle-password" onclick="togglePassword()">👁️</span>
+            </div>
 
-          <div class="input-group">
-            <label for="phone-number">Phone Number</label>
-            <input type="tel" id="phone-number" name="phone-number" />
-          </div>
+            <div class="form-field password-wrapper">
+                <label>Confirm Password</label>
+                <input type="password" id="confirmPassword" placeholder="Re-enter password" required>
+                <span class="toggle-password" onclick="toggleConfirmPassword()">👁️</span>
+            </div>
 
-          <div class="button-group">
-            <button type="button" class="action-btn login-btn">LOGIN</button>
-            <button type="submit" class="action-btn create-account-btn">
-              Create Account
-            </button>
-          </div>
+            <div class="form-field">
+                <label>Full Name</label>
+                <input type="text" placeholder="Your full name" required>
+            </div>
+
+            <div class="form-field">
+                <label>Phone Number</label>
+                <input type="tel" placeholder="Enter your phone number" required>
+            </div>
+
+            <div class="form-field">
+                <label>Address</label>
+                <textarea placeholder="Full residential address" required></textarea>
+            </div>
+
+            <div class="form-field">
+                <label>Gender</label>
+                <select required>
+                    <option value="">Select Gender</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                </select>
+            </div>
+
+            <div class="form-inline">
+                <div class="form-field half">
+                    <label>State</label>
+                    <input type="text" placeholder="State" required>
+                </div>
+
+                <div class="form-field half">
+                    <label>City</label>
+                    <input type="text" placeholder="City" required>
+                </div>
+            </div>
+
+            <div class="terms">
+                <input type="checkbox" required>
+                <span>I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a>.</span>
+            </div>
+
+            <div class="button-section">
+
+    <button class="create-btn">Create Account</button>
+
+    <p class="already-text">
+        Already have an account?
+        <a href="Buyer_Login.html" class="login-link">Login</a>
+    </p>
+
+</div>
+
         </form>
-      </div>
-    </div>
 
-    <footer class="site-footer">
-      <div class="footer-column footer-logo-social">
+    </div>
+</div>
+
+<script>
+function togglePassword() {
+    let passField = document.getElementById("password");
+    passField.type = passField.type === "password" ? "text" : "password";
+}
+
+function toggleConfirmPassword() {
+    let passField = document.getElementById("confirmPassword");
+    passField.type = passField.type === "password" ? "text" : "password";
+}
+</script>
+
+</body>
+</html>
+
+ 
+<footer class="site-footer">
+
+    <div class="footer-column footer-logo-social">
         <div class="logo">
-          <a href="HomePage.html">
-            <img src="./Logo/Team Logo.png" alt="Farmly Logo" />
-          </a>
+            <a href="HomePage.html">
+                <img src="./Logo/Team Logo.png" alt="Farmly Logo">
+            </a>
         </div>
 
         <div class="social-icons">
-          <ul>
-            <a href="WhatsApp.html" class="nav-button">
-              <img
-                src=".\Logo\whatsapp.png"
-                alt="Whatsapp Icon"
-                class="nav-icon"
-              />
-              <span>WhatsApp</span>
-            </a>
-          </ul>
-          <ul>
-            <a href="Instagram.html" class="nav-button">
-              <img
-                src=".\Logo\instagram.png"
-                alt="Instagram Icon"
-                class="nav-icon"
-              />Instagram</a
-            >
-          </ul>
-          <ul>
-            <a href="Facebook.html" class="nav-button">
-              <img
-                src=".\Logo\facebook.png"
-                alt=" Icon"
-                class="nav-icon"
-              />Facebook</a
-            >
-          </ul>
-        </div>
-      </div>
-      <div class="footer-column footer-links">
-        <a href=""><b>Usefull Links</b></a>
-        <a href="feedback.html">Feedback </a>
-        <a href="terms.html">Terms and Condition</a>
-        <a href="privacy.html">Privacy Policy</a>
-      </div>
+            <ul>
+                <a href="WhatsApp.html" class="nav-button">
+                    <img src="./Logo/whatsapp.png" class="nav-icon" alt="WhatsApp">
+                    <span>WhatsApp</span>
+                </a>
+            </ul>
 
-      <div class="footer-column footer-links">
-        <a href="Help.html"><b> Help </b></a>
-        <a href="contact.html">Contact-us</a>
+            <ul>
+                <a href="Instagram.html" class="nav-button">
+                    <img src="./Logo/instagram.png" class="nav-icon" alt="Instagram">
+                    Instagram
+                </a>
+            </ul>
+
+            <ul>
+                <a href="Facebook.html" class="nav-button">
+                    <img src="./Logo/facebook.png" class="nav-icon" alt="Facebook">
+                    Facebook
+                </a>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-column footer-links">
+        <a href="#"><b>Useful Links</b></a>
+        <a href="feedback.html">Feedback</a>
+        <a href="terms.html">Terms and Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+    </div>
+
+    <div class="footer-column footer-links">
+        <a href="Help.html"><b>Help</b></a>
+        <a href="contact.html">Contact Us</a>
         <a href="faq.html">FAQ</a>
-      </div>
-    </footer>
-  </body>
+    </div>
+
+</footer>
+</body>
 </html>
