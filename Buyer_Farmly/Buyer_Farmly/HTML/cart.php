@@ -11,7 +11,7 @@
   <header class="main-header">
     <img src="./Logo/Team Logo.png" class="small-logo">
     <h2>My Cart</h2>
-    <button class="home-btn" onclick="window.location.href='HomePage.html'">
+    <button class="home-btn" onclick="window.location.href='HomePage.php'">
     Home
   </button>
 </header>
@@ -63,57 +63,13 @@
         <span>Subtotal</span>
         <span>€2</span>
       </div>
-      <a href="checkout.html" class="checkout-link">Proceed to Checkout</a>
+      <a href="checkout.php" class="checkout-link">Proceed to Checkout</a>
     </div>
 
   </div>
   
-<footer class="site-footer">
 
-    <div class="footer-column footer-logo-social">
-        <div class="logo">
-            <a href="HomePage.html">
-                <img src="./Logo/Team Logo.png" alt="Farmly Logo">
-            </a>
-        </div>
-
-        <div class="social-icons">
-            <ul>
-                <a href="WhatsApp.html" class="nav-button">
-                    <img src="./Logo/whatsapp.png" class="nav-icon" alt="WhatsApp">
-                    <span>WhatsApp</span>
-                </a>
-            </ul>
-
-            <ul>
-                <a href="Instagram.html" class="nav-button">
-                    <img src="./Logo/instagram.png" class="nav-icon" alt="Instagram">
-                    Instagram
-                </a>
-            </ul>
-
-            <ul>
-                <a href="Facebook.html" class="nav-button">
-                    <img src="./Logo/facebook.png" class="nav-icon" alt="Facebook">
-                    Facebook
-                </a>
-            </ul>
-        </div>
-    </div>
-
-    <div class="footer-column footer-links">
-        <a href="#"><b>Useful Links</b></a>
-        <a href="feedback.html">Feedback</a>
-        <a href="terms.html">Terms and Conditions</a>
-        <a href="privacy.html">Privacy Policy</a>
-    </div>
-
-    <div class="footer-column footer-links">
-        <a href="Help.html"><b>Help</b></a>
-        <a href="contact.html">Contact Us</a>
-        <a href="faq.html">FAQ</a>
-    </div>
-
-</footer>
+  <?php include '../Header_Footer/footer.php'; ?>
+  
 </body>
 </html>

@@ -1,0 +1,270 @@
+/* ========== RESET & BASE ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: #f5f7fa;
+    font-family: "Segoe UI", sans-serif;
+    color: #333;
+}
+
+/* ========== LAYOUT WRAPPER ========== */
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+select option[value=""] {
+    color: gray;
+    font-style: italic;
+}
+
+/* ========== HEADER ========== */
+.logo img {
+    height: 110px;
+}
+
+header {
+    height: 70px;
+    background: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #ececec;
+}
+
+header .profile a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #333;
+    font-size: 15px;
+
+}
+.nav-button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.profile-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 6px;
+    transition: 0.3s ease;
+}
+.profile img {
+    width: 28px;
+    height: 28px;
+}
+
+.profile-btn:hover {
+    background-color: #f2f2f2;
+    transform: scale(1.05);
+    cursor: pointer;
+}
+/* ========== MAIN CONTENT SECTION ========== */
+.content {
+    display: flex;
+    flex: 1;
+}
+
+/* ========== SIDEBAR ========== */
+.sidebar {
+    width: 220px;
+    background: white;
+    padding: 20px;
+    border-right: 2px solid #ececec;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.sidebar a {
+    padding: 12px;
+    text-decoration: none;
+    background: #f8f8f8;
+    border-radius: 10px;
+    color: #444;
+    transition: 0.3s ease;
+    font-weight: 500;
+}
+
+.sidebar a:hover,
+.sidebar .active {
+    background: #dce5ff;
+    color: #2c54d4;
+}
+
+/* ========== MAIN WORK AREA ========== */
+.main {
+    flex: 1;
+    padding: 40px;
+}
+
+.main h2 {
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Toggle Switch */
+.toggle label {
+    margin-right: 20px;
+    font-size: 15px;
+    text-decoration: none;
+}
+
+.toggle input {
+    margin-right: 8px;
+    text-decoration: none;
+    
+}
+
+.toggle input a{
+text-decoration: none;
+}
+
+/* ========== FORM GRID ========== */
+.form {
+    margin-top: 20px;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+/* Left Product Selection Form */
+.select-product {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+}
+
+.select-product label {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #444;
+}
+
+.select-product input,
+.select-product select {
+    padding: 10px;
+    border: 1.6px solid #cfd6e6;
+    border-radius: 10px;
+    margin-top: 5px;
+    outline: none;
+    font-size: 14px;
+}
+
+.select-product input:focus,
+.select-product select:focus {
+    border-color: #567ae6;
+}
+
+/* ========== RIGHT SIDE UPLOAD BOX ========== */
+.upload-image {
+    width: 350px;
+}
+
+.upload-box {
+    margin-top: 10px;
+}
+
+.upload-area {
+    width: 100%;
+    height: 180px;
+    border: 2px dashed #5c8df6;
+    border-radius: 15px;
+    background: #f8faff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.upload-area:hover {
+    background: #e9f0ff;
+    border-color: #3b6cf5;
+}
+
+.upload-icon {
+    font-size: 42px;
+    color: #3b6cf5;
+    margin-bottom: 10px;
+}
+
+.upload-area p {
+    font-size: 14px;
+    text-align: center;
+    color: #555;
+}
+
+.upload-area span {
+    font-size: 11px;
+    color: gray;
+}
+
+/* IMAGE PREVIEW */
+.preview-box {
+    margin-top: 12px;
+    width: 100%;
+    height: 180px;
+    display: none;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #cfd6e6;
+}
+
+.preview-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* BUTTON */
+.add-btn {
+    margin-top: 25px;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: #4776e6;
+    color: white;
+    font-size: 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.add-btn:hover {
+    background: #345bd4;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 850px) {
+    .form {
+        flex-direction: column;
+    }
+
+    .upload-image,
+    .select-product {
+        width: 100%;
+    }
+}

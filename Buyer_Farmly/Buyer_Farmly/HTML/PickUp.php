@@ -10,11 +10,10 @@
 
 <header class="site-header">
       <div class="logo">
-        <a href="HomePage.html">
+        <a href="HomePage.php">
           <img src="./Logo/Team Logo.png" alt="Farmly Logo" />
         </a>
       </div>
-
       <div class="search-container">
         <form action="/search" method="get">
           <input type="text" class="search-bar" placeholder="SEARCH PRODUCTS" />
@@ -67,61 +66,6 @@
 
 </div>
 
-
-<footer class="site-footer">
-      <div class="footer-column footer-logo-social">
-        <div class="logo">
-          <a href="HomePage.html">
-            <img src="./Logo/Team Logo.png" alt="Farmly Logo" />
-          </a>
-        </div>
-
-        <div class="social-icons">
-          <ul>
-            <a href="WhatsApp.html" class="nav-button">
-              <img
-                src=".\Logo\whatsapp.png"
-                alt="Whatsapp Icon"
-                class="nav-icon"
-              />
-              <span>WhatsApp</span>
-            </a>
-          </ul>
-          <ul>
-            <a href="Instagram.html" class="nav-button">
-              <img
-                src=".\Logo\instagram.png"
-                alt="Instagram Icon"
-                class="nav-icon"
-              />Instagram</a
-            >
-          </ul>
-          <ul>
-            <a href="Facebook.html" class="nav-button">
-              <img
-                src=".\Logo\facebook.png"
-                alt=" Icon"
-                class="nav-icon"
-              />Facebook</a
-            >
-          </ul>
-        </div>
-      </div>
-       <div class="footer-column footer-links">
-        <a href=""><b>Usefull Links</b></a>
-        <a href="feedback.html">Feedback </a>
-        <a href="terms.html">Terms and Condition</a>
-        <a href="privacy.html">Privacy Policy</a>
-      </div>
-
-      <div class="footer-column footer-links">
-        <a href="Help.html"><b> Help </b></a>
-        <a href="contact.html">Contact-us</a>
-        <a href="faq.html">FAQ</a>
-      </div>
-
-     
-    </footer>
-
+ <?php include '../Header_Footer/footer.php'; ?>
 </body>
 </html>

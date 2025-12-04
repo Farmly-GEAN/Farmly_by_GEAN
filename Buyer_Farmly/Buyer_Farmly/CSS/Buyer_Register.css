@@ -1,0 +1,146 @@
+/* Page */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: #f5f7fa;
+}
+
+/* Header */
+.top-header {
+    padding: 20px 0;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+.header-logo {
+    width: 90px;
+}
+
+/* Container */
+.main-section {
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+}
+
+/* Register Card */
+.register-card {
+    width: 900px;
+    background: white;
+    padding: 40px;
+    border-radius: 18px;
+    border: 2px solid #ccc;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Title */
+.register-title {
+    text-align: center;
+    font-size: 28px;
+    color: #0073e6;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+/* Landscape Grid (2 columns) */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px 40px;
+}
+
+/* Full-width field */
+.wide {
+    grid-column: span 2;
+}
+
+/* Inputs */
+.form-field label {
+    font-weight: 600;
+}
+.form-field input,
+.form-field select,
+.form-field textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    font-size: 15px;
+    border-radius: 8px;
+    border: 1.8px solid #444;
+    transition: .25s;
+}
+textarea {
+    height: 80px;
+}
+
+/* Focus */
+input:focus, select:focus, textarea:focus {
+    border-color: #0073e6;
+    box-shadow: 0 0 6px rgba(0,115,230,0.25);
+    outline: none;
+}
+
+/* Eye icon */
+.password-wrapper {
+    position: relative;
+}
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 42px;
+    cursor: pointer;
+}
+
+/* Terms */
+.terms {
+    margin: 25px 0;
+    display: flex;
+    gap: 10px;
+}
+.terms a {
+    color: #0073e6;
+}
+
+/* Buttons */
+.button-section {
+    text-align: center;
+}
+.create-btn {
+    background: #007bff;
+    color: #fff;
+    padding: 14px 45px;
+    border-radius: 35px;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.create-btn:hover {
+    background: #005bbd;
+}
+.already-text {
+    margin-top: 15px;
+    font-size: 16px;
+}
+.login-link {
+    font-weight: bold;
+    text-decoration: none;
+    color: #007bff;
+}
+.login-link:hover {
+    text-decoration: underline;
+}
+
+/* Mobile Responsive */
+@media (max-width: 820px) {
+    .register-card {
+        width: 95%;
+    }
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    .wide {
+        grid-column: span 1;
+    }
+}
