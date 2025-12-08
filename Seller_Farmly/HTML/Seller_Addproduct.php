@@ -10,62 +10,62 @@
 
 <div class="container">
 
-    <!-- Header -->
     <header>
         <div class="logo"><img src="../Logo/Team Logo.png" alt="Farmly"></div>
         <div class="profile">
-        <a href="Profile.php" class="pro-btn">
-    <img src="../Logo/user.png" alt="User Icon">
-    
-</a>
-            
+            <a href="Profile.php" class="pro-btn">
+                <img src="../Logo/user.png" alt="User Icon">
+            </a>
             <a href="#" class="logout">Logout</a>
         </div>
     </header>
 
     <div class="content">
 
-        <!-- Sidebar -->
         <aside class="sidebar">
-            <a href="#" class="active">Add Products</a>
-            <a href="#">Listed Products</a>
+            <a href="Seller_AddProduct.php" class="active">Add Products</a>
+            <a href="Seller_Existing.php">Listed Products</a>
             <a href="#">Orders</a>
             <a href="#">Reviews</a>
         </aside>
 
-        <!-- Main Section -->
         <main class="main">
-            
-            <h2>Add Products</h2>
+            <h2>Add Products / Existing</h2>
 
+            <!-- FIXED TOGGLE -->
             <div class="toggle">
-                <label><input type="radio" name="mode" checked> Existing</label>
-                <label><input type="radio" name="mode"> Add Products</label>
-            </div>
+    <label>
+        <input type="radio" name="mode" checked>
+        Add Product
+    </label>
+
+    <label>
+        <input type="radio" name="mode" onclick="location.href='Seller_Existing.php'">
+        Existing
+    </label>
+</div>
 
             <div class="form">
-
                 <div class="select-product">
+                    <label>Category</label>
+                    <select id="categorySelect">
+                        <option value="" disabled selected hidden>Select a Category</option>
+                        <option value="vegetables">Vegetables</option>
+                        <option value="fruits">Fruits</option>
+                        <option value="dairy">Dairy Products</option>
+                    </select>
 
-    <label>Category</label>
-    <select id="categorySelect">
-        <option value="" disabled selected hidden>Select a Category</option>
-        <option value="vegetables">Vegetables</option>
-        <option value="fruits">Fruits</option>
-        <option value="dairy">Dairy Products</option>
-    </select>
+                    <label>Select Product</label>
+                    <select id="productSelect">
+                        <option value="" disabled selected hidden>Select a product Name</option>
+                    </select>
 
-    <label>Select Product</label>
-    <select id="productSelect">
-        <option value="" disabled selected hidden>Select a product Name</option>
-    </select>
+                    <label>Add Stock (in KG)</label>
+                    <input type="number" placeholder="Enter stock">
 
-    <label>Add Stock (in KG)</label>
-    <input type="number" placeholder="Enter stock">
-
-    <label>New Price</label>
-    <input type="number" placeholder="Enter price">
-</div>
+                    <label>New Price</label>
+                    <input type="number" placeholder="Enter price">
+                </div>
 
                 <div class="upload-image">
                     <label>Upload Image</label>
@@ -85,14 +85,13 @@
 
                     <button class="add-btn">Add Product</button>
                 </div>
-
             </div>
         </main>
 
     </div>
 </div>
-<script>
 
+<script>
 const productOptions = {
         vegetables: ["Tomato", "Potato", "Onion"],
         fruits: ["Apple", "Banana", "Mango"],
@@ -103,7 +102,6 @@ const productOptions = {
     const productSelect = document.getElementById("productSelect");
 
     categorySelect.addEventListener("change", function () {
-
         const selectedCategory = this.value;
 
         productSelect.innerHTML = `<option value="" disabled selected hidden>Select a product Name</option>`;
@@ -118,7 +116,6 @@ const productOptions = {
         }
     });
 </script>
-
 
 <?php include '../Header_Footer/Footer.php'; ?>
 
