@@ -1,0 +1,93 @@
+/* ---------------- FOOTER MAIN ---------------- */
+*{
+    box-sizing: border-box;
+    font-family: 'Times New Roman', Times, serif;
+    padding: 0;
+    margin: 0;
+}
+.site-footer {
+    
+    background-color: #a9a9a9;   /* Grey background */
+    padding: 40px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    flex-wrap: wrap;
+    border-top: 2px solid #e0e0e0;
+}
+
+/* ---------------- LEFT SECTION (Logo + Social) ---------------- */
+.footer-left {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer-left .footer-logo img {
+    width: 70px;
+}
+
+/* Social Icons container */
+.social-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.social-icons a {
+    font-size: 18px;
+    text-decoration: none;
+    color: #222;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.social-icons img {
+    width: 28px;
+    height: 28px;
+}
+
+/* Hover effect */
+.social-icons a:hover {
+    transform: translateX(5px);
+    transition: 0.3s ease;
+    color: white;
+}
+
+/* ---------------- MIDDLE & RIGHT COLUMNS ---------------- */
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-column h3 {
+    margin: 0 0 8px 0;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.footer-column a {
+    text-decoration: none;
+    color: #222;
+    font-size: 18px;
+}
+
+.footer-column a:hover {
+    text-decoration: underline;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 768px) {
+    .site-footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .social-icons, .footer-column {
+        align-items: center;
+    }
+}
