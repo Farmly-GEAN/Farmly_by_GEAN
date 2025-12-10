@@ -1,0 +1,256 @@
+ body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: green;
+}
+
+/* HEADER */
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: white;
+  border-bottom: 2px solid white;
+  box-shadow: 10px 10px whitesmoke;
+}
+
+.logo img {
+  height: 110px;
+  width: auto;
+  display: block;
+}
+.search-container {
+  flex-grow: 1;
+  margin: 0 40px;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid grey;
+  border-radius: 8px;
+}
+
+.user-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  text-decoration: none;
+  color: #222;
+  font-weight: bold;
+  padding: 5px 7px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.nav-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.nav-button:hover {
+  background-color: #f2f2f2;
+  transform: scale(1.05);
+}
+
+.user-nav a {
+  margin-left: 25px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* MAIN CONTENT */
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  margin: 20px 0;
+}
+
+.register-box {
+  width: 500px;
+  padding: 40px 30px;
+  border: 2px solid #ccc; /* Main border */
+  border-radius: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.register-heading {
+  color: #4a90e2; /* Blue color for the heading */
+  font-size: 30px;
+  font-weight: normal;
+  margin-bottom: 30px;
+}
+
+/* Form and Inputs */
+.register-form {
+  width: 80%; /* Width of the form content */
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.input-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  font-size: 16px;
+  color: #333;
+  /* width: 120px; */
+  text-align: left;
+  margin-right: 15px;
+}
+
+.input-group input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #000; /* Black border for input fields */
+  border-radius: 3px;
+  font-size: 16px;
+}
+
+/* Button Group */
+.button-group {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.action-btn {
+  padding: 10px 10px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  width: 150px;
+}
+
+/* LOGIN Button Style */
+.login-btn {
+  background-color: transparent;
+  border: 2px solid #4a90e2; /* Blue border */
+  color: #4a90e2; /* Blue text */
+}
+
+.login-btn:hover {
+  background-color: #e6f0fa; /* Light blue hover */
+}
+
+/* Create Account Button Style */
+.create-account-btn {
+  background-color: transparent;
+  border: 2px solid #4a90e2; /* Blue border */
+  color: #4a90e2; /* Blue text */
+}
+.create-account-btn:hover {
+  background-color: #e6f0fa; /* Light blue hover */
+}
+
+input,
+textarea {
+  padding: 10px;
+  font-size: 16px;
+  border: 1.5px solid #bbb;
+  border-radius: 6px;
+  outline: none;
+}
+
+textarea {
+  height: 80px;
+  resize: none;
+}
+
+.payment {
+    align-items: center;
+  display: flex;
+  gap: 90px;
+  margin-top: 8px;
+}
+/* Footer Start*/
+
+.site-footer {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 40px;
+  background-color: darkgray;
+  border-top: 2px solid #f0f0f0;
+  margin-top: 40px;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-logo-social {
+  display: flex;
+  flex-direction: row;
+}
+
+.footer-column a {
+  margin-bottom: 10px;
+  color: #333232;
+}
+
+.footer-column a .nav-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.footer-logo-social .logo {
+  margin-bottom: 15px;
+}
+
+.social-icons a:hover {
+  margin-right: 15px;
+  display: inline-block;
+  background-color: gray;
+  transform: scale(1.05);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  text-decoration: none;
+  color: #222;
+  font-weight: bold;
+  padding: 5px 7px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+/* Footer End*/
+
+
