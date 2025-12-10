@@ -39,38 +39,6 @@
         </form>
       </div>
     </div>
-
-    <footer class="site-footer">
-      <div class="footer-logo-social">
-        <div class="logo">
-          <img src="./Logo/Team Logo.png" alt="Farmly Logo" />
-        </div>
-
-        <div class="social-icons">
-          <a href="#" class="nav-button"
-            ><img src="./Logo/whatsapp.png" class="nav-icon" /> WhatsApp</a
-          >
-          <a href="#" class="nav-button"
-            ><img src="./Logo/instagram.png" class="nav-icon" /> Instagram</a
-          >
-          <a href="#" class="nav-button"
-            ><img src="./Logo/facebook.png" class="nav-icon" /> Facebook</a
-          >
-        </div>
-      </div>
-
-      <div class="footer-column">
-        <h4>Useful Links</h4>
-        <a href="#">Feedback</a>
-        <a href="#">Terms & Conditions</a>
-        <a href="#">Privacy Policy</a>
-      </div>
-
-      <div class="footer-column">
-        <h4>Help</h4>
-        <a href="#">Contact Us</a>
-        <a href="#">FAQ</a>
-      </div>
-    </footer>
+<?php include '../Header_Footer/Footer.php'; ?>
   </body>
 </html>
