@@ -16,7 +16,9 @@
             <a href="Profile.php" class="pro-btn">
                 <img src="../Logo/user.png" alt="User Icon">
             </a>
-            <a href="#" class="logout">Logout</a>
+            <a href="Seller_login.php" class="pro-btn">
+                <img src="../Logo/turn-off.png" alt="Logout Icon">
+            </a>
         </div>
     </header>
 
