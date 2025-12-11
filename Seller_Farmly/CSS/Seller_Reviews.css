@@ -10,17 +10,6 @@ body {
 }
 
 /* Header */
-/* Header */
-.container {
-  width: 100%;
-  min-height: 100%;
-  display: flex;
-}
-
-select option[value=""] {
-  color: gray;
-  font-style: italic;
-}
 
 /* ========== HEADER ========== */
 .logo img {
@@ -76,9 +65,19 @@ header .profile a {
   cursor: pointer;
 }
 /* Layout */
+
+/* 
+Container */
+
 .container {
+  width: 100%;
+  min-height: 100%;
   display: flex;
-  padding: 20px;
+}
+
+select option[value=""] {
+  color: gray;
+  font-style: italic;
 }
 
 /* Sidebar */
@@ -101,7 +100,6 @@ header .profile a {
 
 .sidebar .active {
   font-weight: bold;
-  color: #333;
 }
 
 /* Reviews Section */

@@ -24,9 +24,9 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <a href="#">Add Products</a>
-            <a href="#">Listed Products</a>
+            <a href="#" class="active">Listed Products</a>
             <a href="#">Orders</a>
-            <a href="#" class="active">Reviews</a>
+            <a href="#">Reviews</a>
         </aside>
 
         <!-- Reviews Section -->
