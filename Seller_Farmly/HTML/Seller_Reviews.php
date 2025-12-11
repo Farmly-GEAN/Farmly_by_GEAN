@@ -9,24 +9,15 @@
 <body>
 
     <!-- Header -->
-  <header class="site-header">
-      <div class="logo">
-        <a href="HomePage.html">
-          <img src="../Logo/Team Logo.png" alt="Farmly Logo" />
+  <header>
+        <div class="logo"><img src="../Logo/Team Logo.png" alt="Farmly"></div>
+        <div class="profile">
+        <a href="Profile.php" class="pro-btn">
+    <img src="../Logo/user.png" alt="User Icon">
+    
         </a>
-      </div>
-      
-      <nav class="user-nav">
-        <a href="" class="nav-button">
-          <img src="../Logo/turn-off.png" alt="Logout Icon" class="nav-icon" />
-          <span>Logout</span>
-        </a>
-        
-        <a href="profile.html" class="nav-button">
-          <img src="../Logo/user.png" alt="Profile Icon" class="nav-icon" />
-          <span>PROFILE</span>
-        </a>
-      </nav>
+        <a href="#" class="logout">Logout</a>
+        </div>
     </header>
     <div class="container">
 

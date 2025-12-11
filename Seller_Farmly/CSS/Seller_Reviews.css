@@ -1,131 +1,146 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Trebuchet MS", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Trebuchet MS", sans-serif;
 }
 
 body {
-    background: #f6f6f6;
+  background: #f6f6f6;
 }
 
 /* Header */
-.site-header {
+/* Header */
+.container {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+}
+
+select option[value=""] {
+  color: gray;
+  font-style: italic;
+}
+
+/* ========== HEADER ========== */
+.logo img {
+  height: 110px;
+}
+
+header {
+  height: 70px;
+  background: white;
+  padding: 15px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 40px;
-  background-color: white;
-  border-bottom: 2px solid white;
-  box-shadow: 10px 10px whitesmoke;
+  border-bottom: 2px solid #ececec;
 }
 
-.logo img {
-  height: 110px;
-  width: auto;
-  display: block;
+header .profile a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #333;
+  font-size: 15px;
 }
-
-.user-nav {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
 .nav-button {
   display: flex;
   align-items: center;
-  gap: 2px;
-  text-decoration: none;
-  color: #222;
+  gap: 6px;
   font-weight: bold;
-  padding: 5px 7px;
+  padding: 5px 10px;
   border-radius: 10px;
   transition: all 0.3s ease;
 }
 
-.nav-icon {
+.profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 6px;
+  transition: 0.3s ease;
+}
+.profile img {
   width: 28px;
   height: 28px;
-  object-fit: contain;
 }
 
-.nav-button:hover {
+.profile-btn:hover {
   background-color: #f2f2f2;
   transform: scale(1.05);
-}
-
-.user-nav a {
-  margin-left: 25px;
-  font-size: 16px;
-  font-weight: bold;
+  cursor: pointer;
 }
 /* Layout */
 .container {
-    display: flex;
-    padding: 20px;
+  display: flex;
+  padding: 20px;
 }
 
 /* Sidebar */
 .sidebar {
-    width: 220px;
-    background: white;
-    padding: 20px;
-    border-radius: 15px;
-    border: 2px solid #ccc;
-    display: flex;
-    flex-direction: column;
+  width: 220px;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  border: 2px solid #ccc;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar a {
-    padding: 12px 0;
-    text-decoration: none;
-    font-size: 18px;
-    color: black;
+  padding: 12px 0;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
 }
 
 .sidebar .active {
-    font-weight: bold;
-    color: #333;
+  font-weight: bold;
+  color: #333;
 }
 
 /* Reviews Section */
 .review-section {
-    flex: 1;
-    margin-left: 30px;
+  flex: 1;
+  margin-left: 30px;
 }
 
 .review-section h2 {
-    font-size: 28px;
-    margin-bottom: 20px;
+  font-size: 28px;
+  margin-bottom: 20px;
 }
 
 /* Review Table */
 .review-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border: 2px solid #ccc;
-    border-radius: 15px;
-    overflow: hidden;
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border: 2px solid #ccc;
+  border-radius: 15px;
+  overflow: hidden;
 }
 
 .review-table th {
-    background: #eee;
-    padding: 14px;
-    font-size: 18px;
-    border-bottom: 2px solid #ccc;
-    text-align: left;
+  background: #eee;
+  padding: 14px;
+  font-size: 18px;
+  border-bottom: 2px solid #ccc;
+  text-align: left;
 }
 
 .review-table td {
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
-    font-size: 16px;
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  font-size: 16px;
 }
 
 .review-table tr:last-child td {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 /* Footer */
@@ -133,7 +148,7 @@ body {
   display: flex;
   justify-content: space-evenly;
   padding: 40px;
-  background-color:darkgray;
+  background-color: darkgray;
   border-top: 2px solid #f0f0f0;
   margin-top: 40px;
 }
@@ -176,6 +191,4 @@ body {
 
 .footer-links a:hover {
   text-decoration: underline;
-
 }
-

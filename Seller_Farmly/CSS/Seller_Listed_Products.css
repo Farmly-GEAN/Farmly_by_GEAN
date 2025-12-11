@@ -1,150 +1,159 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Trebuchet MS", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Trebuchet MS", sans-serif;
 }
 
 body {
-    background: #f7f7f7;
+  background: #f7f7f7;
 }
 
 /* Header */
-.site-header {
+.container {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+}
+
+select option[value=""] {
+  color: gray;
+  font-style: italic;
+}
+
+/* ========== HEADER ========== */
+.logo img {
+  height: 110px;
+}
+
+header {
+  height: 70px;
+  background: white;
+  padding: 15px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 40px;
-  background-color: white;
-  border-bottom: 2px solid white;
-  box-shadow: 10px 10px whitesmoke;
+  border-bottom: 2px solid #ececec;
 }
 
-.logo img {
-  height: 110px;
-  width: auto;
-  display: block;
+header .profile a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #333;
+  font-size: 15px;
 }
-
-.user-nav {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
 .nav-button {
   display: flex;
   align-items: center;
-  gap: 2px;
-  text-decoration: none;
-  color: #222;
+  gap: 6px;
   font-weight: bold;
-  padding: 5px 7px;
+  padding: 5px 10px;
   border-radius: 10px;
   transition: all 0.3s ease;
 }
 
-.nav-icon {
+.profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 6px;
+  transition: 0.3s ease;
+}
+.profile img {
   width: 28px;
   height: 28px;
-  object-fit: contain;
 }
 
-.nav-button:hover {
+.profile-btn:hover {
   background-color: #f2f2f2;
   transform: scale(1.05);
-}
-
-.user-nav a {
-  margin-left: 25px;
-  font-size: 16px;
-  font-weight: bold;
-}
-/* Page Layout */
-.container {
-    display: flex;
-    padding: 20px;
+  cursor: pointer;
 }
 
 /* Sidebar */
 .sidebar {
-    width: 220px;
-    background: white;
-    padding: 20px;
-    border-radius: 15px;
-    border: 2px solid #ccc;
-    display: flex;
-    flex-direction: column;
+  width: 220px;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  border: 2px solid #ccc;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar a {
-    padding: 12px 0;
-    text-decoration: none;
-    font-size: 18px;
-    color: black;
+  padding: 12px 0;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
 }
 
 .sidebar .active {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 /* Main Section */
 .product-section {
-    flex: 1;
-    margin-left: 30px;
+  flex: 1;
+  margin-left: 30px;
 }
 
 .product-section h2 {
-    font-size: 28px;
-    margin-bottom: 20px;
+  font-size: 28px;
+  margin-bottom: 20px;
 }
 
 /* Product Cards */
 .product-card {
-    background: white;
-    border: 2px solid #ccc;
-    padding: 15px;
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
+  background: white;
+  border: 2px solid #ccc;
+  padding: 15px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .product-card img {
-    width: 110px;
-    height: auto;
-    border-radius: 10px;
-    margin-right: 20px;
+  width: 110px;
+  height: auto;
+  border-radius: 10px;
+  margin-right: 20px;
 }
 
 .details p {
-    margin: 5px 0;
-    font-size: 17px;
+  margin: 5px 0;
+  font-size: 17px;
 }
 
 .actions {
-    margin-left: auto;
-    display: flex;
-    flex-direction: column;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .add-btn,
 .del-btn {
-    padding: 8px 14px;
-    border: 2px solid black;
-    background: none;
-    border-radius: 8px;
-    font-size: 16px;
-    margin-bottom: 8px;
-    cursor: pointer;
+  padding: 8px 14px;
+  border: 2px solid black;
+  background: none;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-bottom: 8px;
+  cursor: pointer;
 }
 
 .add-btn {
-    color: blue;
+  color: blue;
 }
 
 .del-btn {
-    color: red;
+  color: red;
 }
 
 /* Footer */
@@ -152,7 +161,7 @@ body {
   display: flex;
   justify-content: space-evenly;
   padding: 40px;
-  background-color:darkgray;
+  background-color: darkgray;
   border-top: 2px solid #f0f0f0;
   margin-top: 40px;
 }
@@ -195,5 +204,4 @@ body {
 
 .footer-links a:hover {
   text-decoration: underline;
-
 }
