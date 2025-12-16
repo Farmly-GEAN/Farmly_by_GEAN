@@ -14,7 +14,7 @@
 
     <div class="icons">
         <div class="cart">
-            <img src="../HTML/Logo/turn-off.png" class="icon-img" alt="">
+            <img src="../Logo/turn-off.png" class="icon-img" alt="">
             <span>Logout</span>
         </div>
 
