@@ -82,21 +82,26 @@ select option[value=""] {
   width: 220px;
   background: white;
   padding: 20px;
-  border-radius: 15px;
-  border: 2px solid #ccc;
+  border-right: 2px solid #ececec;
   display: flex;
   flex-direction: column;
+  gap: 15px;
 }
 
 .sidebar a {
-  padding: 12px 0;
+  padding: 12px;
   text-decoration: none;
-  font-size: 18px;
-  color: black;
+  background: #f8f8f8;
+  border-radius: 10px;
+  color: #444;
+  transition: 0.3s ease;
+  font-weight: 500;
 }
 
+.sidebar a:hover,
 .sidebar .active {
-  font-weight: bold;
+  background: #dce5ff;
+  color: #2c54d4;
 }
 
 /* Main Section */
