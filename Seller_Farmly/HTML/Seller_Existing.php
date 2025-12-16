@@ -19,7 +19,9 @@
     
 </a>
             
-            <a href="#" class="logout">Logout</a>
+            <a href="#" class="logout">
+                <img src="../Logo/turn-off.png" alt="Logout Icon">
+            </a>
         </div>
     </header>
 
