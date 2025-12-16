@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Home</title>
-    <link rel="stylesheet" href="../CSS/Footer.css">
+    <link rel="stylesheet" href="../../Seller_Farmly/CSS/Footer.css">
 </head>
 <body>
 
@@ -10,13 +10,13 @@
 
     <div class="footer-left">
         <div class="footer-logo">
-            <img src="../Logo/Team Logo.png" alt="Farmly Logo">
+            <img src="../../Seller_Farmly/Logo/Team Logo.png" alt="Farmly Logo">
         </div>
 
         <div class="social-icons">
-            <a href="www.whatsapp.com"><img src="../Logo/whatsapp.png"> WhatsApp</a>
-            <a href="www.Instagram.com"><img src="../Logo/instagram.png"> Instagram</a>
-            <a href="www.facebook.com"><img src="../Logo/facebook.png"> Facebook</a>
+            <a href="www.whatsapp.com"><img src="../../Seller_Farmly/Logo/whatsapp.png"> WhatsApp</a>
+            <a href="www.Instagram.com"><img src="../../Seller_Farmly/Logo/instagram.png"> Instagram</a>
+            <a href="www.facebook.com"><img src="../../Seller_Farmly/Logo/facebook.png"> Facebook</a>
         </div>
     </div>
 

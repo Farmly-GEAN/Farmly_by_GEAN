@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buyer Login</title>
-    <link rel="stylesheet" href="../CSS/Buyer_Login.css">
+    <link rel="stylesheet" href="../../Buyer_Farmly/CSS/Buyer_Login.css">
 </head>
 <body>
 
 <header class="top-header">
     <a href="HomePage.php">
-        <img src="./Logo/Team Logo.png" alt="Farmly Logo" class="header-logo">
+        <img src="../../Buyer_Farmly/Logo/Team Logo.png" alt="Farmly Logo" class="header-logo">
     </a>
 </header>
 
 <div class="main-section">
+
     <div class="login-card">
 
         <h2 class="login-title">Buyer Login</h2>
@@ -48,7 +49,7 @@
     </div>
 </div>
 
-<?php include '../Header_Footer/footer.php'; ?>
+<?php include '../../Buyer_Farmly/Header_Footer/footer.php'; ?>
 
 </body>
 </html>

@@ -4,11 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Buyer Login</title>
-    <link rel="stylesheet" href="../CSS/Seller_Register.css" />
+    <link rel="stylesheet" href="../../Seller_Farmly/CSS/Seller_Register.css" />
   </head>
   <body>
     <header class="top-header">
-      <img src="./Logo/Team Logo.png" alt="Farmly Logo" class="header-logo" />
+      <img src="../../Seller_Farmly/Logo/Team Logo.png" alt="Farmly Logo" class="header-logo" />
     </header>
 
     <div class="register-container">
@@ -17,25 +17,27 @@
           <h2>Register - Seller</h2>
         </div>
 
-        <form>
+       <form method="POST" action="/seller/register" enctype="multipart/form-data">
+
           <div class="form-group">
             <label>Email</label>
-            <input type="email" required />
+            <input type="email" name="email" required>
           </div>
 
           <div class="form-group">
             <label>New Password</label>
-            <input type="password" required />
+           <input type="password" name="password" required>
           </div>
 
           <div class="form-group">
             <label>Name</label>
-            <input type="text" required />
+            <input type="text" name="name" required>
           </div>
 
           <div class="form-group">
             <label>Phone Number</label>
-            <input type="tel" />
+            <input type="tel" name="phone">
+
           </div>
 
           <div class="form-group">
@@ -44,13 +46,13 @@
               <label for="profileUpload" class="custom-file-label"
                 >ADD IMAGE</label
               >
-              <input type="file" id="profileUpload" accept="image/*" />
+              <input type="file" name="profile_image">
             </div>
           </div>
 
           <div class="form-group">
             <label>Full Address</label>
-            <input type="text" />
+            <input type="text" name="address">
           </div>
 
           <div class="action-buttons">
@@ -62,6 +64,6 @@
       </div>
     </div>
 
-    <?php include '../Header_Footer/Footer.php'; ?>
+    <?php include '../../Seller_Farmly/Header_Footer/Footer.php'; ?>
   </body>
 </html>

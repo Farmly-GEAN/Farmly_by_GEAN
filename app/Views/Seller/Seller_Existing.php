@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Products</title>
-    <link rel="stylesheet" href="../CSS/Seller_Existingproduct.css">
+    <link rel="stylesheet" href="../../Seller_Farmly/CSS/Seller_Existingproduct.css">
 </head>
 <body>
 
@@ -12,11 +12,11 @@
 
     
     <header>
-        <div class="logo"><img src="../Logo/Team Logo.png" alt="Farmly"></div>
+        <div class="logo"><img src="../../Seller_Farmly/Logo/Team Logo.png" alt="Farmly"></div>
         <div class="profile">
         <a href="Profile.php" class="pro-btn">
-    <img src="../Logo/user.png" alt="User Icon">
-    
+    <img src="../../Seller_Farmly/Logo/user.png" alt="User Icon">
+
 </a>
             
             <a href="#" class="logout">Logout</a>
@@ -111,7 +111,7 @@ const productOptions = {
 </script>
 
 
-<?php include '../Header_Footer/Footer.php'; ?>
+<?php include '../../Seller_Farmly/Header_Footer/Footer.php'; ?>
 
 </body>
 </html>

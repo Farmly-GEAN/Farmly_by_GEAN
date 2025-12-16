@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Buyer Login</title>
-    <link rel="stylesheet" href="../CSS/Seller_Login.css" />
+    <link rel="stylesheet" href="../../Seller_Farmly/CSS/Seller_Login.css" />
   </head>
   <body>
     <header class="top-header">
@@ -39,6 +39,6 @@
         </form>
       </div>
     </div>
-<?php include '../Header_Footer/Footer.php'; ?>
+ <?php include '../../Seller_Farmly/Header_Footer/Footer.php'; ?>
   </body>
 </html>

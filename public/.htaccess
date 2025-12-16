@@ -1,11 +1,5 @@
 RewriteEngine On
-RewriteBase /Farmly_by_GEAN/public/
-
-# If the request is NOT an actual file or folder...
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-
-# ...then send it to index.php
-
-RewriteRule ^.\*$ index.php [L,QSA]
+RewriteRule ^ index.php [QSA,L]
