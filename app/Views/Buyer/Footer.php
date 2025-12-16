@@ -23,6 +23,7 @@
         <a href="#">Feedback</a>
         <a href="#">Terms and Conditions</a>
         <a href="#">Privacy Policy</a>
+<<<<<<< HEAD
       </div>
 
       <div class="footer-column">
@@ -33,3 +34,15 @@
     </footer>
   </body>
 </html>
+=======
+    </div>
+
+    <div class="footer-column">
+        <h3>Help</h3>
+        <a href="#">Contact Us</a>
+        <a href="#">FAQ</a>
+    </div>
+
+</footer>
+</body>
+>>>>>>> bafaf0fa72af0563f4df08991e553a5be174e5bd
