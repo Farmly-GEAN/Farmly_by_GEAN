@@ -12,7 +12,7 @@
   <body>
     <header class="top-header">
       <a href="HomePage.html">
-        <img src="./Logo/Team Logo.png" alt="Farmly Logo" class="header-logo" />
+        <img src="../../../public/assets/images/Logo/Team Logo.png" alt="Farmly Logo" class="header-logo" />
       </a>
     </header>
 

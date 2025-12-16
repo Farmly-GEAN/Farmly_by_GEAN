@@ -13,7 +13,7 @@
     <div class="fp-page">
       <header class="farmly-header">
         <div class="logo-header">
-          <img src="./Logo/Team Logo.png" alt="Farmly Logo" class="team-logo" />
+          <img src="../../../public/assets/images/Logo/Team Logo.png" alt="Farmly Logo" class="team-logo" />
         </div>
       </header>
 

@@ -12,7 +12,7 @@
   <body>
     <header class="header">
       <div class="logo-section">
-        <img src="./Logo/Team Logo.png" alt="Farmly Logo" class="logo" />
+        <img src="../../../public/assets/images/Logo/Team Logo.png" alt="Farmly Logo" class="logo" />
       </div>
 
       <div class="icons">

@@ -10,7 +10,7 @@
     <header class="site-header">
       <div class="logo">
         <a href="HomePage.php">
-          <img src="./Logo/Team Logo.png" alt="Farmly Logo" />
+          <img src="../../../public/assets/images/Logo/Team Logo.png" alt="Farmly Logo" />
         </a>
       </div>
       <div class="search-container">

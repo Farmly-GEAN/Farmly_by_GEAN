@@ -8,7 +8,7 @@
   </head>
   <body>
     <header class="main-header">
-      <img src="./Logo/Team Logo.png" class="small-logo" />
+      <img src="../../../public/assets/images/Logo/Team Logo.png" class="small-logo" />
       <h2>My Cart</h2>
       <button class="home-btn" onclick="window.location.href='HomePage.php'">
         Home

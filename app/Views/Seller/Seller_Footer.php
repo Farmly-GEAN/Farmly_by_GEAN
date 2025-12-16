@@ -11,7 +11,7 @@
     <footer class="site-footer">
       <div class="footer-left">
         <div class="footer-logo">
-          <img src="../Logo/Team Logo.png" alt="Farmly Logo" />
+          <img src="../../../public/assets/images/Logo/Team Logo.png" alt="Farmly Logo" />
         </div>
 
         <div class="social-icons">
