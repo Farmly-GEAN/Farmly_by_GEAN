@@ -4,11 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Buyer Login</title>
-    <link rel="stylesheet" href="../CSS/Seller_Login.css" />
+    <link rel="stylesheet" href="../../../public/assets/CSS/Seller_Login.css" />
   </head>
   <body>
     <header class="top-header">
-      <img src="./Logo/Team Logo.png" alt="Farmly Logo" class="header-logo" />
+      <img
+        src="../../../public/assets/images/Logo/Team Logo.png"
+        alt="Farmly Logo"
+        class="header-logo"
+      />
     </header>
 
     <div class="main-section">
@@ -39,6 +43,6 @@
         </form>
       </div>
     </div>
-<?php include '../Header_Footer/Footer.php'; ?>
+    <?php include 'Seller_Footer.php'; ?>
   </body>
 </html>

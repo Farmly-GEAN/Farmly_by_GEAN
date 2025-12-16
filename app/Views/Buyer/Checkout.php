@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Farmly - Checkout</title>
-  <link rel="stylesheet" href="../../Buyer_Farmly/CSS/checkout.css">
+  <link rel="stylesheet" href="../../../public/assets/CSS/checkout.css">
 </head>
 
 <body>
@@ -65,6 +65,6 @@
   </div>
 
   
-<?php include '../Header_Footer/footer.php'; ?>
+<?php include 'Footer.php'; ?>
 </body>
 </html>

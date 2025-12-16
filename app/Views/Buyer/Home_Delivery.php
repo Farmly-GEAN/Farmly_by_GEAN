@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home Delivery Form</title>
-    <link rel="stylesheet" href="../CSS/Home_Delivery.css" />
+    <link rel="stylesheet" href="../../../public/assets/CSS/Home_Delivery.css" />
 </head>
 <body>
     <header class="site-header">
@@ -79,7 +79,7 @@
         </form>
       </div>
     </div>
-   <?php include '../Header_Footer/footer.php'; ?>
+   <?php include 'Footer.php'; ?>
   </body>
 </html>
 
