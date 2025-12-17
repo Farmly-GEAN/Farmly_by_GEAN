@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Products</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="../../../public/assets/CSS/Seller_Existingproduct.css">
+=======
+    <link rel="stylesheet" href="../../Seller_Farmly/CSS/Seller_Existingproduct.css">
+>>>>>>> 29d0550fdb0e59dd08d870924d59062b4ea16b19
 </head>
 <body>
 
@@ -12,11 +16,15 @@
 
     
     <header>
+<<<<<<< HEAD
         <div class="logo"><img src="../../../public/assets/images/Logo/Team Logo.png" alt="Farmly"></div>
+=======
+        <div class="logo"><img src="../../Seller_Farmly/Logo/Team Logo.png" alt="Farmly"></div>
+>>>>>>> 29d0550fdb0e59dd08d870924d59062b4ea16b19
         <div class="profile">
         <a href="Profile.php" class="pro-btn">
-    <img src="../Logo/user.png" alt="User Icon">
-    
+    <img src="../../Seller_Farmly/Logo/user.png" alt="User Icon">
+
 </a>
             
             <a href="#" class="logout">
@@ -113,7 +121,11 @@ const productOptions = {
 </script>
 
 
+<<<<<<< HEAD
 <?php include 'Seller_Footer.php'; ?>
+=======
+<?php include '../../Seller_Farmly/Header_Footer/Footer.php'; ?>
+>>>>>>> 29d0550fdb0e59dd08d870924d59062b4ea16b19
 
 </body>
 </html>

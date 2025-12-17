@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Buyer Login</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="../../../public/assets/CSS/Seller_Login.css" />
+=======
+    <link rel="stylesheet" href="../../Seller_Farmly/CSS/Seller_Login.css" />
+>>>>>>> 29d0550fdb0e59dd08d870924d59062b4ea16b19
   </head>
   <body>
     <header class="top-header">
@@ -43,6 +47,10 @@
         </form>
       </div>
     </div>
+<<<<<<< HEAD
     <?php include 'Seller_Footer.php'; ?>
+=======
+ <?php include '../../Seller_Farmly/Header_Footer/Footer.php'; ?>
+>>>>>>> 29d0550fdb0e59dd08d870924d59062b4ea16b19
   </body>
 </html>
