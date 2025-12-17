@@ -12,7 +12,10 @@
     <header class="site-header">
       <div class="logo">
         <a href="HomePage.php">
-          <img src="../../../public/assets/images/Logo/Team Logo.png" alt="Farmly Logo" />
+          <img
+            src="../../../public/assets/images/Logo/Team Logo.png"
+            alt="Farmly Logo"
+          />
         </a>
       </div>
 
@@ -62,28 +65,31 @@
       <!-- Product List -->
       <main class="product-listing">
         <div class="product-card">
-          <img src="../HTML/images/Apple.png" alt="Red Apple" />
+          <img src="../../../public/assets/images/Apple.png" alt="Red Apple" />
           <h3>Apple</h3>
           <p class="product-info">1kg • $2.99</p>
           <button class="add-to-cart-btn">ADD TO CART</button>
         </div>
 
         <div class="product-card">
-          <img src="../HTML/images/Lettuce.png" alt="Fresh Lettuce" />
+          <img
+            src="../../../public/assets/images/Lettuce.png"
+            alt="Fresh Lettuce"
+          />
           <h3>Lettuce</h3>
           <p class="product-info">1 Head • $1.49</p>
           <button class="add-to-cart-btn">ADD TO CART</button>
         </div>
 
         <div class="product-card">
-          <img src="../HTML/images/Carrot.png" alt="Carrots" />
+          <img src="../../../public/assets/images/Carrot.png" alt="Carrots" />
           <h3>Carrots</h3>
           <p class="product-info">1 Bunch • $1.99</p>
           <button class="add-to-cart-btn">ADD TO CART</button>
         </div>
 
         <div class="product-card">
-          <img src="../HTML/images/Milk.png" alt="Milk Bottle" />
+          <img src="../../../public/assets/images/Milk.png" alt="Milk Bottle" />
           <h3>Fresh Milk</h3>
           <p class="product-info">1 Liter • $3.50</p>
           <button class="add-to-cart-btn">ADD TO CART</button>

@@ -8,7 +8,10 @@
   </head>
   <body>
     <header class="main-header">
-      <img src="../../../public/assets/images/Logo/Team Logo.png" class="small-logo" />
+      <img
+        src="../../../public/assets/images/Logo/Team Logo.png"
+        class="small-logo"
+      />
       <h2>My Cart</h2>
       <button class="home-btn" onclick="window.location.href='HomePage.php'">
         Home
@@ -22,7 +25,10 @@
         <h3 class="section-title">Products</h3>
 
         <div class="product-item">
-          <img src="./images/Apple.png" class="product-icon" />
+          <img
+            src="../../../public/assets/images/Apple.png"
+            class="product-icon"
+          />
           <div class="product-details">
             <b>Apple</b>
             <div class="product-meta">
@@ -33,7 +39,10 @@
         </div>
 
         <div class="product-item">
-          <img src="./images/Carrot.png" class="product-icon" />
+          <img
+            src="../../../public/assets/images/Carrot.png"
+            class="product-icon"
+          />
           <div class="product-details">
             <b>Carrot</b>
             <div class="product-meta">
