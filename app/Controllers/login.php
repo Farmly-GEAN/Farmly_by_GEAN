@@ -23,7 +23,7 @@ try {
 
     if ($user && password_verify($password, $user['password'])) {
 
-        // ✅ SET SESSION HERE
+        
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['email'] = $email;
 
