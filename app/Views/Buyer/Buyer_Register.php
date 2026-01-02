@@ -1,3 +1,50 @@
+<?php
+// UPDATED PATH: Go up 2 levels (../../) to get from 'Views/Buyer' to 'app', then down to 'Models/config'
+require_once __DIR__ . '/../../Models/config/db.php';
+
+$message = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = $_POST['full_name'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $address = $_POST['address'];
+    $gender = $_POST['gender'];
+    $state = $_POST['state'];
+    $city = $_POST['city'];
+    $password = $_POST['password'];
+    $confirmPass = $_POST['confirm_password'];
+
+    if ($password !== $confirmPass) {
+        $message = "Passwords do not match!";
+    } else {
+        // Check for existing user
+        $stmt = $pdo->prepare("SELECT Buyer_ID FROM Buyer WHERE Buyer_Email = ?");
+        $stmt->execute([$email]);
+
+        if ($stmt->rowCount() > 0) {
+            $message = "Email is already registered!";
+        } else {
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+            // Insert into Buyer table
+            $sql = "INSERT INTO Buyer (Buyer_Name, Buyer_Email, Buyer_Phone, Buyer_Address, Buyer_Password, Gender, State, City) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            $stmt = $pdo->prepare($sql);
+            
+            if ($stmt->execute([$name, $email, $phone, $address, $hashed_password, $gender, $state, $city])) {
+                header("Location: Buyer_Login.php?success=1");
+                exit();
+            } else {
+                $message = "Error creating account.";
+            }
+        }
+    }
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>

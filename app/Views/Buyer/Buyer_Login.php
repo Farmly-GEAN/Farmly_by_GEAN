@@ -1,3 +1,39 @@
+<?php
+session_start();
+// UPDATED PATH
+require_once __DIR__ . '/../../Models/config/db.php';
+
+$message = "";
+
+if (isset($_GET['success'])) {
+    $message = "Registration successful! Please login.";
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $stmt = $pdo->prepare("SELECT * FROM Buyer WHERE Buyer_Email = ?");
+    $stmt->execute([$email]);
+    $user = $stmt->fetch();
+
+    // Verify using 'Buyer_Password' column
+    if ($user && password_verify($password, $user['buyer_password'])) { // Note: PDO returns lowercase column names usually
+        $_SESSION['user_id'] = $user['buyer_id'];
+        $_SESSION['user_name'] = $user['buyer_name'];
+        $_SESSION['role'] = 'buyer';
+
+        // Redirect to Home
+        header("Location: HomePage.php"); // Adjust path if HomePage is in Views/Buyer
+        exit();
+    } else {
+        $message = "Invalid email or password.";
+    }
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>

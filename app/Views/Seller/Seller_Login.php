@@ -1,48 +1,69 @@
+<?php
+session_start();
+require_once __DIR__ . '/../../Models/config/db.php';
+
+$message = "";
+
+if (isset($_GET['success'])) {
+    $message = "Shop registered successfully! Please login.";
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST['seller_email'];
+    $password = $_POST['seller_password'];
+
+    // 1. Fetch Seller Data
+    $stmt = $pdo->prepare("SELECT * FROM Seller WHERE Seller_Email = ?");
+    $stmt->execute([$email]);
+    $seller = $stmt->fetch();
+
+    // 2. Verify Password
+    // Note: Database column is 'seller_password', usually returned in lowercase by PDO
+    if ($seller && password_verify($password, $seller['seller_password'])) {
+        
+        // 3. Set Session Variables
+        $_SESSION['user_id'] = $seller['seller_id'];
+        $_SESSION['user_name'] = $seller['seller_name'];
+        $_SESSION['role'] = 'seller'; // Mark this user as a Seller
+        
+        // 4. Redirect to Dashboard
+        // Assuming Seller_AddProduct.php is your main dashboard for now
+        header("Location: Seller_AddProduct.php"); 
+        exit();
+        
+    } else {
+        $message = "Invalid email or password.";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Buyer Login</title>
-    <link rel="stylesheet" href="../../../public/assets/CSS/Seller_Login.css" />
-  </head>
-  <body>
-    <header class="top-header">
-      <img
-        src="../../../public/assets/images/Logo/Team Logo.png"
-        alt="Farmly Logo"
-        class="header-logo"
-      />
-    </header>
+<head>
+    <meta charset="UTF-8">
+    <title>Seller Login</title>
+    <link rel="stylesheet" href="../../../public/assets/CSS/Seller_Login.css">
+</head>
+<body>
+    <div class="login-card">
+        <h2>Seller Portal Login</h2>
+        
+        <?php if($message): ?>
+            <p style="color:red; text-align:center; font-weight: bold;"><?php echo $message; ?></p>
+        <?php endif; ?>
 
-    <div class="main-section">
-      <div class="login-card">
-        <h2 class="login-title">Seller Login</h2>
-
-        <form class="login-form">
-          <div class="form-field">
+        <form method="POST" action="">
             <label>Email</label>
-            <input type="email" placeholder="Enter your email" required />
-          </div>
+            <input type="email" name="seller_email" required placeholder="Enter email">
 
-          <div class="form-field">
             <label>Password</label>
-            <input type="password" placeholder="Enter your password" required />
-          </div>
+            <input type="password" name="seller_password" required placeholder="Enter password">
 
-          <button type="submit" class="login-btn">LOGIN</button>
-
-          <p class="forgot">
-            <a href="Forgot_Password.html">Forgot Password?</a>
-          </p>
-
-          <p class="create">
-            Create a New Account?
-            <a href="Buyer_Register.html"><b>Click Here!</b></a>
-          </p>
+            <button type="submit">Login</button>
         </form>
-      </div>
+        
+        <p><a href="Seller_Register.php">Register New Shop</a></p>
+        <p><a href="Forgot_Password.php">Forgot Password?</a></p>
     </div>
-    <?php include 'Seller_Footer.php'; ?>
-  </body>
+</body>
 </html>
