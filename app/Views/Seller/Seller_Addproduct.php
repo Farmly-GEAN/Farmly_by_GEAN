@@ -3,7 +3,7 @@ session_start();
 // Adjust path to your db.php
 require_once __DIR__ . '/../../Models/config/db.php';
 
-// 1. Security Check: specific check for Seller role
+// 1. Security Check: Ensure user is a Seller
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'seller') {
     header("Location: Seller_Login.php");
     exit();
@@ -12,43 +12,52 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'seller') {
 $message = "";
 
 // 2. Fetch Categories for the dropdown
-$catStmt = $pdo->query("SELECT * FROM Category ORDER BY Category_Name ASC");
-$categories = $catStmt->fetchAll();
+try {
+    $catStmt = $pdo->query("SELECT * FROM Category ORDER BY Category_Name ASC");
+    $categories = $catStmt->fetchAll();
+} catch (PDOException $e) {
+    $message = "Error loading categories: " . $e->getMessage();
+    $categories = [];
+}
 
 // 3. Handle Form Submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $seller_id = $_SESSION['user_id'];
     $category_id = $_POST['category_id'];
-    $product_name = $_POST['product_name']; // This is now text input
+    $product_name = $_POST['product_name'];
     $stock = $_POST['stock'];
     $price = $_POST['price'];
 
     // Image Upload Logic
     $imagePath = null;
+    
+    // Check if file is selected and has no errors
     if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] === 0) {
         $uploadDir = __DIR__ . '/../../../public/assets/uploads/products/';
         
-        // Create folder if not exists
+        // Create folder if it doesn't exist
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0777, true);
         }
 
+        // Rename file to avoid conflicts (prod_TIMESTAMP_SELLERID.ext)
         $fileExt = pathinfo($_FILES['product_image']['name'], PATHINFO_EXTENSION);
         $fileName = "prod_" . time() . "_" . $seller_id . "." . $fileExt;
         $targetFile = $uploadDir . $fileName;
 
         if (move_uploaded_file($_FILES['product_image']['tmp_name'], $targetFile)) {
+            // Path to save in Database
             $imagePath = "assets/uploads/products/" . $fileName;
         } else {
             $message = "Failed to upload image.";
         }
     }
 
-    // Insert into Database
+    // Insert into Database if no errors
     if (empty($message)) {
-        // Description is auto-generated for now
-        $description = "Fresh " . $product_name . " from " . $_SESSION['user_name'];
-        
+        // Auto-generate a simple description
+        $description = "Fresh " . $product_name . " provided by " . $_SESSION['user_name'];
+
         $sql = "INSERT INTO Product (Product_Name, Price, Stocks_Available, Category_ID, Seller_ID, Product_Image, Description) 
                 VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $pdo->prepare($sql);
@@ -56,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt->execute([$product_name, $price, $stock, $category_id, $seller_id, $imagePath, $description])) {
             $message = "Product added successfully!";
         } else {
-            $message = "Error adding product.";
+            $message = "Error adding product to database.";
         }
     }
 }
@@ -93,10 +102,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </aside>
 
         <main class="main">
-          <h2>Add Products / Existing</h2>
+          <h2>Add New Product</h2>
 
           <?php if($message): ?>
-            <p style="color: green; font-weight: bold; margin-bottom: 10px;"><?php echo $message; ?></p>
+            <p style="color: <?php echo strpos($message, 'successfully') !== false ? 'green' : 'red'; ?>; font-weight: bold; margin-bottom: 15px;">
+                <?php echo $message; ?>
+            </p>
           <?php endif; ?>
 
           <div class="toggle">
@@ -129,7 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <label>Add Stock (in KG)</label>
               <input type="number" name="stock" placeholder="Enter stock" required />
 
-              <label>New Price</label>
+              <label>Price (per KG)</label>
               <input type="number" name="price" placeholder="Enter price" step="0.01" required />
             </div>
 
@@ -145,7 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="file" id="fileUpload" name="product_image" accept="image/*" style="display: none" required />
 
                 <div class="preview-box" id="previewBox">
-                  <img id="previewImg" src="" alt="" style="max-width: 100%; display: none;" />
+                  <img id="previewImg" src="" alt="" style="max-width: 100%; display: none; border-radius: 8px;" />
                 </div>
               </div>
 
@@ -156,12 +167,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <script>
-      // Cleaned up JS: Removed the old dropdown logic since we use a text input now.
-      
+      // Simple Image Preview Script
       const fileUpload = document.getElementById("fileUpload");
       const previewImg = document.getElementById("previewImg");
+      const uploadText = document.querySelector(".upload-area p");
 
-      // Image Preview Logic
       fileUpload.addEventListener("change", function(event) {
           const file = event.target.files[0];
           if(file){
@@ -169,6 +179,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               reader.onload = function(e){
                   previewImg.src = e.target.result;
                   previewImg.style.display = "block";
+                  if(uploadText) uploadText.style.display = "none"; // Hide text when image shows
               }
               reader.readAsDataURL(file);
           }

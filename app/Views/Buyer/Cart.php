@@ -1,78 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Farmly - Cart</title>
-    <link rel="stylesheet" href="../../../public/assets/CSS/cart.css" />
-  </head>
-  <body>
-    <header class="main-header">
-      <img
-        src="../../../public/assets/images/Logo/Team Logo.png"
-        class="small-logo"
-      />
-      <h2>My Cart</h2>
-      <button class="home-btn" onclick="window.location.href='HomePage.php'">
-        Home
-      </button>
+<head>
+    <meta charset="UTF-8">
+    <title>My Cart</title>
+    <link rel="stylesheet" href="assets/CSS/HomePage.css"> 
+    <style>
+        .cart-container { max-width: 900px; margin: 50px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .cart-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .cart-table th, .cart-table td { padding: 15px; border-bottom: 1px solid #ddd; text-align: left; }
+        .cart-img { width: 60px; height: 60px; object-fit: cover; border-radius: 5px; }
+        .total-section { text-align: right; margin-top: 20px; font-size: 1.2rem; font-weight: bold; }
+        .checkout-btn { background: #27ae60; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 10px; }
+        .remove-btn { background: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+      <div class="logo">
+        <a href="index.php?page=home">
+          <img src="assets/images/Logo/Team Logo.png" alt="Farmly Logo" />
+        </a>
+      </div>
+      <nav class="user-nav">
+        <a href="index.php?page=home" class="nav-button">Back to Shop</a>
+      </nav>
     </header>
 
-    <!-- Main Section -->
-    <div class="main-container">
-      <!-- Products -->
-      <div class="products-box">
-        <h3 class="section-title">Products</h3>
+    <div class="cart-container">
+        <h2>Shopping Cart</h2>
 
-        <div class="product-item">
-          <img
-            src="../../../public/assets/images/Apple.png"
-            class="product-icon"
-          />
-          <div class="product-details">
-            <b>Apple</b>
-            <div class="product-meta">
-              <span class="qty">Qty: 1 kg</span>
-              <span class="price">€1</span>
+        <?php if (!empty($items)): ?>
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($items as $item): ?>
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <img src="assets/uploads/products/<?php echo htmlspecialchars(basename($item['product_image'])); ?>" 
+                                     class="cart-img" onerror="this.src='assets/images/default.png';">
+                                <?php echo htmlspecialchars($item['product_name']); ?>
+                            </div>
+                        </td>
+                        <td>$<?php echo number_format($item['price'], 2); ?></td>
+                        <td><?php echo $item['quantity']; ?></td>
+                        <td>$<?php echo number_format($item['price'] * $item['quantity'], 2); ?></td>
+                        <td>
+                            <form action="index.php?page=remove_from_cart" method="POST">
+                                <input type="hidden" name="cart_id" value="<?php echo $item['cart_id']; ?>">
+                                <button type="submit" class="remove-btn">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+
+            <div class="total-section">
+                <p>Grand Total: $<?php echo number_format($totalPrice, 2); ?></p>
+                <a href="#" class="checkout-btn">Proceed to Checkout</a>
             </div>
-          </div>
-        </div>
 
-        <div class="product-item">
-          <img
-            src="../../../public/assets/images/Carrot.png"
-            class="product-icon"
-          />
-          <div class="product-details">
-            <b>Carrot</b>
-            <div class="product-meta">
-              <span class="qty">Qty: 1 kg</span>
-              <span class="price">€1</span>
+        <?php else: ?>
+            <div style="text-align: center; padding: 40px;">
+                <h3>Your cart is empty!</h3>
+                <a href="index.php?page=home" style="color: green; text-decoration: underline;">Go add some products</a>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Summary -->
-      <div class="summary-box">
-        <h3>Order Summary</h3>
-        <div class="summary-item">
-          <span>Apple (1 × €1)</span>
-          <span>€1</span>
-        </div>
-        <div class="summary-item">
-          <span>Carrot (1 × €1)</span>
-          <span>€1</span>
-        </div>
-        <hr />
-        <div class="summary-item total">
-          <span>Subtotal</span>
-          <span>€2</span>
-        </div>
-        <a href="checkout.php" class="checkout-link">Proceed to Checkout</a>
-      </div>
+        <?php endif; ?>
     </div>
-
-    <?php include 'Footer.php'; ?>
-  </body>
+</body>
 </html>

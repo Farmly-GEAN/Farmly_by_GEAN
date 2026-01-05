@@ -1,22 +1,60 @@
 <?php
-declare(strict_types=1);
+// Enable Error Reporting (Turn off in production)
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-require_once __DIR__ . '/../config/config.php';
-require_once __DIR__ . '/../config/database.php';
-require_once __DIR__ . '/../app/routes.php';
+session_start();
 
-// Simple autoloader for App namespace
-spl_autoload_register(function ($class) {
-    $prefix = 'App\\';
-    $baseDir = __DIR__ . '/../app/';
-    if (strncmp($prefix, $class, strlen($prefix)) !== 0) return;
+// Define Base Path for easier includes
+define('BASE_PATH', __DIR__ . '/../');
 
-    $relative = str_replace('\\', '/', substr($class, strlen($prefix)));
-    $file = $baseDir . $relative . '.php';
-    if (file_exists($file)) require $file;
-});
+// Get Page Request
+$page = isset($_GET['page']) ? $_GET['page'] : 'login';
 
-use App\Router;
+switch ($page) {
+    case 'login':
+        require_once BASE_PATH . 'app/Controllers/AuthController.php';
+        $controller = new AuthController();
+        $controller->login();
+        break;
 
-$router = new Router();
-$router->dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
+    case 'register':
+        require_once BASE_PATH . 'app/Controllers/AuthController.php';
+        $controller = new AuthController();
+        $controller->register();
+        break;
+
+    // --- UPDATED HOME CASE ---
+    case 'home':
+        require_once BASE_PATH . 'app/Controllers/HomeController.php';
+        $controller = new HomeController();
+        $controller->index();
+        break;
+
+        // 1. Show Cart Page
+    case 'cart':
+        require_once BASE_PATH . 'app/Controllers/CartController.php';
+        $controller = new CartController();
+        $controller->index();
+        break;
+
+    // 2. Add Item Action (No View, just logic)
+    case 'add_to_cart':
+        require_once BASE_PATH . 'app/Controllers/CartController.php';
+        $controller = new CartController();
+        $controller->add();
+        break;
+
+    // 3. Remove Item Action (No View, just logic)
+    case 'remove_from_cart':
+        require_once BASE_PATH . 'app/Controllers/CartController.php';
+        $controller = new CartController();
+        $controller->remove();
+        break;
+
+    default:
+        echo "<h1>404 - Page Not Found</h1>";
+        break;
+}
+?>
