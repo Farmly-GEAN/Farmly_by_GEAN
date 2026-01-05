@@ -53,6 +53,30 @@ switch ($page) {
         $controller->remove();
         break;
 
+        // 1. Show Checkout Page
+    case 'checkout':
+        require_once BASE_PATH . 'app/Controllers/OrderController.php';
+        $controller = new OrderController();
+        $controller->checkout();
+        break;
+
+    // 2. Process Order
+    case 'place_order':
+        require_once BASE_PATH . 'app/Controllers/OrderController.php';
+        $controller = new OrderController();
+        $controller->placeOrder();
+        break;
+
+    // 3. Success Page (Simple View)
+    case 'order_success':
+        echo "<div style='text-align:center; margin-top:50px;'>
+                <img src='assets/images/Logo/Team Logo.png' width='100'>
+                <h1 style='color:green;'>Order Placed Successfully!</h1>
+                <p>Order ID: #" . htmlspecialchars($_GET['id']) . "</p>
+                <a href='index.php?page=home' style='padding:10px; background:green; color:white; text-decoration:none; border-radius:5px;'>Continue Shopping</a>
+              </div>";
+        break;
+
     default:
         echo "<h1>404 - Page Not Found</h1>";
         break;

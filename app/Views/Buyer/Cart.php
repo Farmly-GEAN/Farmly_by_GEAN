@@ -66,7 +66,7 @@
 
             <div class="total-section">
                 <p>Grand Total: $<?php echo number_format($totalPrice, 2); ?></p>
-                <a href="#" class="checkout-btn">Proceed to Checkout</a>
+                <a href="index.php?page=checkout" class="checkout-btn">Proceed to Checkout</a>
             </div>
 
         <?php else: ?>
