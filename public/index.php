@@ -1,22 +1,26 @@
 <?php
-// Enable Error Reporting (Turn off in production)
+// Enable Error Reporting
 ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-session_start();
-
-// Define Base Path for easier includes
+// Define Base Path
 define('BASE_PATH', __DIR__ . '/../');
 
 // Get Page Request
 $page = isset($_GET['page']) ? $_GET['page'] : 'login';
 
 switch ($page) {
+    // --- AUTH ---
     case 'login':
         require_once BASE_PATH . 'app/Controllers/AuthController.php';
         $controller = new AuthController();
         $controller->login();
+        break;
+
+    case 'logout':
+        require_once BASE_PATH . 'app/Controllers/AuthController.php';
+        $controller = new AuthController();
+        $controller->logout();
         break;
 
     case 'register':
@@ -25,80 +29,72 @@ switch ($page) {
         $controller->register();
         break;
 
-    // --- UPDATED HOME CASE ---
+    // --- HOME ---
     case 'home':
         require_once BASE_PATH . 'app/Controllers/HomeController.php';
         $controller = new HomeController();
         $controller->index();
         break;
 
-        // 1. Show Cart Page
+    // --- CART ---
     case 'cart':
         require_once BASE_PATH . 'app/Controllers/CartController.php';
         $controller = new CartController();
         $controller->index();
         break;
-
-    // 2. Add Item Action (No View, just logic)
+        
     case 'add_to_cart':
         require_once BASE_PATH . 'app/Controllers/CartController.php';
         $controller = new CartController();
         $controller->add();
         break;
 
-    // 3. Remove Item Action (No View, just logic)
     case 'remove_from_cart':
         require_once BASE_PATH . 'app/Controllers/CartController.php';
         $controller = new CartController();
         $controller->remove();
         break;
 
-        // 1. Show Checkout Page
+    case 'update_cart':
+        require_once BASE_PATH . 'app/Controllers/CartController.php';
+        $controller = new CartController();
+        $controller->update();
+        break;
+
+    // --- ORDER ---
     case 'checkout':
         require_once BASE_PATH . 'app/Controllers/OrderController.php';
         $controller = new OrderController();
         $controller->checkout();
         break;
 
-    // 2. Process Order
     case 'place_order':
         require_once BASE_PATH . 'app/Controllers/OrderController.php';
         $controller = new OrderController();
         $controller->placeOrder();
         break;
-
-    // 3. Success Page (Simple View)
+        
     case 'order_success':
-        echo "<div style='text-align:center; margin-top:50px;'>
-                <img src='assets/images/Logo/Team Logo.png' width='100'>
-                <h1 style='color:green;'>Order Placed Successfully!</h1>
-                <p>Order ID: #" . htmlspecialchars($_GET['id']) . "</p>
-                <a href='index.php?page=home' style='padding:10px; background:green; color:white; text-decoration:none; border-radius:5px;'>Continue Shopping</a>
-              </div>";
+        require_once BASE_PATH . 'app/Views/Buyer/order_success.php';
         break;
 
-        // 1. Show Checkout Page
-    case 'checkout':
+    case 'order_details':
         require_once BASE_PATH . 'app/Controllers/OrderController.php';
         $controller = new OrderController();
-        $controller->checkout();
+        $controller->orderDetails();
         break;
 
-    // 2. Process Order
-    case 'place_order':
-        require_once BASE_PATH . 'app/Controllers/OrderController.php';
-        $controller = new OrderController();
-        $controller->placeOrder();
+    // --- PROFILE ---
+    case 'profile':
+        require_once BASE_PATH . 'app/Controllers/ProfileController.php';
+        $controller = new ProfileController();
+        $controller->index();
         break;
 
-    // 3. Success Page (Simple View)
-    case 'order_success':
-        echo "<div style='text-align:center; margin-top:50px;'>
-                <img src='assets/images/Logo/Team Logo.png' width='100'>
-                <h1 style='color:green;'>Order Placed Successfully!</h1>
-                <p>Order ID: #" . htmlspecialchars($_GET['id']) . "</p>
-                <a href='index.php?page=home' style='padding:10px; background:green; color:white; text-decoration:none; border-radius:5px;'>Continue Shopping</a>
-              </div>";
+    case 'cancel_order':
+        require_once BASE_PATH . 'app/Controllers/ProfileController.php';
+        $controller = new ProfileController();
+        $controller->cancelOrder();
         break;
 
     default:

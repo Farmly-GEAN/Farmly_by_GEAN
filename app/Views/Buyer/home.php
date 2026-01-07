@@ -29,20 +29,20 @@
 
       <nav class="user-nav">
         <span style="margin-right: 15px; font-weight: bold; color: #2c3e50;">
-    Hi, <?php echo htmlspecialchars($user_name); ?>
-</span>
+            Hi, <?php echo htmlspecialchars($user_name); ?>
+        </span>
         
         <a href="index.php?page=cart" class="nav-button">
-  <img src="assets/images/Logo/shopping-bag.png" alt="Cart" class="nav-icon" />
-  <span>CART</span>
-</a>
+          <img src="assets/images/Logo/shopping-bag.png" alt="Cart" class="nav-icon" />
+          <span>CART</span>
+        </a>
 
-        <a href="Profile.php" class="nav-button">
+        <a href="index.php?page=profile" class="nav-button">
           <img src="assets/images/Logo/user.png" alt="Profile" class="nav-icon" />
           <span>PROFILE</span>
         </a>
         
-        <a href="app/Controllers/logout.php" class="nav-button" style="color: red;">
+        <a href="index.php?page=logout" class="nav-button" style="color: red;">
             <span>LOGOUT</span>
         </a>
       </nav>
@@ -52,18 +52,10 @@
       
       <aside class="sidebar-nav">
         <ul>
-          <li>
-            <a href="index.php?page=home"><b>All Products</b></a>
-          </li>
-          <li>
-            <a href="index.php?page=home&category=Fruits"><b>Fruits</b></a>
-          </li>
-          <li>
-            <a href="index.php?page=home&category=Vegetables"><b>Vegetables</b></a>
-          </li>
-          <li>
-            <a href="index.php?page=home&category=Dairy"><b>Dairy Products</b></a>
-          </li>
+          <li><a href="index.php?page=home"><b>All Products</b></a></li>
+          <li><a href="index.php?page=home&category=Fruits"><b>Fruits</b></a></li>
+          <li><a href="index.php?page=home&category=Vegetables"><b>Vegetables</b></a></li>
+          <li><a href="index.php?page=home&category=Dairy"><b>Dairy Products</b></a></li>
         </ul>
       </aside>
 
@@ -81,15 +73,26 @@
                     <h3><?php echo htmlspecialchars($product['product_name']); ?></h3>
                     
                     <p class="product-info">
-                        <?php echo htmlspecialchars($product['stocks_available']); ?> kg left • 
-                        <strong>$<?php echo htmlspecialchars($product['price']); ?></strong>
+                        <?php if($product['stocks_available'] > 0): ?>
+                            <span style="color: green;"><?php echo $product['stocks_available']; ?> kg left</span>
+                        <?php else: ?>
+                            <span style="color: red; font-weight: bold;">OUT OF STOCK</span>
+                        <?php endif; ?>
+                        • 
+                        <strong>$<?php echo number_format($product['price'], 2); ?></strong>
                     </p>
                     
-                    <form action="index.php?page=add_to_cart" method="POST">
-                        <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
-                        <input type="hidden" name="action" value="add">
-                        <button type="submit" class="add-to-cart-btn">ADD TO CART</button>
-                    </form>
+                    <?php if($product['stocks_available'] > 0): ?>
+                        <form action="index.php?page=add_to_cart" method="POST">
+                            <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
+                            <input type="hidden" name="action" value="add">
+                            <button type="submit" class="add-to-cart-btn">ADD TO CART</button>
+                        </form>
+                    <?php else: ?>
+                        <button disabled style="background: #ccc; cursor: not-allowed; width: 100%; padding: 10px; border: none; border-radius: 5px; color: #666;">
+                            Unavailable
+                        </button>
+                    <?php endif; ?>
                 </div>
             <?php endforeach; ?>
         
@@ -104,6 +107,6 @@
       </main>
     </div>
 
-    <?php  include 'Footer.php'; ?>
+    <?php include __DIR__ . '/Footer.php'; ?>
   </body>
 </html>

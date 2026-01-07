@@ -34,6 +34,7 @@ class AuthController {
             }
         }
 
+        // Load the View (Make sure the dot . is here!)
         require_once __DIR__ . '/../Views/Buyer/login.php';
     }
 
@@ -79,8 +80,23 @@ class AuthController {
             }
         }
 
-        // Load the View
+        // Load the View (Make sure the dot . is here!)
         require_once __DIR__ . '/../Views/Buyer/register.php';
+    }
+
+    // --- NEW LOGOUT LOGIC ---
+    public function logout() {
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        
+        // 1. Unset all session variables
+        $_SESSION = [];
+
+        // 2. Destroy the session
+        session_destroy();
+
+        // 3. Redirect to Login Page
+        header("Location: index.php?page=login&msg=logged_out");
+        exit();
     }
 }
 ?>

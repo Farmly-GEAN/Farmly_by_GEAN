@@ -2,19 +2,19 @@
 <html>
   <head>
     <title>Home</title>
-    <link rel="stylesheet" href="../../../public/assets/CSS/Footer.css" />
+    <link rel="stylesheet" href="assets/CSS/Footer.css" />
   </head>
   <body>
     <footer class="site-footer">
       <div class="footer-left">
         <div class="footer-logo">
-          <img src="../../../public/assets/images/Logo/Team Logo.png" alt="Farmly Logo" />
+          <img src="assets/images/Logo/Team Logo.png" alt="Farmly Logo" />
         </div>
 
         <div class="social-icons">
-          <a href="whatsapp.com"><img src="../../../public/assets/images/Logo/whatsapp.png" /> WhatsApp</a>
-          <a href="instagram.com"><img src="../../../public/assets/images/Logo/instagram.png" /> Instagram</a>
-          <a href="facebook.com"><img src="../../../public/assets/images/Logo/facebook.png" /> Facebook</a>
+          <a href="whatsapp.com"><img src="assets/images/Logo/whatsapp.png" /> WhatsApp</a>
+          <a href="instagram.com"><img src="assets/images/Logo/instagram.png" /> Instagram</a>
+          <a href="facebook.com"><img src="assets/images/Logo/facebook.png" /> Facebook</a>
         </div>
       </div>
 
