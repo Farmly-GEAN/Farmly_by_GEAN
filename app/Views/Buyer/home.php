@@ -64,11 +64,17 @@
         <?php if (!empty($products) && count($products) > 0): ?>
             <?php foreach ($products as $product): ?>
                 <div class="product-card">
-                    <img 
-                        src="assets/uploads/products/<?php echo htmlspecialchars(basename($product['product_image'])); ?>" 
-                        alt="<?php echo htmlspecialchars($product['product_name']); ?>"
-                        onerror="this.src='assets/images/default.png';" 
-                    />
+                    
+                    <a href="index.php?page=product_detail&id=<?php echo $product['product_id']; ?>" style="text-decoration:none;">
+                        <img 
+                            src="assets/uploads/products/<?php echo htmlspecialchars(basename($product['product_image'])); ?>" 
+                            alt="<?php echo htmlspecialchars($product['product_name']); ?>"
+                            onerror="this.src='assets/images/default.png';"
+                            style="cursor: pointer; transition: 0.3s;"
+                            onmouseover="this.style.opacity='0.8'" 
+                            onmouseout="this.style.opacity='1'"
+                        />
+                    </a>
                     
                     <h3><?php echo htmlspecialchars($product['product_name']); ?></h3>
                     

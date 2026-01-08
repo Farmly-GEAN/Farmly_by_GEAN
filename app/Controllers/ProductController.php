@@ -1,27 +1,53 @@
 <?php
-namespace App\Controllers\Buyer;
-
-use App\Models\Product;
+require_once __DIR__ . '/../Config/Database.php';
+require_once __DIR__ . '/../Models/ProductModel.php';
 
 class ProductController {
-    public function index(): void {
-        $products = Product::all();
-        $this->render('buyer/product_list', ['products' => $products]);
+    private $db;
+    private $productModel;
+
+    public function __construct() {
+        $database = new Database();
+        $this->db = $database->getConnection();
+        $this->productModel = new ProductModel($this->db);
     }
 
-    public function show(string $id): void {
-        $product = Product::find((int)$id);
-        if (!$product) { http_response_code(404); echo 'Product not found'; return; }
-        $this->render('buyer/product_detail', ['product' => $product]);
+    // 1. Show Product List (Shop Page)
+    public function index() {
+        // If you have a search or category filter, handle it here
+        if (isset($_GET['search'])) {
+            $products = $this->productModel->searchProducts($_GET['search']);
+        } elseif (isset($_GET['category'])) {
+            $products = $this->productModel->getProductsByCategory($_GET['category']);
+        } else {
+            $products = $this->productModel->getAllProducts();
+        }
+
+        require_once __DIR__ . '/../Views/Buyer/product_list.php';
     }
 
-    private function render(string $view, array $data = []): void {
-        extract($data);
-        $viewFile = __DIR__ . '/../../Views/' . $view . '.php';
-        $layout = __DIR__ . '/../../Views/layouts/main.php';
-        ob_start();
-        require $viewFile;
-        $content = ob_get_clean();
-        require $layout;
+    // 2. Show Single Product Detail
+    public function detail() {
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+
+            // A. Get Main Product Data
+            $product = $this->productModel->getProductById($id);
+
+            // B. Get Gallery Images
+            $gallery = $this->productModel->getGalleryImages($id);
+
+            if ($product) {
+                // Load the view and pass variables
+                require_once __DIR__ . '/../Views/Buyer/product_details.php';
+            } else {
+                echo "<h1>Product not found</h1>";
+            }
+        } else {
+            // No ID provided? Go back home
+            header("Location: index.php?page=home");
+            exit();
+        }
     }
 }
+?>

@@ -18,15 +18,21 @@ class OrderController {
         $this->productModel = new ProductModel($this->db);
     }
 
-    // 1. Show Checkout Page
+    // 1. Show Checkout Page (Step 1: Select Delivery Method)
     public function checkout() {
         if (session_status() === PHP_SESSION_NONE) session_start();
-        if (!isset($_SESSION['user_id'])) { header("Location: index.php?page=login"); exit(); }
+        if (!isset($_SESSION['user_id'])) { 
+            header("Location: index.php?page=login"); 
+            exit(); 
+        }
 
         $buyer_id = $_SESSION['user_id'];
         $cartItems = $this->cartModel->getCartItems($buyer_id);
         
-        if (empty($cartItems)) { header("Location: index.php?page=cart"); exit(); }
+        if (empty($cartItems)) { 
+            header("Location: index.php?page=cart"); 
+            exit(); 
+        }
 
         // Calculate subtotal for display
         $totalPrice = 0;
@@ -39,21 +45,18 @@ class OrderController {
         require_once __DIR__ . '/../Views/Buyer/checkout.php';
     }
 
-    // 2. Order Details (The Review Page) - FIXED
+    // 2. Order Details (Step 2: Enter Address & Confirm)
     public function orderDetails() {
         if (session_status() === PHP_SESSION_NONE) session_start();
+        if (!isset($_SESSION['user_id'])) { header("Location: index.php?page=login"); exit(); }
+        
         $buyer_id = $_SESSION['user_id'];
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // A. Capture Data from Checkout Form
-            // Using null coalescence operator (??) to prevent undefined errors
+            // A. Capture Delivery Method
             $method = $_POST['delivery_method'] ?? 'Home Delivery';
             
-            // Pickup Info (Only used if pickup is selected, but defined to prevent errors)
-            $seller_name = $_POST['seller_name'] ?? 'Farmly Central';
-            $seller_address = $_POST['seller_address'] ?? 'Main Warehouse';
-
-            // B. Recalculate Total Price (Secure way)
+            // B. Recalculate Total Price
             $cartItems = $this->cartModel->getCartItems($buyer_id);
             $totalPrice = 0;
             foreach($cartItems as $item) {
@@ -67,39 +70,39 @@ class OrderController {
                 $totalPrice += 5.00; 
             }
 
-            // C. Load the View (Now variables $method, $totalPrice, etc. exist)
+            // C. Load the Confirmation View
             require_once __DIR__ . '/../Views/Buyer/order_details.php';
         } else {
-            // If user goes here directly, send them back to checkout
+            // If accessed directly, go back to checkout
             header("Location: index.php?page=checkout");
             exit();
         }
     }
 
-    // 3. Place Order (Final Step)
+    // 3. Place Order (Step 3: Save to Database)
     public function placeOrder() {
         if (session_status() === PHP_SESSION_NONE) session_start();
+        if (!isset($_SESSION['user_id'])) { header("Location: index.php?page=login"); exit(); }
+        
         $buyer_id = $_SESSION['user_id'];
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // Get Cart
             $cartItems = $this->cartModel->getCartItems($buyer_id);
-            
-            // --- CHECK STOCK LEVELS ---
+            if (empty($cartItems)) { header("Location: index.php?page=cart"); exit(); }
+
+            // --- A. Validate Stock ---
             foreach($cartItems as $item) {
                 $pid = $item['product_id'] ?? $item['Product_ID'];
                 $qty = $item['quantity'] ?? $item['Quantity'];
                 
                 $currentStock = $this->productModel->getStock($pid);
-                
                 if ($currentStock < $qty) {
-                    // Stock too low! Redirect to Cart with error
                     header("Location: index.php?page=cart&error=stock_low&pid=" . $pid);
                     exit();
                 }
             }
 
-            // Determine Final Address string
+            // --- B. Prepare Address ---
             $method = $_POST['delivery_method'] ?? 'Home Delivery';
             $final_address_string = "";
 
@@ -110,11 +113,10 @@ class OrderController {
                 $pin = $_POST['pincode'] ?? '';
                 $final_address_string = "$door, $street, $city - $pin";
             } else {
-                // For pickup, we save the pickup location as the address
-                $final_address_string = "PICKUP: " . ($_POST['seller_address_hidden'] ?? 'Warehouse');
+                $final_address_string = "PICKUP: " . ($_POST['seller_address_hidden'] ?? 'Farmly Warehouse');
             }
 
-            // Calculate Final Total
+            // --- C. Calculate Final Total ---
             $totalPrice = 0;
             foreach($cartItems as $item) {
                 $price = $item['price'] ?? $item['Price'];
@@ -123,25 +125,32 @@ class OrderController {
             }
             if ($method === 'Home Delivery') $totalPrice += 5;
 
-            // Create Order
+            // --- D. Create Order in DB ---
             $order_id = $this->orderModel->createOrder($buyer_id, $totalPrice, $final_address_string);
 
-            // Add Items & Deduct Stock
-            foreach($cartItems as $item) {
-                $pid = $item['product_id'] ?? $item['Product_ID'];
-                $qty = $item['quantity'] ?? $item['Quantity'];
-                $price = $item['price'] ?? $item['Price'];
-                
-                $this->orderModel->addOrderItem($order_id, $pid, $qty, $price);
+            if ($order_id) {
+                // Add Items to Order_Details
+                foreach($cartItems as $item) {
+                    $pid = $item['product_id'] ?? $item['Product_ID'];
+                    $qty = $item['quantity'] ?? $item['Quantity'];
+                    $price = $item['price'] ?? $item['Price'];
+                    
+                    $this->orderModel->addOrderItem($order_id, $pid, $qty, $price);
+                }
+
+                // Clear Cart
+                $this->orderModel->clearCart($buyer_id);
+
+                // Redirect to Success
+                header("Location: index.php?page=order_success&id=" . $order_id);
+                exit();
+            } else {
+                echo "Error: Could not place order. Please try again.";
             }
-
-            // Clear Cart
-            $this->orderModel->clearCart($buyer_id);
-
-            // Redirect to Success
-            header("Location: index.php?page=order_success&id=" . $order_id);
-            exit();
         }
     }
+
+   
+
 }
 ?>

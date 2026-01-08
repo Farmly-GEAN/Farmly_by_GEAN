@@ -84,5 +84,30 @@ class OrderModel {
         
         return true;
     }
+
+    // 6. Get Orders for a specific Seller
+public function getSellerOrders($seller_id) {
+    // We join Tables to get Order Info + Product Info + Buyer Info
+    $sql = "SELECT o.Order_ID, o.Order_Date, o.Order_Status, o.Shipping_Address,
+                   p.Product_Name, od.Quantity, od.Price_Per_Unit,
+                   b.Buyer_Name, b.Buyer_Phone
+            FROM Order_Details od
+            JOIN Product p ON od.Product_ID = p.Product_ID
+            JOIN Orders o ON od.Order_ID = o.Order_ID
+            JOIN Buyer b ON o.Buyer_ID = b.Buyer_ID
+            WHERE p.Seller_ID = :sid
+            ORDER BY o.Order_Date DESC";
+
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute([':sid' => $seller_id]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// 7. Update Order Status
+public function updateStatus($order_id, $status) {
+    $sql = "UPDATE Orders SET Order_Status = :status WHERE Order_ID = :oid";
+    $stmt = $this->conn->prepare($sql);
+    return $stmt->execute([':status' => $status, ':oid' => $order_id]);
+}
 }
 ?>

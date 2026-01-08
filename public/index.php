@@ -10,7 +10,7 @@ define('BASE_PATH', __DIR__ . '/../');
 $page = isset($_GET['page']) ? $_GET['page'] : 'login';
 
 switch ($page) {
-    // --- AUTH ---
+    // --- BUYER AUTH ---
     case 'login':
         require_once BASE_PATH . 'app/Controllers/AuthController.php';
         $controller = new AuthController();
@@ -27,6 +27,40 @@ switch ($page) {
         require_once BASE_PATH . 'app/Controllers/AuthController.php';
         $controller = new AuthController();
         $controller->register();
+        break;
+
+    // --- SELLER AUTH ---
+    case 'seller_login':
+        require_once BASE_PATH . 'app/Controllers/SellerAuthController.php';
+        $controller = new SellerAuthController();
+        $controller->login();
+        break;
+
+    case 'seller_register':
+        require_once BASE_PATH . 'app/Controllers/SellerAuthController.php';
+        $controller = new SellerAuthController();
+        $controller->register();
+        break;
+
+    case 'seller_logout':
+        require_once BASE_PATH . 'app/Controllers/SellerAuthController.php';
+        $controller = new SellerAuthController();
+        $controller->logout();
+        break;
+
+    // --- SELLER DASHBOARD (FIXED) ---
+    // I REMOVED THE DUPLICATE PLACEHOLDER BLOCK THAT WAS HERE
+    
+    case 'seller_dashboard':
+        require_once BASE_PATH . 'app/Controllers/SellerDashboardController.php';
+        $controller = new SellerDashboardController();
+        $controller->index(); // Loads the "Add Product" page
+        break;
+
+    case 'seller_add_product':
+        require_once BASE_PATH . 'app/Controllers/SellerDashboardController.php';
+        $controller = new SellerDashboardController();
+        $controller->addProduct();
         break;
 
     // --- HOME ---
@@ -95,6 +129,83 @@ switch ($page) {
         require_once BASE_PATH . 'app/Controllers/ProfileController.php';
         $controller = new ProfileController();
         $controller->cancelOrder();
+        break;
+
+        // --- SELLER FEATURES ---
+    case 'seller_listed_products':
+        require_once BASE_PATH . 'app/Controllers/SellerDashboardController.php';
+        $controller = new SellerDashboardController();
+        $controller->listedProducts();
+        break;
+
+    case 'seller_delete_product':
+        require_once BASE_PATH . 'app/Controllers/SellerDashboardController.php';
+        $controller = new SellerDashboardController();
+        $controller->deleteProduct();
+        break;
+
+    case 'seller_orders':
+        require_once BASE_PATH . 'app/Controllers/SellerDashboardController.php';
+        $controller = new SellerDashboardController();
+        $controller->orders();
+        break;
+
+    case 'seller_update_order':
+        require_once BASE_PATH . 'app/Controllers/SellerDashboardController.php';
+        $controller = new SellerDashboardController();
+        $controller->updateOrderStatus();
+        break;
+
+    case 'seller_reviews':
+        require_once BASE_PATH . 'app/Controllers/SellerDashboardController.php';
+        $controller = new SellerDashboardController();
+        $controller->reviews();
+        break;
+
+        // --- SELLER STOCK UPDATE ---
+    case 'seller_existing_product':
+        require_once BASE_PATH . 'app/Controllers/SellerDashboardController.php';
+        $controller = new SellerDashboardController();
+        $controller->existingProduct();
+        break;
+
+    case 'seller_update_stock_action':
+        require_once BASE_PATH . 'app/Controllers/SellerDashboardController.php';
+        $controller = new SellerDashboardController();
+        $controller->updateStock();
+        break;
+
+        case 'shop':
+        require_once BASE_PATH . 'app/Controllers/ProductController.php';
+        $controller = new ProductController();
+        $controller->index();
+        break;
+
+    // Product Detail Page
+    case 'product_detail':
+        require_once BASE_PATH . 'app/Controllers/ProductController.php';
+        $controller = new ProductController();
+        $controller->detail(); 
+        break;
+
+        // --- PRODUCT DETAILS ---
+    case 'product_detail':
+        require_once BASE_PATH . 'app/Controllers/ProductController.php';
+        $controller = new ProductController();
+        $controller->detail(); 
+        break;
+
+        // --- SELLER PROFILE ---
+    case 'seller_profile':
+        require_once BASE_PATH . 'app/Controllers/SellerDashboardController.php';
+        $controller = new SellerDashboardController();
+        $controller->profile();
+        break;
+
+    case 'seller_update_profile_action':
+        require_once BASE_PATH . 'app/Controllers/SellerDashboardController.php';
+        $controller = new SellerDashboardController();
+        $controller->updateProfile();
         break;
 
     default:
