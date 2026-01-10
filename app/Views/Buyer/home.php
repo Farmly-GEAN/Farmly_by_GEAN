@@ -67,7 +67,7 @@
                     
                     <a href="index.php?page=product_detail&id=<?php echo $product['product_id']; ?>" style="text-decoration:none;">
                         <img 
-                            src="assets/uploads/products/<?php echo htmlspecialchars(basename($product['product_image'])); ?>" 
+                            src="<?php echo htmlspecialchars($product['product_image']); ?>" 
                             alt="<?php echo htmlspecialchars($product['product_name']); ?>"
                             onerror="this.src='assets/images/default.png';"
                             style="cursor: pointer; transition: 0.3s;"

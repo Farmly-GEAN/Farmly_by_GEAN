@@ -80,5 +80,20 @@ class SellerModel {
             ':id' => $id
         ]);
     }
+
+    // 6. Get All Reviews for this Seller's Products
+    public function getSellerReviews($seller_id) {
+        $sql = "SELECT r.Rating, r.Comment, r.Review_Date, 
+                       p.Product_Name, b.Buyer_Name 
+                FROM Reviews r
+                JOIN Product p ON r.Product_ID = p.Product_ID
+                JOIN Buyer b ON r.Buyer_ID = b.Buyer_ID
+                WHERE p.Seller_ID = :sid
+                ORDER BY r.Review_Date DESC";
+        
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':sid' => $seller_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

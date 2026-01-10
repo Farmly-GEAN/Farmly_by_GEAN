@@ -1,18 +1,22 @@
 <?php
 require_once __DIR__ . '/../Config/Database.php';
 require_once __DIR__ . '/../Models/ProductModel.php';
-// We include these here so we don't forget them later
 require_once __DIR__ . '/../Models/OrderModel.php';
 require_once __DIR__ . '/../Models/ReviewModel.php';
+require_once __DIR__ . '/../Models/SellerModel.php'; // Added this so we can load it in constructor
 
 class SellerDashboardController {
     private $db;
     private $productModel;
+    private $sellerModel; // Added this property
 
     public function __construct() {
         $database = new Database();
         $this->db = $database->getConnection();
+        
+        // Initialize Models
         $this->productModel = new ProductModel($this->db);
+        $this->sellerModel = new SellerModel($this->db); // Initialize SellerModel here
     }
 
     // Helper: Verify Seller Login
@@ -31,7 +35,7 @@ class SellerDashboardController {
         require_once __DIR__ . '/../Views/Seller/add_product.php';
     }
 
-    // 2. Handle Add Product Form (UPDATED for Multiple Images)
+    // 2. Handle Add Product Form
     public function addProduct() {
         $this->checkSellerAuth();
 
@@ -49,7 +53,6 @@ class SellerDashboardController {
             $mainImagePath = null;
             $uploadDir = __DIR__ . '/../../public/assets/uploads/products/';
             
-            // Create directory if it doesn't exist
             if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
 
             if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] === 0) {
@@ -65,22 +68,19 @@ class SellerDashboardController {
                 }
             }
 
-            // B. Insert Product & Get New ID
-            // Note: Ensure your ProductModel addProduct now returns the ID!
+            // B. Insert Product
             $newProductID = $this->productModel->addProduct($seller_id, $category_id, $product_name, $stock, $price, $mainImagePath, $description);
 
             if ($newProductID) {
-                // C. Handle GALLERY Images (Optional)
+                // C. Handle GALLERY Images
                 if (isset($_FILES['gallery_images'])) {
                     $galleryPaths = [];
                     $files = $_FILES['gallery_images'];
-                    $count = count($files['name']); // Count how many files were selected
+                    $count = count($files['name']);
 
                     for ($i = 0; $i < $count; $i++) {
-                        // Check for errors in individual files
                         if ($files['error'][$i] === 0) {
                             $ext = pathinfo($files['name'][$i], PATHINFO_EXTENSION);
-                            // Unique name for each gallery image
                             $gName = "gallery_" . $newProductID . "_" . $i . "_" . time() . "." . $ext;
                             $gTarget = $uploadDir . $gName;
                             
@@ -90,7 +90,6 @@ class SellerDashboardController {
                         }
                     }
 
-                    // Save to Database if any valid images were uploaded
                     if (!empty($galleryPaths)) {
                         $this->productModel->addGalleryImages($newProductID, $galleryPaths);
                     }
@@ -143,16 +142,15 @@ class SellerDashboardController {
         }
     }
 
-    // 7. Show Reviews
+    // 7. Show Seller Reviews (MERGED and FIXED)
     public function reviews() {
         $this->checkSellerAuth();
-        if(file_exists(__DIR__ . '/../Models/ReviewModel.php')) {
-            require_once __DIR__ . '/../Models/ReviewModel.php';
-            $reviewModel = new ReviewModel($this->db);
-            $reviews = $reviewModel->getSellerReviews($_SESSION['user_id']);
-        } else {
-            $reviews = [];
-        }
+        
+        $seller_id = $_SESSION['user_id'];
+        
+        // Use the function we added to SellerModel
+        $reviews = $this->sellerModel->getSellerReviews($seller_id);
+        
         require_once __DIR__ . '/../Views/Seller/reviews.php';
     }
 
@@ -160,10 +158,7 @@ class SellerDashboardController {
     public function existingProduct() {
         $this->checkSellerAuth();
         
-        // 1. Fetch Categories (NEW)
         $categories = $this->productModel->getCategories();
-
-        // 2. Fetch Seller's Products
         $products = $this->productModel->getProductsBySeller($_SESSION['user_id']);
         
         require_once __DIR__ . '/../Views/Seller/update_stock.php';
@@ -176,7 +171,6 @@ class SellerDashboardController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $product_id = $_POST['product_id'];
             $quantity = $_POST['stock'];
-            // Get price if set, otherwise null
             $new_price = !empty($_POST['new_price']) ? $_POST['new_price'] : null;
             $seller_id = $_SESSION['user_id'];
 
@@ -188,18 +182,13 @@ class SellerDashboardController {
             exit();
         }
     }
-    
 
     // 10. Show Profile Page
     public function profile() {
         $this->checkSellerAuth();
         
-        // We need the SellerModel to get current details
-        // (Ensure you include SellerModel.php at the top of this file if not already there)
-        require_once __DIR__ . '/../Models/SellerModel.php';
-        $sellerModel = new SellerModel($this->db);
-        
-        $seller = $sellerModel->getSellerById($_SESSION['user_id']);
+        // Use $this->sellerModel which we initialized in __construct
+        $seller = $this->sellerModel->getSellerById($_SESSION['user_id']);
         
         require_once __DIR__ . '/../Views/Seller/profile.php';
     }
@@ -209,16 +198,12 @@ class SellerDashboardController {
         $this->checkSellerAuth();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            require_once __DIR__ . '/../Models/SellerModel.php';
-            $sellerModel = new SellerModel($this->db);
-
             $id = $_SESSION['user_id'];
             $name = $_POST['seller_name'];
             $phone = $_POST['seller_phone'];
             $address = $_POST['seller_address'];
 
-            if ($sellerModel->updateProfile($id, $name, $phone, $address)) {
-                // Update Session Name if it changed
+            if ($this->sellerModel->updateProfile($id, $name, $phone, $address)) {
                 $_SESSION['seller_name'] = $name;
                 header("Location: index.php?page=seller_profile&success=Profile Updated Successfully");
             } else {

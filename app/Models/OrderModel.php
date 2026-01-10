@@ -43,7 +43,7 @@ class OrderModel {
         $stmt->execute([':buyer_id' => $buyer_id]);
     }
 
-    // 4. Get Orders
+    // 4. Get Orders (For Buyer Profile History)
     public function getOrdersByBuyer($buyer_id) {
         $sql = "SELECT * FROM Orders WHERE Buyer_ID = :buyer_id ORDER BY Order_Date DESC";
         $stmt = $this->conn->prepare($sql);
@@ -86,28 +86,52 @@ class OrderModel {
     }
 
     // 6. Get Orders for a specific Seller
-public function getSellerOrders($seller_id) {
-    // We join Tables to get Order Info + Product Info + Buyer Info
-    $sql = "SELECT o.Order_ID, o.Order_Date, o.Order_Status, o.Shipping_Address,
-                   p.Product_Name, od.Quantity, od.Price_Per_Unit,
-                   b.Buyer_Name, b.Buyer_Phone
-            FROM Order_Details od
-            JOIN Product p ON od.Product_ID = p.Product_ID
-            JOIN Orders o ON od.Order_ID = o.Order_ID
-            JOIN Buyer b ON o.Buyer_ID = b.Buyer_ID
-            WHERE p.Seller_ID = :sid
-            ORDER BY o.Order_Date DESC";
+    public function getSellerOrders($seller_id) {
+        // We join Tables to get Order Info + Product Info + Buyer Info
+        $sql = "SELECT o.Order_ID, o.Order_Date, o.Order_Status, o.Shipping_Address,
+                       p.Product_Name, od.Quantity, od.Price_Per_Unit,
+                       b.Buyer_Name, b.Buyer_Phone
+                FROM Order_Details od
+                JOIN Product p ON od.Product_ID = p.Product_ID
+                JOIN Orders o ON od.Order_ID = o.Order_ID
+                JOIN Buyer b ON o.Buyer_ID = b.Buyer_ID
+                WHERE p.Seller_ID = :sid
+                ORDER BY o.Order_Date DESC";
 
-    $stmt = $this->conn->prepare($sql);
-    $stmt->execute([':sid' => $seller_id]);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':sid' => $seller_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
-// 7. Update Order Status
-public function updateStatus($order_id, $status) {
-    $sql = "UPDATE Orders SET Order_Status = :status WHERE Order_ID = :oid";
-    $stmt = $this->conn->prepare($sql);
-    return $stmt->execute([':status' => $status, ':oid' => $order_id]);
-}
+    // 7. Update Order Status
+    public function updateStatus($order_id, $status) {
+        $sql = "UPDATE Orders SET Order_Status = :status WHERE Order_ID = :oid";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([':status' => $status, ':oid' => $order_id]);
+    }
+
+    // ==========================================
+    //  NEW ADDITIONS FOR VIEW RECEIPT
+    // ==========================================
+
+    // 8. Get Order Info by ID
+    public function getOrderById($order_id) {
+        $sql = "SELECT * FROM Orders WHERE Order_ID = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':id' => $order_id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // 9. Get Order Items (Products bought in that order)
+    public function getOrderItems($order_id) {
+        // Join with Product table to get Image and Name
+        $sql = "SELECT od.*, p.Product_Name, p.Product_Image 
+                FROM Order_Details od 
+                JOIN Product p ON od.Product_ID = p.Product_ID 
+                WHERE od.Order_ID = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':id' => $order_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>
