@@ -8,10 +8,17 @@
 }
 
 body {
-  background: #f8f9fa; /* Softer gray background */
-  font-family: "Segoe UI", "Roboto", Helvetica, Arial, sans-serif; /* Forces modern font */
+  background: #f8f9fa;
+  font-family: "Segoe UI", "Roboto", Helvetica, Arial, sans-serif;
   color: #333;
   line-height: 1.6;
+}
+
+/* --- CRITICAL FIX: PREVENTS GIANT IMAGES OVERLAPPING UI --- */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* --- Main Layout Wrapper --- */
@@ -27,8 +34,8 @@ body {
   display: flex;
   flex: 1;
   margin-top: 0;
-  height: calc(100vh - 70px); /* Fill remaining height below header */
-  overflow: hidden; /* Prevents double scrollbars */
+  /* This ensures the sidebar and main content fill the screen height */
+  min-height: calc(100vh - 70px);
 }
 
 /* --- Main Content Area --- */
@@ -36,7 +43,7 @@ body {
   flex: 1;
   padding: 40px;
   background-color: #f8f9fa;
-  overflow-y: auto; /* Only the main content scrolls */
+  overflow-y: auto;
 }
 
 /* --- Section Headings --- */
@@ -50,7 +57,6 @@ body {
   padding-left: 15px;
 }
 
-/* Green accent line next to title */
 .main h2::before {
   content: "";
   position: absolute;
@@ -75,10 +81,12 @@ header {
   border-bottom: 1px solid #eaeaea;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
   z-index: 10;
+  position: relative; /* Ensures header stays on top */
 }
 
 .logo img {
-  height: 50px; /* Adjusted size */
+  height: 50px;
+  width: auto;
   object-fit: contain;
 }
 
@@ -95,10 +103,18 @@ header {
   text-decoration: none;
   color: #555;
   font-weight: 600;
-  padding: 8px 15px;
-  border-radius: 30px; /* Pill shape */
+  padding: 5px 15px; /* Reduced padding */
+  border-radius: 30px;
   background: #f1f1f1;
   transition: 0.3s;
+}
+
+/* CRITICAL: Force Header Image Size via CSS too */
+.profile-btn img {
+  width: 35px !important;
+  height: 35px !important;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .profile-btn:hover {
@@ -121,40 +137,39 @@ header {
   background: #fff5f5;
   border-color: #ffcccc;
 }
-
 /* ==========================================================================
-   3. SIDEBAR STYLES (COMPLETELY REDESIGNED)
+   3. SIDEBAR STYLES
    ========================================================================== */
 .sidebar {
-  width: 280px; /* Wider for better spacing */
+  width: 280px;
   background-color: #ffffff;
   border-right: 1px solid #eaeaea;
   display: flex;
   flex-direction: column;
   padding: 30px 20px;
   flex-shrink: 0;
-  height: 100%;
-  overflow-y: auto;
-  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.02); /* Subtle depth */
+  height: auto;
+  min-height: 100%;
 }
 
-/* --- Profile Section inside Sidebar --- */
-.profile-section {
+/* --- SIDEBAR PROFILE (Mini Profile on Left) --- */
+/* Renamed to .sidebar-profile to avoid conflict with Main Profile Page */
+.sidebar-profile {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Left align looks cleaner */
+  align-items: flex-start;
   padding-bottom: 30px;
   border-bottom: 1px solid #f0f0f0;
   margin-bottom: 25px;
   padding-left: 10px;
 }
 
-.profile-section img {
+.sidebar-profile img {
   width: 60px;
   height: 60px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #27ae60; /* Green border around avatar */
+  border: 2px solid #27ae60;
   margin-bottom: 15px;
   padding: 2px;
 }
@@ -167,7 +182,6 @@ header {
 }
 
 .seller-role {
-  /* Added hypothetical class for "Seller" text */
   font-size: 0.85rem;
   color: #95a5a6;
   margin-top: 2px;
@@ -177,44 +191,32 @@ header {
 .nav-menu {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Space between buttons */
+  gap: 10px;
 }
 
-/* --- Nav Items (The Links) --- */
 .nav-item {
   text-decoration: none;
   color: #666;
   padding: 14px 20px;
-  border-radius: 12px; /* Soft rounded corners */
+  border-radius: 12px;
   font-size: 0.95rem;
   font-weight: 500;
   transition: all 0.2s ease-in-out;
   display: flex;
   align-items: center;
-  background: transparent; /* Remove the gray block look */
-  border-left: 4px solid transparent; /* Prepare for hover effect */
+  border-left: 4px solid transparent;
 }
 
-/* Hover Effect */
 .nav-item:hover {
-  background-color: #f0f9f4; /* Very light green background */
-  color: #27ae60; /* Farmly Green text */
-  border-left-color: #27ae60; /* Green accent line on left */
-  transform: translateX(5px); /* Slide slightly right */
+  background-color: #f0f9f4;
+  color: #27ae60;
+  border-left-color: #27ae60;
+  transform: translateX(5px);
   box-shadow: 0 4px 10px rgba(39, 174, 96, 0.05);
 }
 
-/* Active State (If you add class="active" in HTML) */
-.nav-item.active {
-  background-color: #27ae60;
-  color: white;
-  box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
-  border-left-color: #219150;
-}
-
-/* Sidebar Logout Button */
 .nav-item.logout {
-  margin-top: auto; /* Pushes it to the bottom of the sidebar */
+  margin-top: auto;
   color: #c0392b;
   border-left: none;
   background: #fff5f5;
@@ -226,12 +228,11 @@ header {
   background-color: #c0392b;
   color: white;
   transform: none;
-  border-left: none;
   box-shadow: 0 4px 10px rgba(192, 57, 43, 0.2);
 }
 
 /* ==========================================================================
-   4. FORM STYLES (Add/Edit Product)
+   4. PRODUCT FORM STYLES (Only for Add/Edit Product)
    ========================================================================== */
 .form {
   background: #fff;
@@ -244,7 +245,6 @@ header {
   gap: 50px;
 }
 
-/* Inputs Column */
 .select-product {
   flex: 1;
   min-width: 320px;
@@ -257,9 +257,6 @@ header {
   margin-bottom: 8px;
   display: block;
   margin-top: 20px;
-}
-.select-product label:first-child {
-  margin-top: 0;
 }
 
 .select-product input,
@@ -283,7 +280,7 @@ header {
   box-shadow: 0 0 0 4px rgba(39, 174, 96, 0.1);
 }
 
-/* Upload Column */
+/* Upload Box */
 .upload-image {
   flex: 1;
   min-width: 320px;
@@ -317,7 +314,6 @@ header {
   cursor: pointer;
   margin-top: 20px;
   transition: 0.3s;
-  box-shadow: 0 4px 12px rgba(39, 174, 96, 0.2);
 }
 
 .add-btn:hover {
@@ -326,7 +322,7 @@ header {
 }
 
 /* ==========================================================================
-   5. TABLE STYLES (Listed Products)
+   5. TABLE STYLES
    ========================================================================== */
 table {
   width: 100%;
@@ -357,10 +353,6 @@ td {
   vertical-align: middle;
 }
 
-tr:last-child td {
-  border-bottom: none;
-}
-
 .btn-delete {
   background: #ffe5e5;
   color: #c0392b;
@@ -378,7 +370,7 @@ tr:last-child td {
 }
 
 /* ==========================================================================
-   6. ORDER MANAGEMENT STYLES
+   6. ORDER CARDS
    ========================================================================== */
 .order-card {
   background: white;
@@ -388,7 +380,6 @@ tr:last-child td {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
   border: 1px solid #f0f0f0;
   position: relative;
-  overflow: hidden;
 }
 
 .order-card::before {
@@ -436,12 +427,8 @@ tr:last-child td {
   font-weight: 600;
 }
 
-.btn-update:hover {
-  background: #1a252f;
-}
-
 /* ==========================================================================
-   7. MESSAGES & ALERTS
+   7. MESSAGES (Alerts)
    ========================================================================== */
 p[style*="color:green"] {
   background: #e8f5e9;
@@ -485,19 +472,14 @@ p[style*="color:red"] {
     gap: 5px;
   }
 
-  .profile-section {
+  /* Responsive adjustment for sidebar profile */
+  .sidebar-profile {
     border-bottom: none;
     padding-bottom: 0;
     margin-bottom: 0;
     margin-right: 20px;
     border-right: 1px solid #eee;
     padding-right: 20px;
-  }
-
-  .nav-item {
-    white-space: nowrap;
-    padding: 10px 15px;
-    font-size: 0.9rem;
   }
 
   .main {

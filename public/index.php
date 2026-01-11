@@ -313,12 +313,17 @@ switch ($page) {
         break;
 
 
-        case 'seller_add_product': // NEW ROUTE
+        case 'seller_add_product':
         require_once BASE_PATH . 'app/Controllers/SellerDashboardController.php';
         $controller = new SellerDashboardController();
-        $controller->showAddProduct();
+        $controller->showAddProduct(); // <--- This function calls the view we just made
         break;
-
+        
+        case 'seller_add_product_action':
+        require_once BASE_PATH . 'app/Controllers/SellerDashboardController.php';
+        $controller = new SellerDashboardController();
+        $controller->addProduct(); // <--- This handles the form submission
+        break;
         
     default:
         // If someone types a random ?page=xyz, show the landing page or 404
