@@ -5,6 +5,6 @@ session_destroy();
 
 // Redirect back to Buyer Login page
 // Path adjustment: Up from Controllers -> app -> Views -> Buyer -> Login
-header("Location: ../Views/Buyer/Buyer_Login.php");
+header("Location: ../Views/Buyer/login.php");
 exit();
 ?>

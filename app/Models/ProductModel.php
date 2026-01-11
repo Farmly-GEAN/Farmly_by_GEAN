@@ -208,5 +208,51 @@ class ProductModel {
         $stmt->execute([':pid' => $product_id, ':bid' => $buyer_id]);
         return $stmt->rowCount() > 0;
     }
+
+    // 18. Update Product Details (Name, Description, Price, Stock, Image, Category)
+    public function updateProductDetails($product_id, $seller_id, $name, $description, $price, $stock, $category_id, $image_path = null) {
+        if ($image_path) {
+            // Update with new image
+            $sql = "UPDATE Product 
+                    SET Product_Name = :name, 
+                        Description = :desc, 
+                        Price = :price,
+                        Stocks_Available = :stock,
+                        Category_ID = :cat, 
+                        Product_Image = :img 
+                    WHERE Product_ID = :pid AND Seller_ID = :sid";
+            $params = [
+                ':name' => $name,
+                ':desc' => $description,
+                ':price' => $price,
+                ':stock' => $stock,
+                ':cat' => $category_id,
+                ':img' => $image_path,
+                ':pid' => $product_id,
+                ':sid' => $seller_id
+            ];
+        } else {
+            // Update WITHOUT changing the image
+            $sql = "UPDATE Product 
+                    SET Product_Name = :name, 
+                        Description = :desc, 
+                        Price = :price,
+                        Stocks_Available = :stock,
+                        Category_ID = :cat 
+                    WHERE Product_ID = :pid AND Seller_ID = :sid";
+            $params = [
+                ':name' => $name,
+                ':desc' => $description,
+                ':price' => $price,
+                ':stock' => $stock,
+                ':cat' => $category_id,
+                ':pid' => $product_id,
+                ':sid' => $seller_id
+            ];
+        }
+        
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute($params);
+    }
 }
 ?>

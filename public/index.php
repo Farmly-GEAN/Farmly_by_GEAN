@@ -173,7 +173,7 @@ switch ($page) {
         $controller->updateOrderStatus();
         break;
 
-    case 'seller_reviews':
+   case 'seller_reviews':
         require_once BASE_PATH . 'app/Controllers/SellerDashboardController.php';
         $controller = new SellerDashboardController();
         $controller->reviews();
@@ -287,6 +287,39 @@ switch ($page) {
         $controller->reviews();
         break;
 
+        case 'seller_edit_product':
+        require_once BASE_PATH . 'app/Controllers/SellerDashboardController.php';
+        $controller = new SellerDashboardController();
+        $controller->editProduct();
+        break;
+
+        case 'seller_update_product_action':
+        require_once BASE_PATH . 'app/Controllers/SellerDashboardController.php';
+        $controller = new SellerDashboardController();
+        $controller->updateProduct();
+        break;
+
+        // In Buyer Routes
+        case 'update_buyer_profile':
+        require_once BASE_PATH . 'app/Controllers/BuyerController.php';
+        $controller = new BuyerController();
+        $controller->updateProfile();
+        break;
+
+        case 'my_orders':
+        require_once BASE_PATH . 'app/Controllers/BuyerController.php';
+        $controller = new BuyerController();
+        $controller->myOrders();
+        break;
+
+
+        case 'seller_add_product': // NEW ROUTE
+        require_once BASE_PATH . 'app/Controllers/SellerDashboardController.php';
+        $controller = new SellerDashboardController();
+        $controller->showAddProduct();
+        break;
+
+        
     default:
         // If someone types a random ?page=xyz, show the landing page or 404
         require_once BASE_PATH . 'app/Views/landing.php';

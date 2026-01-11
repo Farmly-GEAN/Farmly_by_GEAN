@@ -70,6 +70,13 @@
 </head>
 <body>
 
+  <?php 
+    // The Controller sends $totalPrice as the FINAL amount (including shipping).
+    // We calculate subtotal backward for display purposes.
+    $shippingCost = ($method === 'Home Delivery') ? 5.00 : 0.00;
+    $subTotal = $totalPrice - $shippingCost;
+  ?>
+
   <header class="site-header">
     <div class="header-left"><a href="index.php?page=home"><img src="assets/images/Logo/Team Logo.png" class="logo" alt="Logo"></a></div>
     <div class="header-center">FINALIZE ORDER</div>
@@ -133,7 +140,7 @@
         <?php endif; ?>
 
         <button type="submit" class="confirm-btn">
-            CONFIRM ORDER ($<?php echo number_format($method === 'Home Delivery' ? $totalPrice + 5 : $totalPrice, 2); ?>)
+            CONFIRM ORDER ($<?php echo number_format($totalPrice, 2); ?>)
         </button>
       </form>
 
@@ -143,15 +150,15 @@
       <span class="summary-title">Final Total:</span>
       <div class="math-row">
           <span>Sub-Total:</span>
-          <span>$<?php echo number_format($totalPrice, 2); ?></span>
+          <span>$<?php echo number_format($subTotal, 2); ?></span>
       </div>
       <div class="math-row">
           <span>Shipping:</span>
-          <span>$<?php echo $method === 'Home Delivery' ? '5.00' : '0.00'; ?></span>
+          <span>$<?php echo number_format($shippingCost, 2); ?></span>
       </div>
       <div class="final-total">
           <span>TOTAL TO PAY:</span>
-          <span>$<?php echo number_format($method === 'Home Delivery' ? $totalPrice + 5 : $totalPrice, 2); ?></span>
+          <span>$<?php echo number_format($totalPrice, 2); ?></span>
       </div>
     </div>
 

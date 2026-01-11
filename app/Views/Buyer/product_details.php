@@ -23,7 +23,10 @@
         
         .btn-cart { background: #27ae60; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; transition: 0.3s; border: none; cursor: pointer; }
         .btn-cart:hover { background: #219150; }
-        .back-link { display: block; margin-bottom: 20px; color: #666; text-decoration: none; }
+        
+        /* Updated Back Link Style */
+        .back-link { display: inline-block; margin-bottom: 20px; color: #666; text-decoration: none; font-weight: bold; cursor: pointer; }
+        .back-link:hover { color: #27ae60; }
 
         /* --- REVIEW SECTION STYLES --- */
         .reviews-container { max-width: 1000px; margin: 30px auto; }
@@ -40,11 +43,13 @@
         .form-control { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-family: inherit; }
         .btn-submit-review { background: #34495e; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
         .btn-submit-review:hover { background: #2c3e50; }
+        
+        .notice-box { padding: 15px; background: #fff3cd; color: #856404; border-radius: 5px; margin-top: 20px; text-align: center; }
     </style>
 </head>
 <body>
 
-    <a href="index.php?page=home" class="back-link">← Back to Shop</a>
+    <a href="javascript:void(0);" onclick="goBack()" class="back-link">← Back</a>
 
     <div class="container">
         <div class="gallery-section">
@@ -62,7 +67,7 @@
         </div>
 
         <div class="info-section">
-            <span class="category"><?php echo htmlspecialchars($product['category_name'] ?? 'Fresh'); ?></span>
+            <span class="category"><?php echo htmlspecialchars($product['Category_Name'] ?? $product['category_name'] ?? 'Fresh'); ?></span>
             <h1 class="title"><?php echo htmlspecialchars($product['product_name']); ?></h1>
             <div class="price">$<?php echo number_format($product['price'], 2); ?> / kg</div>
             
@@ -71,7 +76,7 @@
             </p>
             
             <p style="color: #666; margin-bottom: 20px;">
-                Sold by: <strong><?php echo htmlspecialchars($product['seller_name'] ?? 'Farmly Seller'); ?></strong><br>
+                Sold by: <strong><?php echo htmlspecialchars($product['Seller_Name'] ?? $product['seller_name'] ?? ('Seller #' . $product['Seller_ID'])); ?></strong><br>
                 Stock: <?php echo $product['stocks_available']; ?> kg available
             </p>
 
@@ -83,7 +88,7 @@
         </div>
     </div>
 
-    <div class="reviews-container">
+    <div class="reviews-container" id="review-section">
         <h2 style="border-bottom: 2px solid #27ae60; padding-bottom: 10px; display: inline-block; margin-bottom: 20px;">Customer Reviews</h2>
 
         <div class="review-list">
@@ -95,7 +100,7 @@
                                 $r_rating = $review['Rating'] ?? $review['rating'];
                                 $r_name = $review['Buyer_Name'] ?? $review['buyer_name'] ?? 'Anonymous';
                                 $r_date = $review['Review_Date'] ?? $review['review_date'];
-                                $r_comment = $review['Comment'] ?? $review['comment'];
+                                $r_comment = $review['Review_Text'] ?? $review['review_text'] ?? $review['Comment'] ?? '';
                             ?>
                             <span class="star-rating"><?php echo str_repeat("★", $r_rating) . str_repeat("☆", 5 - $r_rating); ?></span>
                             <span class="reviewer-name"><?php echo htmlspecialchars($r_name); ?></span>
@@ -111,39 +116,69 @@
             <?php endif; ?>
         </div>
 
-        <div class="review-form">
-            <h3>Write a Review</h3>
-            <form action="index.php?page=submit_review" method="POST">
-                <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
-                
-                <div class="form-group">
-                    <label>Rating</label>
-                    <select name="rating" class="form-control" style="width: 150px;" required>
-                        <option value="5">★★★★★ (5 Stars)</option>
-                        <option value="4">★★★★☆ (4 Stars)</option>
-                        <option value="3">★★★☆☆ (3 Stars)</option>
-                        <option value="2">★★☆☆☆ (2 Stars)</option>
-                        <option value="1">★☆☆☆☆ (1 Star)</option>
-                    </select>
-                </div>
+        <?php if (isset($can_review) && $can_review === true): ?>
+            
+            <div class="review-form">
+                <h3>Write a Review</h3>
+                <form action="index.php?page=submit_review" method="POST">
+                    <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
+                    
+                    <div class="form-group">
+                        <label>Rating</label>
+                        <select name="rating" class="form-control" style="width: 150px;" required>
+                            <option value="5">★★★★★ (5 Stars)</option>
+                            <option value="4">★★★★☆ (4 Stars)</option>
+                            <option value="3">★★★☆☆ (3 Stars)</option>
+                            <option value="2">★★☆☆☆ (2 Stars)</option>
+                            <option value="1">★☆☆☆☆ (1 Star)</option>
+                        </select>
+                    </div>
 
-                <div class="form-group">
-                    <label>Your Comment</label>
-                    <textarea name="comment" class="form-control" rows="4" placeholder="How was the product?" required></textarea>
-                </div>
+                    <div class="form-group">
+                        <label>Your Comment</label>
+                        <textarea name="comment" class="form-control" rows="4" placeholder="How was the product?" required></textarea>
+                    </div>
 
-                <button type="submit" class="btn-submit-review">Submit Review</button>
-            </form>
-        </div>
+                    <button type="submit" class="btn-submit-review">Submit Review</button>
+                </form>
+            </div>
+
+        <?php elseif (isset($_SESSION['user_id'])): ?>
+            <div class="notice-box">
+                You can write a review once you have purchased and received this product.
+            </div>
+        <?php else: ?>
+            <div class="notice-box">
+                Please <a href="index.php?page=login" style="font-weight:bold; color:#856404;">login</a> to write a review.
+            </div>
+        <?php endif; ?>
+
     </div>
 
     <script>
+        // Image Gallery Switcher
         function changeImage(element) {
             var newSrc = element.src;
             var mainImg = document.getElementById("currentImage");
             mainImg.src = newSrc;
             document.querySelectorAll(".thumb").forEach(t => t.classList.remove("active"));
             element.classList.add("active");
+        }
+
+        // Smart Back Button Logic
+        function goBack() {
+            // Check if user came from 'my_orders' page
+            if (document.referrer.indexOf('page=my_orders') !== -1) {
+                window.location.href = 'index.php?page=my_orders';
+            } 
+            // Check if user came from 'cart'
+            else if (document.referrer.indexOf('page=cart') !== -1) {
+                window.location.href = 'index.php?page=cart';
+            }
+            // Default fallback to Home
+            else {
+                window.location.href = 'index.php?page=home';
+            }
         }
     </script>
 
