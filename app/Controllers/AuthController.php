@@ -87,15 +87,11 @@ class AuthController {
     // --- NEW LOGOUT LOGIC ---
     public function logout() {
         if (session_status() === PHP_SESSION_NONE) session_start();
-        
-        // 1. Unset all session variables
         $_SESSION = [];
-
-        // 2. Destroy the session
         session_destroy();
 
-        // 3. Redirect to Login Page
-        header("Location: index.php?page=login&msg=logged_out");
+        // BUYER goes to Landing Page
+        header("Location: index.php?page=landing");
         exit();
     }
 }

@@ -5,268 +5,275 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Checkout - Farmly</title>
   
+  <!-- <link rel="stylesheet" href="assets/CSS/HomePage.css"> -->
+  
   <style>
-    /* --- INTERNAL CSS (Matches your Sketch) --- */
+    /* --- INTERNAL CSS TO MATCH CART UI --- */
     
-    /* 1. Base Fonts & Reset */
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-    body { background-color: #ffffff; color: #333; min-height: 100vh; display: flex; flex-direction: column; }
+    /* 1. Global Reset & Font */
+    body {
+        background-color: #f9f9f9; /* Light grey background to make white card pop */
+        font-family: 'Segoe UI', sans-serif;
+        color: #333;
+    }
 
-    /* 2. Header Design */
-    .site-header {
+    /* 2. Header Adjustment (As Requested) */
+   .site-header {
+        background: white;
+        padding: 15px 40px; /* Increased padding for better spacing */
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 15px 40px;
-        border-bottom: 2px solid #333; /* Thick border like sketch */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         position: relative;
+        height: auto; /* CHANGE: Let the header grow with the logo */
+        min-height: 80px;
     }
 
-    /* Left side: Logo + Back Button */
-    .header-left {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        z-index: 2; /* Ensures clickable */
+    .logo img { 
+        height: 90px; /* CHANGE: Increased from 50px to 90px */
+        width: auto;  /* Keeps the aspect ratio correct */
     }
-
-    .logo img { height: 50px; width: auto; }
-
-    .back-btn {
-        text-decoration: none;
-        color: #333;
-        font-weight: 700;
-        text-transform: uppercase;
-        font-size: 0.9rem;
-        letter-spacing: 1px;
-    }
-    .back-btn:hover { text-decoration: underline; }
-
-    /* Center Text (Absolute centered) */
+    /* Centered Title */
     .header-center {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
         font-size: 1.5rem;
-        font-weight: 300; /* Thin font like sketch */
+        font-weight: 600;
+        color: #2c3e50;
         text-transform: uppercase;
-        letter-spacing: 2px;
     }
 
-    /* 3. Main Layout */
+    /* Right Side Link */
+    .back-link {
+        color: #27ae60; /* Farmly Green */
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        border: 1px solid #27ae60;
+        padding: 8px 15px;
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+    .back-link:hover {
+        background-color: #27ae60;
+        color: white;
+    }
+
+    /* 3. Main Container (Matches .cart-container) */
     .checkout-container {
+        max-width: 1000px;
+        margin: 40px auto;
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         display: grid;
         grid-template-columns: 1fr 1fr; /* 50% Left, 50% Right */
-        gap: 50px;
-        max-width: 1000px;
-        margin: 60px auto;
-        padding: 0 20px;
-        width: 100%;
+        gap: 60px;
     }
 
-    /* 4. Left Side: Delivery Buttons */
-    .delivery-section {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .section-label {
+    /* 4. Left Column: Delivery Options */
+    .section-title {
         font-size: 1.2rem;
-        color: #666;
-        margin-bottom: 30px;
-        font-family: 'Courier New', monospace; /* Typewriter style like sketch */
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #f0f0f0;
+        padding-bottom: 10px;
     }
 
     .delivery-form {
         display: flex;
         flex-direction: column;
-        gap: 30px;
-        width: 80%;
+        gap: 20px;
     }
 
-    /* The Pill Buttons */
-    .pill-btn {
+    /* Clean Buttons matching Cart Theme */
+    .delivery-btn {
         background: white;
-        border: 2px solid #333;
-        border-radius: 50px; /* Fully rounded ends */
-        padding: 15px 30px;
-        font-size: 1.2rem;
-        font-family: 'Comic Sans MS', 'Segoe UI', sans-serif; /* Sketchy font feel */
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 20px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #555;
         cursor: pointer;
-        transition: all 0.2s;
-        text-align: center;
-        width: 100%;
-    }
-
-    .pill-btn:hover {
-        background: #333;
-        color: white;
-        transform: scale(1.02);
-    }
-
-    /* 5. Right Side: Order Summary Card */
-    .summary-card {
-        border: 2px solid #333;
-        border-radius: 30px;
-        padding: 30px;
-        position: relative;
-    }
-
-    .summary-title {
-        position: absolute;
-        top: -12px;
-        left: 30px;
-        background: white;
-        padding: 0 10px;
-        font-family: 'Courier New', monospace;
-        color: #666;
-    }
-
-    .items-list {
-        max-height: 350px;
-        overflow-y: auto;
-        margin-bottom: 20px;
-        padding-right: 5px;
-    }
-
-    /* The Product "Bubble" */
-    .product-bubble {
-        border: 2px solid #333;
-        border-radius: 20px;
-        padding: 15px;
+        transition: all 0.3s;
         display: flex;
         align-items: center;
-        gap: 15px;
-        margin-bottom: 15px;
+        justify-content: space-between;
     }
 
-    .prod-img {
+    .delivery-btn:hover {
+        border-color: #27ae60;
+        color: #27ae60;
+        background-color: #f9fffb;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    
+    .delivery-btn::after {
+        content: '➔';
+        font-size: 1.2rem;
+        opacity: 0;
+        transition: 0.3s;
+    }
+    .delivery-btn:hover::after {
+        opacity: 1;
+        transform: translateX(5px);
+    }
+
+    /* 5. Right Column: Summary (Matches Cart Table Look) */
+    .summary-box {
+        background-color: #fafafa;
+        padding: 25px;
+        border-radius: 8px;
+        border: 1px solid #eee;
+    }
+
+    .summary-list {
+        max-height: 400px;
+        overflow-y: auto;
+        margin-bottom: 20px;
+    }
+
+    .summary-item {
+        display: flex;
+        gap: 15px;
+        padding: 15px 0;
+        border-bottom: 1px solid #eee;
+        align-items: center;
+    }
+
+    .summary-img {
         width: 50px;
         height: 50px;
-        object-fit: contain;
+        border-radius: 5px;
+        object-fit: cover;
+        border: 1px solid #ddd;
     }
 
-    .prod-info h4 {
-        text-transform: uppercase;
-        font-size: 0.9rem;
-        letter-spacing: 1px;
+    .summary-details h4 {
+        margin: 0;
+        font-size: 0.95rem;
+        color: #333;
     }
 
-    .prod-qty { color: #2980b9; font-size: 0.85rem; } /* Blue like sketch */
-    .prod-price { color: #666; font-size: 0.85rem; }
-
-    /* Totals Footer inside Card */
-    .totals-section {
-        margin-top: 20px;
-        padding-top: 20px;
+    .summary-details p {
+        margin: 3px 0 0;
+        font-size: 0.85rem;
+        color: #777;
     }
 
-    .math-row {
+    /* Totals Section */
+    .totals-row {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 5px;
-        font-family: 'Courier New', monospace;
-        font-size: 0.9rem;
+        margin-bottom: 10px;
+        font-size: 0.95rem;
+        color: #555;
     }
 
     .final-total {
-        border-top: 2px solid #333;
-        margin-top: 15px;
-        padding-top: 15px;
         display: flex;
         justify-content: space-between;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 2px solid #ddd;
+        font-size: 1.2rem;
         font-weight: bold;
-        font-size: 1.1rem;
+        color: #2c3e50;
     }
 
-    /* Mobile Responsive */
+    /* Responsive */
     @media (max-width: 768px) {
-        .checkout-container { grid-template-columns: 1fr; }
-        .header-center { position: static; transform: none; margin-top: 10px; }
-        .site-header { flex-direction: column; }
+        .checkout-container { grid-template-columns: 1fr; gap: 40px; }
+        .site-header { flex-direction: column; height: auto; padding: 15px; gap: 15px; }
+        .header-center { position: static; transform: none; }
     }
   </style>
 </head>
 <body>
 
   <header class="site-header">
-    <div class="header-left">
+    <div class="logo">
       <a href="index.php?page=home">
-         <img src="assets/images/Logo/Team Logo.png" class="logo" alt="Logo" style="height: 50px;">
+         <img src="assets/images/Logo/Team Logo.png" alt="Logo">
       </a>
-      <a href="index.php?page=home" class="back-btn">&lt; BACK TO SHOP</a>
     </div>
 
     <div class="header-center">
-      CHECKOUT PAGE
+      Checkout
     </div>
 
-    <div style="width: 150px;"></div>
+    <div class="header-right">
+      <a href="index.php?page=home" class="back-link">Shop</a>
+    </div>
   </header>
-
 
   <div class="checkout-container">
     
     <div class="delivery-section">
-      <p class="section-label">Delivery Method</p>
+      <h3 class="section-title">Select Delivery Method</h3>
       
       <form action="index.php?page=order_details" method="POST" class="delivery-form">
         
-        <button type="submit" name="delivery_method" value="Home Delivery" class="pill-btn">
-          Home Delivery
+        <button type="submit" name="delivery_method" value="Home Delivery" class="delivery-btn">
+          <span>Home Delivery</span>
         </button>
 
-        <button type="submit" name="delivery_method" value="Pickup" class="pill-btn">
-          Pickup
+        <button type="submit" name="delivery_method" value="Pickup" class="delivery-btn">
+          <span>Store Pickup</span>
         </button>
 
       </form>
     </div>
 
 
-    <div class="summary-card">
-      <span class="summary-title">Order Summary:</span>
-
-      <div class="items-list">
-        <?php if (!empty($cartItems)): ?>
-            <?php foreach ($cartItems as $item): ?>
-                
-                <div class="product-bubble">
-                    <img src="assets/uploads/products/<?php echo htmlspecialchars(basename($item['product_image'])); ?>" 
-                         class="prod-img" 
-                         onerror="this.src='assets/images/default.png';">
-                    
-                    <div class="prod-info">
-                        <h4><?php echo htmlspecialchars($item['product_name']); ?></h4>
-                        <div class="prod-qty">Quantity: <?php echo $item['quantity']; ?></div>
-                        <div class="prod-price">Price per Piece: $<?php echo number_format($item['price'], 2); ?></div>
+    <div class="summary-section">
+      <h3 class="section-title">Order Summary</h3>
+      
+      <div class="summary-box">
+          <div class="summary-list">
+            <?php if (!empty($cartItems)): ?>
+                <?php foreach ($cartItems as $item): ?>
+                    <div class="summary-item">
+                        <img src="assets/uploads/products/<?php echo htmlspecialchars(basename($item['product_image'])); ?>" 
+                             class="summary-img" 
+                             onerror="this.src='assets/images/default.png';">
+                        
+                        <div class="summary-details">
+                            <h4><?php echo htmlspecialchars($item['product_name']); ?></h4>
+                            <p>Qty: <?php echo $item['quantity']; ?> x $<?php echo number_format($item['price'], 2); ?></p>
+                        </div>
+                        
+                        <div style="margin-left: auto; font-weight: 600;">
+                            $<?php echo number_format($item['price'] * $item['quantity'], 2); ?>
+                        </div>
                     </div>
-                </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Your cart is empty.</p>
+            <?php endif; ?>
+          </div>
 
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p style="text-align: center; padding: 20px;">Cart is empty.</p>
-        <?php endif; ?>
-      </div>
-
-      <div class="totals-section">
-        <div class="math-row">
+          <div class="totals-row">
             <span>Sub-Total:</span>
             <span>$<?php echo number_format($totalPrice, 2); ?></span>
-        </div>
-        <div class="math-row">
+          </div>
+          
+          <div class="totals-row">
             <span>Shipping:</span>
             <span>Calculated Next Step</span>
-        </div>
+          </div>
 
-        <div class="final-total">
+          <div class="final-total">
             <span>Total:</span>
             <span>$<?php echo number_format($totalPrice, 2); ?> + Ship</span>
-        </div>
+          </div>
       </div>
-
     </div>
 
   </div>

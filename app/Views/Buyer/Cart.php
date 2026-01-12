@@ -32,7 +32,7 @@
         </a>
       </div>
       <nav class="user-nav">
-        <a href="index.php?page=home" class="nav-button">Back to Shop</a>
+        <a href="index.php?page=home" class="nav-button">Shop</a>
       </nav>
     </header>
 

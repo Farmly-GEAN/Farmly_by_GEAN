@@ -53,53 +53,60 @@ class OrderController {
         $buyer_id = $_SESSION['user_id'];
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // A. Capture Delivery Method
-            $method = $_POST['delivery_method'] ?? 'Home Delivery';
             
-            // B. Recalculate Total Price
+            // 1. Capture Delivery Method
+            $deliveryMethod = $_POST['delivery_method'] ?? 'Home Delivery';
+            
+            // 2. Fetch Cart Items & Calculate Total
             $cartItems = $this->cartModel->getCartItems($buyer_id);
             $totalPrice = 0;
-            
-            // --- Find the Seller ID from the cart items ---
-            $seller_id = null;
+            $seller_id = null; // We need this to find the Pickup Address
 
             foreach($cartItems as $item) {
                 $price = $item['price'] ?? $item['Price'] ?? 0;
                 $qty = $item['quantity'] ?? $item['Quantity'] ?? 0;
                 $totalPrice += ($price * $qty);
 
-                // Capture Seller ID (Assuming items are from one seller or we take the first one)
+                // Capture Seller ID (Take the first one found)
                 if ($seller_id === null) {
                     $seller_id = $item['Seller_ID'] ?? $item['seller_id'] ?? null;
                 }
             }
 
-            // --- Fetch Seller Details for Pickup View ---
+            // 3. Add Shipping if needed
+            $totalAmount = $totalPrice;
+            if ($deliveryMethod === 'Home Delivery') {
+                $totalAmount += 5.00; 
+            }
+
+            // 4. Fetch Seller Details (So Pickup Location works)
             $seller_name = "Farmly Partner";
-            $seller_address = "Warehouse Location"; // Default fallback
+            $seller_address = "Warehouse Location"; // Default
 
             if ($seller_id) {
+                // Check if SellerModel is loaded, if not, do a direct query
                 $sql = "SELECT Seller_Name, Seller_Address FROM Seller WHERE Seller_ID = :id";
                 $stmt = $this->db->prepare($sql);
                 $stmt->execute([':id' => $seller_id]);
                 $seller = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 if ($seller) {
-                    // Check mixed case keys just in case
                     $seller_name = $seller['Seller_Name'] ?? $seller['seller_name'];
                     $seller_address = $seller['Seller_Address'] ?? $seller['seller_address'];
                 }
             }
 
-            // Add Shipping Cost if Home Delivery
-            if ($method === 'Home Delivery') {
-                $totalPrice += 5.00; 
+            // === CRITICAL FIX START ===
+            // Instead of loading order_details.php, we load the specific file based on choice
+            if ($deliveryMethod === 'Home Delivery') {
+                require_once __DIR__ . '/../Views/Buyer/Home_Delivery.php';
+            } else {
+                require_once __DIR__ . '/../Views/Buyer/PickUp.php';
             }
-
-            // C. Load the Confirmation View (Now has $seller_address defined!)
-            require_once __DIR__ . '/../Views/Buyer/order_details.php';
+            // === CRITICAL FIX END ===
+            
         } else {
-            // If accessed directly, go back to checkout
+            // If user tries to skip the checkout step, send them back
             header("Location: index.php?page=checkout");
             exit();
         }
@@ -134,14 +141,19 @@ class OrderController {
 
             if ($method === 'Home Delivery') {
                 $door = $_POST['door_no'] ?? '';
-                $street = $_POST['street'] ?? '';
-                $city = $_POST['city'] ?? '';
-                $pin = $_POST['pincode'] ?? '';
-                $final_address_string = "$door, $street, $city - $pin";
+                $street = $_POST['street'] ?? ''; // Note: Ensure your Home_Delivery.php inputs have name="street", etc.
+                // If using the single textarea from the new code:
+                if (isset($_POST['address'])) {
+                    $final_address_string = $_POST['address'] . ", " . ($_POST['city'] ?? '') . " - " . ($_POST['postal_code'] ?? '');
+                } else {
+                    $city = $_POST['city'] ?? '';
+                    $pin = $_POST['pincode'] ?? '';
+                    $final_address_string = "$door, $street, $city - $pin";
+                }
             } else {
-                // Now this will work because the previous page loaded correctly!
-                $pickup_time = $_POST['time_slot'] ?? 'Anytime';
-                $final_address_string = "PICKUP: " . ($_POST['seller_address_hidden'] ?? 'Farmly Warehouse') . " | Time: " . $pickup_time;
+                $pickup_time = $_POST['pickup_time'] ?? 'Anytime';
+                $pickup_date = $_POST['pickup_date'] ?? 'Today';
+                $final_address_string = "PICKUP: " . ($_POST['seller_address_hidden'] ?? 'Farmly Warehouse') . " | Date: $pickup_date | Time: " . $pickup_time;
             }
 
             // --- C. Calculate Final Total ---

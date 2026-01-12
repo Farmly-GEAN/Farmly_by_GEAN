@@ -97,14 +97,13 @@ class SellerAuthController {
     }
 
     // 3. Seller Logout
-    public function logout() {
+   public function logout() {
         if (session_status() === PHP_SESSION_NONE) session_start();
-        
-        // Only clear seller session data (or destroy all if you prefer)
-        session_unset();
+        $_SESSION = [];
         session_destroy();
-        
-        header("Location: index.php?page=seller_login");
+
+        // SELLER goes to Landing Page
+        header("Location: index.php?page=landing"); 
         exit();
     }
 

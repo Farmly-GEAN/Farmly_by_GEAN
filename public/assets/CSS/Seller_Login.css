@@ -1,212 +1,151 @@
-/* ------------------------------------ */
-/* PAGE LAYOUT */
-/* ------------------------------------ */
+/* ==========================================================================
+   Seller_Login.css (Bigger & Bolder)
+   ========================================================================== */
 
+/* 1. PAGE LAYOUT */
 body {
   margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background: #f5f7fa;
+  font-family: "Segoe UI", "Roboto", Helvetica, sans-serif;
+  background: #f4f6f8; /* Slightly cleaner gray */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-/* ------------------------------------ */
-/* HEADER */
-/* ------------------------------------ */
-
+/* 2. HEADER */
 .top-header {
-  padding: 20px 0;
+  padding: 25px 0; /* Taller header */
   text-align: center;
   background: white;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .header-logo {
-  width: 90px;
+  width: 110px; /* Bigger Logo */
+  transition: transform 0.3s ease;
+}
+.header-logo:hover {
+  transform: scale(1.05);
 }
 
-/* ------------------------------------ */
-/* MAIN LOGIN SECTION */
-/* ------------------------------------ */
-
+/* 3. MAIN SECTION */
 .main-section {
   flex: 1;
   display: flex;
   justify-content: center;
-  padding-top: 30px;
+  align-items: center; /* Vertically centers the card */
+  padding: 60px 20px;
 }
 
+/* --- THE CARD (Made Bigger) --- */
 .login-card {
-  width: 420px;
+  width: 550px; /* Increased width (was ~400px) */
   background: white;
-  padding: 45px 40px;
+  padding: 60px 50px; /* More breathing room inside */
   border-radius: 20px;
-  border: 2px solid #bbb;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc; /* Softer border */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); /* Softer, larger shadow */
   text-align: center;
 }
 
-/* Title */
+/* Title Styling */
 .login-title {
-  font-size: 26px;
+  font-size: 32px; /* Bigger text */
   color: #0073e6;
   font-weight: 700;
-  margin-bottom: 30px;
-  border: 2px solid #0073e6;
+  margin-bottom: 40px;
+  border: 3px solid #0073e6; /* Thicker border */
   display: inline-block;
-  padding: 10px 20px;
+  padding: 12px 30px;
   border-radius: 12px;
 }
 
-/* Form fields */
+/* 4. FORM FIELDS */
 .form-field {
   text-align: left;
-  margin-bottom: 25px;
+  margin-bottom: 25px; /* More space between inputs */
 }
 
 .form-field label {
-  font-size: 16px;
+  font-size: 22px; /* Bigger label text */
   font-weight: 600;
+  color: #333;
+  display: block;
+  margin-bottom: 10px;
 }
 
 .form-field input {
   width: 100%;
-  margin-top: 6px;
-  padding: 12px;
-  border: 1.8px solid #555;
-  border-radius: 8px;
-  font-size: 16px;
+  padding: 16px; /* Taller text box */
+  border: 2px solid #aaa; /* Slightly thicker border */
+  border-radius: 10px;
+  font-size: 18px; /* Bigger typing text */
+  font-family: "Segoe UI", sans-serif;
   transition: 0.3s ease;
+  box-sizing: border-box;
+  background-color: #fff;
 }
 
 .form-field input:focus {
   border-color: #0073e6;
-  box-shadow: 0 0 8px rgba(0, 115, 230, 0.4);
+  box-shadow: 0 0 10px rgba(0, 115, 230, 0.3);
   outline: none;
 }
 
-/* Login button */
+/* 5. BUTTONS */
 .login-btn {
   width: 100%;
-  padding: 14px;
+  padding: 18px; /* Bigger button */
   background: #0073e6;
   color: white;
   border: none;
   border-radius: 50px;
-  font-size: 18px;
+  font-size: 22px; /* Bigger button text */
   cursor: pointer;
   font-weight: bold;
   transition: 0.3s ease;
-  margin-top: 15px;
+  margin-top: 25px;
+  letter-spacing: 0.5px;
 }
 
 .login-btn:hover {
   background: #005bbd;
   transform: translateY(-3px);
-  box-shadow: 0px 6px 12px rgba(0, 115, 230, 0.35);
+  box-shadow: 0px 8px 15px rgba(0, 115, 230, 0.3);
 }
 
-/* Links */
-.forgot,
-.create {
-  margin-top: 15px;
-  font-size: 15px;
+/* Links (Register / Forgot Password) */
+.create,
+.forgot {
+  margin-top: 25px;
+  font-size: 18px; /* Bigger link text */
 }
 
-.forgot a,
-.create a {
+.create a,
+.forgot a {
   color: #0073e6;
   text-decoration: none;
+  font-weight: 600;
 }
 
-.forgot a:hover,
-.create a:hover {
+.create a:hover,
+.forgot a:hover {
   text-decoration: underline;
 }
 
-/* ------------------------------------ */
-/* FOOTER */
-/* ------------------------------------ */
-
-.site-footer {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: flex-start;
-  padding: 40px 20px;
-  background-color: #9e9e9e;
-  border-top: 2px solid #e0e0e0;
-  flex-wrap: wrap;
-}
-
-.footer-logo-social {
-  text-align: center;
-}
-
-.footer-logo-social .logo img {
-  width: 80px;
-  margin-bottom: 10px;
-}
-
-.social-icons {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.nav-button {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  text-decoration: none;
-  color: black;
-  font-size: 16px;
-  padding: 5px;
-  border-radius: 8px;
-}
-
-.nav-button img {
-  width: 22px;
-}
-
-.nav-button:hover {
-  background-color: #777;
-  color: white;
-  transform: scale(1.05);
-}
-
-/* Footer Columns */
-.footer-column {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.footer-column h4 {
-  margin-bottom: 10px;
-}
-
-.footer-column a {
-  text-decoration: none;
-  color: black;
-}
-
-.footer-column a:hover {
-  text-decoration: underline;
-}
-
-/* ------------------------------------ */
-/* RESPONSIVE */
-/* ------------------------------------ */
-
-@media (max-width: 768px) {
-  .site-footer {
-    flex-direction: column;
-    text-align: center;
-    gap: 20px;
-  }
-
+/* Mobile Responsive */
+@media (max-width: 600px) {
   .login-card {
     width: 90%;
+    padding: 40px 25px;
+  }
+  .login-title {
+    font-size: 26px;
+  }
+  .site-footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
   }
 }
