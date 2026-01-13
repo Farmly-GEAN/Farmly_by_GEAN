@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Farmly - Home Page</title>
-    <link rel="stylesheet" href="assets/CSS/Buyer_Footer.css" />
+    <link rel="stylesheet" href="assets/CSS/HomePage.css" />
   </head>
   <body>
     <header class="site-header">

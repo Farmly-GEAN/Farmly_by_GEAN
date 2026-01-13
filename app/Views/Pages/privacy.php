@@ -1,9 +1,17 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) session_start();
+$isSeller = isset($_SESSION['role']) && $_SESSION['role'] === 'seller';
+$homeLink  = $isSeller ? 'index.php?page=seller_dashboard' : 'index.php?page=home';
+$backLabel = $isSeller ? 'Dashboard' : 'Shop';
+$footerFile = $isSeller ? __DIR__ . '/../Seller/Seller_Footer.php' : __DIR__ . '/../Buyer/Buyer_Footer.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Privacy Policy - Farmly</title>
-    <link rel="stylesheet" href="assets/CSS/HomePage.css">
+    <!-- <link rel="stylesheet" href="assets/CSS/HomePage.css"> -->
     <style>
         body { background-color: #f9f9f9; font-family: 'Segoe UI', sans-serif; color: #333; }
         
@@ -15,22 +23,23 @@
         
         h3 { color: #27ae60; margin-top: 30px; }
         p { line-height: 1.6; color: #555; margin-bottom: 15px; }
-        
-        .back-btn { 
-            display: inline-block; margin-bottom: 20px; color: #777; text-decoration: none; font-weight: 600; 
+
+        /* Header Link Style */
+        .header-back-link {
+            color: #27ae60; text-decoration: none; font-weight: 600; font-size: 1rem;
         }
-        .back-btn:hover { color: #27ae60; }
+        .header-back-link:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
-    <header style="background: white; padding: 15px 40px; border-bottom: 1px solid #ddd; text-align: center;">
-        <a href="index.php?page=home"><img src="assets/images/Logo/Team Logo.png" style="height: 60px;"></a>
+    <header style="background: white; padding: 15px 40px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center;">
+        <a href="<?php echo $homeLink; ?>"><img src="assets/images/Logo/Team Logo.png" style="height: 90px;"></a>
+        
+        <a href="<?php echo $homeLink; ?>" class="header-back-link">&larr; <?php echo $backLabel; ?></a>
     </header>
 
     <div class="page-container">
-        <a href="index.php?page=home" class="back-btn">&larr; Back to Home</a>
-
         <h1 class="page-title">Privacy Policy</h1>
         
         <p>At Farmly, we value your privacy. This policy explains how we collect, use, and protect your personal information.</p>
@@ -56,6 +65,6 @@
         <p>If you have questions about this policy, please reach out via our Contact Us page.</p>
     </div>
 
-    <?php include __DIR__ . '/../Buyer/Buyer_Footer.php'; ?>
+    <?php include $footerFile; ?>
 </body>
 </html>

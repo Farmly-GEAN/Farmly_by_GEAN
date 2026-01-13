@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="assets/CSS/HomePage.css" />
+<link rel="stylesheet" href="assets/CSS/Buyer_Footer.css" />
 
 <footer class="site-footer">
     <div class="footer-left">
