@@ -301,6 +301,38 @@ switch ($page) {
         $controller->orders();
         break;
 
+        // --- FOOTER PAGES ---
+    case 'about':
+        require_once BASE_PATH . 'app/Controllers/PageController.php';
+        $controller = new PageController();
+        $controller->about();
+        break;
+
+    case 'contact':
+        require_once BASE_PATH . 'app/Controllers/PageController.php';
+        $controller = new PageController();
+        $controller->contact();
+        break;
+
+    case 'terms':
+        require_once BASE_PATH . 'app/Controllers/PageController.php';
+        $controller = new PageController();
+        $controller->terms();
+        break;
+
+    case 'privacy':
+        require_once BASE_PATH . 'app/Controllers/PageController.php';
+        $controller = new PageController();
+        $controller->privacy();
+        break;
+
+    // --- SELLER FEEDBACK ---
+    case 'seller_feedback':
+        require_once BASE_PATH . 'app/Controllers/PageController.php';
+        $controller = new PageController();
+        $controller->feedback();
+        break;
+
     default:
         require_once BASE_PATH . 'app/Views/landing.php';
         break;

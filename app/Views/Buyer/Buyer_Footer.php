@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="assets/CSS/Seller_Footer.css" />
+<link rel="stylesheet" href="assets/CSS/HomePage.css" />
 
 <footer class="site-footer">
     <div class="footer-left">
@@ -21,7 +21,6 @@
 
     <div class="footer-column">
         <h3>Useful Links</h3>
-        <a href="index.php?page=seller_feedback">Feedback</a>
         <a href="index.php?page=terms">Terms and Conditions</a>
         <a href="index.php?page=privacy">Privacy Policy</a>
     </div>
