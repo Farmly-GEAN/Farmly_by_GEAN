@@ -73,7 +73,7 @@
         let hasProducts = false;
 
         allProducts.forEach(product => {
-            // Handle different casing from DB (Product_ID vs product_id)
+            
             let pid = product.product_id || product.Product_ID;
             let catId = product.category_id || product.Category_ID;
             let pname = product.product_name || product.Product_Name;
@@ -83,7 +83,7 @@
             if (selectedCatID === 'all' || catId == selectedCatID) {
                 let option = document.createElement("option");
                 option.value = pid;
-                // Display Price in the dropdown text
+                
                 option.text = `${pname} (Stock: ${pstock}kg | Price: $${pprice})`;
                 
                 prodSelect.appendChild(option);

@@ -1,6 +1,5 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) session_start();
-// Smart Logic: Check if Seller or Buyer
 $isSeller = isset($_SESSION['role']) && $_SESSION['role'] === 'seller';
 $homeLink  = $isSeller ? 'index.php?page=seller_dashboard' : 'index.php?page=home';
 $backLabel = $isSeller ? 'Dashboard' : 'Shop';
@@ -22,7 +21,7 @@ $footerFile = $isSeller ? __DIR__ . '/../Seller/Seller_Footer.php' : __DIR__ . '
         }
         .page-title { text-align: center; color: #2c3e50; margin-bottom: 40px; border-bottom: 2px solid #eee; padding-bottom: 20px; }
         
-        h3 { color: #27ae60; margin-top: 30px; }
+        h3 {color: black; font-weight: bold; margin-top: 30px; }
         p, li { line-height: 1.6; color: #555; margin-bottom: 15px; }
         ul { margin-left: 20px; }
         

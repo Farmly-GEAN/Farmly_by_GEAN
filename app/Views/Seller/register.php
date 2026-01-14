@@ -45,7 +45,7 @@
                         <label>Store Logo</label>
                         <div class="file-input-wrapper">
                             <input type="file" name="seller_image" id="seller_image" accept="image/*" required>
-                            <label for="seller_image" class="custom-file-label">📂 Upload Logo</label>
+                            <label for="seller_image" class="custom-file-label">Upload Logo</label>
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
 
     <script>
         document.getElementById('seller_image').addEventListener('change', function() {
-            var fileName = this.files[0] ? this.files[0].name : "📂 Upload Logo";
+            var fileName = this.files[0] ? this.files[0].name : "Upload Logo";
             this.nextElementSibling.innerText = fileName;
         });
     </script>

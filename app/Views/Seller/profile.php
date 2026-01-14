@@ -29,8 +29,7 @@
             <?php endif; ?>
 
             <?php
-                // --- HELPER: Parse Address ---
-                // Expected Format: "Door 12, Main St, New York - 10001"
+               
                 $fullAddr = $seller['Seller_Address'] ?? $seller['seller_address'] ?? '';
                 $door = ''; $street = ''; $city = ''; $pin = '';
 

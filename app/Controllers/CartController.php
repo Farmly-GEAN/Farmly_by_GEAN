@@ -24,10 +24,8 @@ class CartController {
         $buyer_id = $_SESSION['user_id'];
         $cartItems = $this->cartModel->getCartItems($buyer_id);
 
-        // Calculate Grand Total
         $grandTotal = 0;
         foreach ($cartItems as $item) {
-            // Handle Case Sensitivity from DB
             $price = $item['price'] ?? $item['Price'] ?? 0;
             $qty   = $item['quantity'] ?? $item['Quantity'] ?? 0;
             $grandTotal += ($price * $qty);
@@ -68,28 +66,26 @@ class CartController {
         }
     }
 
-    // 4. NEW: Update Quantity (Increase/Decrease)
+    // 4.Update Quantity 
     public function update() {
         if (session_status() === PHP_SESSION_NONE) session_start();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cart_id'], $_POST['action'])) {
             $cart_id = $_POST['cart_id'];
-            $action = $_POST['action']; // 'increase' or 'decrease'
+            $action = $_POST['action']; 
             $current_qty = (int)$_POST['current_qty'];
 
-            // Calculate new quantity
             if ($action === 'increase') {
                 $new_qty = $current_qty + 1;
             } else {
                 $new_qty = $current_qty - 1;
             }
-
-            // Only update if quantity is valid (at least 1)
+            // update to cart if the quantity is one
             if ($new_qty >= 1) {
                 $this->cartModel->updateQuantity($cart_id, $new_qty);
             }
 
-            // Refresh Page
+            
             header("Location: index.php?page=cart");
             exit();
         }

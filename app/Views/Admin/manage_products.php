@@ -31,11 +31,11 @@
 
         <?php if(isset($_GET['success'])): ?>
             <p style="background:#d4edda; color:#155724; padding:10px; border-radius:5px; margin-bottom:20px;">
-                ✅ <?php echo htmlspecialchars($_GET['success']); ?>
+                <?php echo htmlspecialchars($_GET['success']); ?>
             </p>
         <?php elseif(isset($_GET['error'])): ?>
             <p style="background:#f8d7da; color:#721c24; padding:10px; border-radius:5px; margin-bottom:20px;">
-                ❌ <?php echo htmlspecialchars($_GET['error']); ?>
+                <?php echo htmlspecialchars($_GET['error']); ?>
             </p>
         <?php endif; ?>
 
@@ -54,14 +54,13 @@
                     <?php foreach ($products as $p): ?>
                     
                     <?php 
-                        // FIX: Using correct DB columns from your schema (PostgreSQL returns lowercase)
+                       
                         $p_id    = $p['Product_ID'] ?? $p['product_id'];
                         $p_name  = $p['Product_Name'] ?? $p['product_name'];
                         $p_price = $p['Price'] ?? $p['price'];
                         $p_stock = $p['Stocks_Available'] ?? $p['stocks_available'];
                         $s_name  = $p['Seller_Name'] ?? $p['seller_name'];
                         
-                        // DB Column is "Product_Image" (not Product_Image_Url)
                         $p_img   = $p['Product_Image'] ?? $p['product_image'] ?? ''; 
                     ?>
 

@@ -84,12 +84,10 @@
             <?php foreach ($orders as $order): ?>
                 <?php 
                     $o_id = $order['Order_ID'] ?? $order['order_id'];
-                    // Logic to handle Order_Status or Status
                     $o_status = $order['Order_Status'] ?? $order['order_status'] ?? $order['Status'] ?? 'Pending';
                     $o_date = date("F j, Y", strtotime($order['Order_Date'] ?? $order['order_date']));
                     $o_total = number_format($order['Total_Amount'] ?? $order['total_amount'], 2);
                     
-                    // Is Delivered?
                     $is_delivered = (stripos($o_status, 'Deliver') !== false);
                 ?>
                 
@@ -129,7 +127,6 @@
                                     $p_name = $item['Product_Name'] ?? $item['product_name'] ?? 'Item';
                                     $p_img = $item['Product_Image'] ?? $item['product_image'] ?? 'assets/images/default.png';
                                     $seller_name = $item['Seller_Name'] ?? $item['seller_name'] ?? 'Farmly Seller';
-                                    // Handle Price or Price_Per_Unit
                                     $price = $item['Price_Per_Unit'] ?? $item['price_per_unit'] ?? $item['Price'] ?? 0;
                                 ?>
                                 <div class="product-row">

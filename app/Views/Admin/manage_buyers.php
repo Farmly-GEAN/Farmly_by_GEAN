@@ -29,11 +29,11 @@
 
         <?php if(isset($_GET['success'])): ?>
             <p style="background:#d4edda; color:#155724; padding:10px; border-radius:5px; margin-bottom:20px;">
-                ✅ <?php echo htmlspecialchars($_GET['success']); ?>
+                <?php echo htmlspecialchars($_GET['success']); ?>
             </p>
         <?php elseif(isset($_GET['error'])): ?>
             <p style="background:#f8d7da; color:#721c24; padding:10px; border-radius:5px; margin-bottom:20px;">
-                ❌ <?php echo htmlspecialchars($_GET['error']); ?>
+                <?php echo htmlspecialchars($_GET['error']); ?>
             </p>
         <?php endif; ?>
 

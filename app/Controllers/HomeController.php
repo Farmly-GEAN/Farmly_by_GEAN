@@ -14,12 +14,8 @@ class HomeController {
 
     public function index() {
         if (session_status() === PHP_SESSION_NONE) session_start();
-        
-        // 1. FIX: Define $user_name here so the View can use it
         $user_name = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Guest';
-        $buyer_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
-
-        // 2. Fetch Products
+        $buyer_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null; 
         $search = isset($_GET['search']) ? $_GET['search'] : '';
         $category = isset($_GET['category']) ? $_GET['category'] : '';
         $products = [];
@@ -31,8 +27,6 @@ class HomeController {
         } else {
             $products = $this->productModel->getAllProducts();
         }
-
-        // 3. Load the View
         require_once __DIR__ . '/../Views/Buyer/home.php';
     }
 }

@@ -35,12 +35,12 @@ class ProductController {
         require_once __DIR__ . '/../Views/Buyer/home.php';
     }
 
-    // 2. Show Single Product Detail (UPDATED FILE NAME)
+    // 2. Show Single Product Detail
     public function detail() {
         if (isset($_GET['id'])) {
             $product_id = $_GET['id'];
 
-            // A. Get Main Product Data
+           
             $product = $this->productModel->getProductById($product_id);
             
             if (!$product) {
@@ -48,13 +48,10 @@ class ProductController {
                 return;
             }
 
-            // B. Get Gallery
             $gallery = $this->productModel->getGalleryImages($product_id);
-            
-            // C. Get Reviews
+    
             $reviews = $this->reviewModel->getReviewsByProduct($product_id);
-            
-            // D. Check Permission
+
             $can_review = false;
             if (isset($_SESSION['user_id'])) {
                 $orderModel = new OrderModel($this->db);
@@ -62,8 +59,6 @@ class ProductController {
             }
 
             $user_name = $_SESSION['user_name'] ?? 'Guest';
-
-            // *** FIX: Changed to product_details.php (Plural) ***
             require_once __DIR__ . '/../Views/Buyer/product_details.php';
             
         } else {
@@ -88,7 +83,6 @@ class ProductController {
             $comment    = $_POST['comment'];
 
             if ($this->reviewModel->addReview($product_id, $buyer_id, $rating, $comment)) {
-                // Redirect back to 'product_detail' (this is the ROUTE name, not the file name)
                 header("Location: index.php?page=product_detail&id=$product_id&success=Review Posted!");
             } else {
                 header("Location: index.php?page=product_detail&id=$product_id&error=Failed to post review");

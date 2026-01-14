@@ -8,7 +8,7 @@
 
     <div class="login-box">
         <div class="login-header">
-            <h2>🛡️ Admin Control</h2>
+            <h2>Admin Control</h2>
             <p>Authorized Personnel Only</p>
         </div>
 

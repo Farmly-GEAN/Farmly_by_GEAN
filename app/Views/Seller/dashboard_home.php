@@ -75,11 +75,10 @@
                                     $o_date = date("M d", strtotime($order['Order_Date'] ?? $order['order_date']));
                                     $p_name = $order['Product_Name'] ?? $order['product_name'] ?? 'Item';
                                     
-                                    // --- FIX: UPDATED VARIABLE NAME ---
-                                    // Previously it was checking for 'Status', now it checks 'Order_Status'
+                                   
                                     $o_status = $order['Order_Status'] ?? $order['order_status'] ?? 'Pending';
                                     
-                                    // Amount Calculation
+                                    
                                     $price = $order['Price'] ?? $order['price'] ?? 0;
                                     $qty = $order['Quantity'] ?? $order['quantity'] ?? 1;
                                     $total = $price * $qty;

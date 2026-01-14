@@ -240,12 +240,12 @@
             <?php if (!empty($cartItems)): ?>
                 <?php foreach ($cartItems as $item): ?>
                     <?php 
-                        // --- SAFE VARIABLE HANDLING ---
+                       
                         $p_name = $item['Product_Name'] ?? $item['product_name'] ?? 'Item';
                         
-                        // Handle image path safely
+                        
                         $raw_img = $item['Product_Image'] ?? $item['product_image'] ?? 'default.png';
-                        // Check if it's a full path or just filename
+                       
                         if (strpos($raw_img, 'assets/') === false) {
                             $p_img = "assets/uploads/products/" . basename($raw_img);
                         } else {

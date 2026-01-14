@@ -6,7 +6,7 @@
     <title>Welcome to Farmly</title>
     <link rel="stylesheet" href="assets/CSS/HomePage.css">
     <style>
-        /* Specific Styles for Landing Page */
+        
         body, html { height: 100%; margin: 0; font-family: 'Segoe UI', sans-serif; }
         
         .hero-no-img {
@@ -21,7 +21,6 @@
             padding: 20px;
         }
 
-        /* Increased Title Size */
         .hero-no-img h1 { 
             font-size: 4rem; 
             margin-bottom: 10px; 
@@ -45,7 +44,7 @@
         
         .card {
             background: rgba(255, 255, 255, 0.98);
-            padding: 50px 30px; /* More vertical padding for cleaner look */
+            padding: 50px 30px; 
             border-radius: 20px;
             width: 320px;
             text-align: center;
@@ -78,7 +77,7 @@
             border-radius: 50px;
             transition: 0.3s;
             margin-bottom: 20px;
-            width: 100%; /* Full width button */
+            width: 100%; 
             max-width: 200px;
         }
         
@@ -94,7 +93,7 @@
         }
         
         .btn-seller { 
-            background-color: #2c3e50; /* Darker for Seller */
+            background-color: #2c3e50;
             color: white; 
             border: 2px solid #2c3e50; 
             box-shadow: 0 5px 15px rgba(44, 62, 80, 0.3);
@@ -114,7 +113,6 @@
         }
         .small-text a:hover { text-decoration: underline; }
 
-        /* Header Overlay */
         .landing-header {
             position: absolute;
             top: 0;
@@ -125,9 +123,8 @@
             align-items: center;
         }
         
-        /* Bigger Logo */
         .landing-logo img { 
-            height: 80px; /* Increased from 50px */
+            height: 80px; 
             width: auto;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
         }

@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="assets/CSS/HomePage.css">
     
     <style>
-        /* MATCHING CHECKOUT UI */
         body { background-color: #f9f9f9; font-family: 'Segoe UI', sans-serif; color: #333; }
 
         /* Header */
@@ -117,8 +116,8 @@
             <div class="form-group">
                 <label>Payment Method</label>
                 <div class="radio-group">
-                    <label><input type="radio" name="payment_method" value="Online Payment" required> 💳 Online Payment</label>
-                    <label><input type="radio" name="payment_method" value="Cash on Delivery"> 💵 Cash on Delivery</label>
+                    <label><input type="radio" name="payment_method" value="Online Payment" required>Online Payment</label>
+                    <label><input type="radio" name="payment_method" value="Cash on Delivery">Cash on Delivery</label>
                 </div>
             </div>
 

@@ -102,14 +102,13 @@ class SellerAuthController {
         $_SESSION = [];
         session_destroy();
 
-        // SELLER goes to Landing Page
         header("Location: index.php?page=landing"); 
         exit();
     }
 
-    // ... inside SellerDashboardController class ...
+    
 
-    // --- FEATURE 1: LISTED PRODUCTS ---
+    // LISTED PRODUCTS
     public function listedProducts() {
         $this->checkSellerAuth();
         $products = $this->productModel->getProductsBySeller($_SESSION['user_id']);
@@ -125,7 +124,7 @@ class SellerAuthController {
         exit();
     }
 
-    // --- FEATURE 2: ORDERS ---
+    //  ORDERS
     public function orders() {
         $this->checkSellerAuth();
         require_once __DIR__ . '/../Models/OrderModel.php';
@@ -150,7 +149,7 @@ class SellerAuthController {
         }
     }
 
-    // --- FEATURE 3: REVIEWS ---
+    // REVIEWS 
     public function reviews() {
         $this->checkSellerAuth();
         require_once __DIR__ . '/../Models/ReviewModel.php';
@@ -159,13 +158,10 @@ class SellerAuthController {
         $reviews = $reviewModel->getSellerReviews($_SESSION['user_id']);
         require_once __DIR__ . '/../Views/Seller/reviews.php';
     }
-
-    // Show Form
     public function forgotPassword() {
         require_once __DIR__ . '/../Views/Seller/forgot_password.php';
     }
 
-    // Process Reset
     public function processResetPassword() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = $_POST['email'];
@@ -180,7 +176,6 @@ class SellerAuthController {
 
             $sellerModel = new SellerModel($this->db);
             
-            // Update Logic
             $result = $sellerModel->updatePasswordByEmail($email, $pass1);
 
             if ($result) {

@@ -19,9 +19,9 @@ class OrderModel {
         return false;
     }
 
-    // 2. Add Item (Using 'Price_Per_Unit')
+    // 2. Add Item
     public function addOrderItem($order_id, $product_id, $quantity, $price) {
-        // FIXED: Column name changed to 'Price_Per_Unit'
+        
         $sql = "INSERT INTO Order_Details (Order_ID, Product_ID, Quantity, Price_Per_Unit) 
                 VALUES (:order_id, :product_id, :qty, :price)";
         $stmt = $this->db->prepare($sql);
@@ -30,7 +30,7 @@ class OrderModel {
         $this->deductStock($product_id, $quantity);
     }
 
-    // Helper: Deduct Stock
+  
     private function deductStock($product_id, $quantity) {
         $sql = "UPDATE Product SET Stocks_Available = Stocks_Available - :qty WHERE Product_ID = :pid";
         $stmt = $this->db->prepare($sql);
@@ -78,14 +78,14 @@ class OrderModel {
         return true;
     }
 
-    // 6. Get Seller Orders (Using 'Price_Per_Unit')
+    // 6. Get Seller Orders
     public function getSellerOrders($seller_id) {
         $sql = "SELECT 
                     o.Order_ID, 
                     o.Order_Date, 
                     o.Order_Status, 
                     p.Product_Name, 
-                    od.Price_Per_Unit AS Price,  /* <--- FIXED: Aliasing it as Price for easier use */
+                    od.Price_Per_Unit AS Price,  
                     od.Quantity,    
                     (od.Price_Per_Unit * od.Quantity) as Line_Total
                 FROM Order_Details od
@@ -114,13 +114,12 @@ class OrderModel {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // 9. Get Order Items (Fixed Column Name)
+    // 9. Get Order Items 
     public function getOrderItems($order_id) {
-        // CHANGED: p.Image -> p.Product_Image
         $sql = "SELECT 
                     od.*, 
                     p.Product_Name, 
-                    p.Product_Image, /* <--- Fixed this column name */
+                    p.Product_Image, 
                     s.Seller_Name 
                 FROM Order_Details od 
                 JOIN Product p ON od.Product_ID = p.Product_ID 

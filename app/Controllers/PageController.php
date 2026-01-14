@@ -1,33 +1,31 @@
 <?php
 require_once __DIR__ . '/../Config/Database.php';
-require_once __DIR__ . '/../Models/PageModel.php'; // <--- ADDED THIS
+require_once __DIR__ . '/../Models/PageModel.php'; 
 
 class PageController {
     
-    // --- ADDED PROPERTIES ---
     private $db;
     private $pageModel;
 
-    // --- ADDED CONSTRUCTOR ---
     public function __construct() {
         $database = new Database();
         $this->db = $database->getConnection();
         $this->pageModel = new PageModel($this->db);
     }
     
-    // 1. About Us Page (KEPT)
+    // 1. About Us Page
     public function about() {
         if (session_status() === PHP_SESSION_NONE) session_start();
         require_once __DIR__ . '/../Views/Pages/about_us.php';
     }
 
-    // 2. Contact Us Page (KEPT)
+    // 2. Contact Us Page
     public function contact() {
         if (session_status() === PHP_SESSION_NONE) session_start();
         require_once __DIR__ . '/../Views/Pages/contact_us.php';
     }
 
-    // --- NEW: Handle Contact Form Submission ---
+
     public function submitContact() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'] ?? '';
@@ -36,29 +34,29 @@ class PageController {
             $message = $_POST['message'] ?? '';
 
             if($this->pageModel->saveContactMessage($name, $email, $subject, $message)) {
-                // Success: Redirect with success flag
+            
                 header("Location: index.php?page=contact&success=1");
             } else {
-                // Error: Redirect with error flag
+               
                 header("Location: index.php?page=contact&error=1");
             }
             exit();
         }
     }
 
-    // 3. Terms & Conditions (KEPT)
+    // 3. Terms & Conditions
     public function terms() {
         if (session_status() === PHP_SESSION_NONE) session_start();
         require_once __DIR__ . '/../Views/Pages/terms.php';
     }
 
-    // 4. Privacy Policy (KEPT)
+    // 4. Privacy Policy
     public function privacy() {
         if (session_status() === PHP_SESSION_NONE) session_start();
         require_once __DIR__ . '/../Views/Pages/privacy.php';
     }
 
-    // 5. Seller Feedback Form View (KEPT)
+    // 5. Seller Feedback Form View
     public function feedback() {
         if (session_status() === PHP_SESSION_NONE) session_start();
         
@@ -71,12 +69,11 @@ class PageController {
         require_once __DIR__ . '/../Views/Seller/feedback.php';
     }
 
-    // --- NEW: Handle Feedback Submission ---
+    // 6. Handle Seller Feedback Form Submission
     public function submitFeedback() {
         if (session_status() === PHP_SESSION_NONE) session_start();
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Determine User Type automatically based on session
             $user_id = null;
             $user_type = 'Guest';
 
@@ -92,7 +89,6 @@ class PageController {
             $message = $_POST['message'] ?? '';
 
             if($this->pageModel->saveFeedback($user_id, $user_type, $subject, $message)) {
-                // Redirect back to the feedback page (or seller dashboard)
                 header("Location: index.php?page=seller_feedback&success=1");
             } else {
                 header("Location: index.php?page=seller_feedback&error=1");

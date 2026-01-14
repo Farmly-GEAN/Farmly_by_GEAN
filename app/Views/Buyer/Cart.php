@@ -54,7 +54,7 @@
                     <?php foreach ($cartItems as $item): ?>
                         
                     <?php 
-                        // SAFETY: Handle lowercase/uppercase keys from DB
+                        // Handle lowercase/uppercase keys from DB
                         $name = $item['product_name'] ?? $item['Product_Name'];
                         $price = $item['price'] ?? $item['Price'];
                         $qty = $item['quantity'] ?? $item['Quantity'];

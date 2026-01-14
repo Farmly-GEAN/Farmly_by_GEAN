@@ -15,10 +15,10 @@ class ProductModel {
                        p.Product_Image as product_image, 
                        p.Stocks_Available as stocks_available, 
                        c.Category_Name,
-                       s.Seller_Name as seller_name  /* <--- ADDED THIS */
+                       s.Seller_Name as seller_name  
                 FROM Product p
                 LEFT JOIN Category c ON p.Category_ID = c.Category_ID
-                LEFT JOIN Seller s ON p.Seller_ID = s.Seller_ID /* <--- ADDED JOIN */
+                LEFT JOIN Seller s ON p.Seller_ID = s.Seller_ID 
                 ORDER BY p.Product_ID DESC";
         
         $stmt = $this->conn->prepare($sql);
@@ -64,7 +64,7 @@ class ProductModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // 4. Check Stock (KEPT THIS ONE, REMOVED DUPLICATE AT BOTTOM)
+    // 4. Check Stock 
     public function getStock($product_id) {
         $sql = "SELECT Stocks_Available FROM Product WHERE Product_ID = :pid";
         $stmt = $this->conn->prepare($sql);
@@ -193,7 +193,7 @@ class ProductModel {
         ]);
     }
 
-    // 14. Get Reviews for a Product (Renamed from getProductReviews to match Controller)
+    // 14. Get Reviews for a Product 
     public function getReviews($product_id) {
         $sql = "SELECT r.*, b.Name as Buyer_Name 
                 FROM Reviews r 
@@ -213,7 +213,7 @@ class ProductModel {
         return $stmt->rowCount() > 0;
     }
 
-    // 16. Get Seller Reviews (RESTORED - Needed for Seller Dashboard)
+    // 16. Get Seller Reviews
     public function getSellerReviews($seller_id) {
         $sql = "SELECT 
                     r.*, 
@@ -275,5 +275,5 @@ class ProductModel {
         return $stmt->execute($params);
     }
 
-} // End of Class
+} 
 ?>

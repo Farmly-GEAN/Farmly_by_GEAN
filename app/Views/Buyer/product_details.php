@@ -156,7 +156,6 @@
     </div>
 
     <script>
-        // Image Gallery Switcher
         function changeImage(element) {
             var newSrc = element.src;
             var mainImg = document.getElementById("currentImage");
@@ -165,17 +164,13 @@
             element.classList.add("active");
         }
 
-        // Smart Back Button Logic
         function goBack() {
-            // Check if user came from 'my_orders' page
             if (document.referrer.indexOf('page=my_orders') !== -1) {
                 window.location.href = 'index.php?page=my_orders';
             } 
-            // Check if user came from 'cart'
             else if (document.referrer.indexOf('page=cart') !== -1) {
                 window.location.href = 'index.php?page=cart';
             }
-            // Default fallback to Home
             else {
                 window.location.href = 'index.php?page=home';
             }

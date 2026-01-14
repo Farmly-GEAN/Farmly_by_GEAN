@@ -7,7 +7,7 @@ class BuyerModel {
         $this->conn = $db;
     }
 
-    // 1. Find a buyer by email (Used for Login & Registration check)
+    // 1. Find a buyer by email
     public function getBuyerByEmail($email) {
         $query = "SELECT * FROM " . $this->table_name . " WHERE Buyer_Email = :email LIMIT 1";
         $stmt = $this->conn->prepare($query);
@@ -16,7 +16,7 @@ class BuyerModel {
         return $stmt->fetch();
     }
 
-    // 2. Create a new buyer (Used for Registration)
+    // 2. Create a new buyer 
     public function createBuyer($name, $email, $phone, $address, $password, $gender, $state, $city) {
         $sql = "INSERT INTO " . $this->table_name . " 
                 (Buyer_Name, Buyer_Email, Buyer_Phone, Buyer_Address, Buyer_Password, Gender, State, City) 
@@ -24,7 +24,6 @@ class BuyerModel {
         
         $stmt = $this->conn->prepare($sql);
         
-        // Securely bind parameters
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':phone', $phone);
@@ -34,7 +33,6 @@ class BuyerModel {
         $stmt->bindParam(':state', $state);
         $stmt->bindParam(':city', $city);
 
-        // Execute and return true/false
         if($stmt->execute()){
             return true;
         }

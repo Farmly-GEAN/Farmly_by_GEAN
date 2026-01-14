@@ -27,7 +27,7 @@
             <h2>Edit Product</h2>
 
             <?php
-                // Handle ALL keys safely (Upper/Lower case)
+                
                 $p_id    = $product['Product_ID'] ?? $product['product_id'];
                 $p_name  = $product['Product_Name'] ?? $product['product_name'];
                 $p_cat   = $product['Category_Name'] ?? $product['category_name'] ?? '';

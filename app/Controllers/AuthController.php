@@ -1,5 +1,5 @@
 <?php
-// Adjust paths to go up one level to 'app' then down to Config/Models
+
 require_once __DIR__ . '/../Config/Database.php';
 require_once __DIR__ . '/../Models/BuyerModel.php';
 
@@ -13,12 +13,12 @@ class AuthController {
             $email = $_POST['email'];
             $password = $_POST['password'];
 
-            // Connect
+           
             $database = new Database();
             $db = $database->getConnection();
             $buyerModel = new BuyerModel($db);
 
-            // Find User
+           
             $user = $buyerModel->getBuyerByEmail($email);
 
             if ($user && password_verify($password, $user['buyer_password'])) {
@@ -34,7 +34,7 @@ class AuthController {
             }
         }
 
-        // Load the View (Make sure the dot . is here!)
+        
         require_once __DIR__ . '/../Views/Buyer/login.php';
     }
 
@@ -43,7 +43,7 @@ class AuthController {
         $message = "";
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // 1. Collect Form Data
+            
             $name = $_POST['full_name'];
             $email = $_POST['email'];
             $phone = $_POST['phone'];
@@ -54,7 +54,7 @@ class AuthController {
             $password = $_POST['password'];
             $confirmPass = $_POST['confirm_password'];
 
-            // 2. Validation
+            
             if ($password !== $confirmPass) {
                 $message = "Passwords do not match!";
             } else {
@@ -62,15 +62,15 @@ class AuthController {
                 $db = $database->getConnection();
                 $buyerModel = new BuyerModel($db);
 
-                // 3. Check if email already exists
+                
                 if ($buyerModel->getBuyerByEmail($email)) {
                     $message = "Email is already registered!";
                 } else {
-                    // 4. Create User
+                   
                     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
                     
                     if ($buyerModel->createBuyer($name, $email, $phone, $address, $hashed_password, $gender, $state, $city)) {
-                        // Redirect to Login on Success
+                        
                         header("Location: index.php?page=login&msg=registered");
                         exit();
                     } else {
@@ -80,27 +80,27 @@ class AuthController {
             }
         }
 
-        // Load the View (Make sure the dot . is here!)
+        
         require_once __DIR__ . '/../Views/Buyer/register.php';
     }
 
-    // --- NEW LOGOUT LOGIC ---
+   
     public function logout() {
         if (session_status() === PHP_SESSION_NONE) session_start();
         $_SESSION = [];
         session_destroy();
 
-        // BUYER goes to Landing Page
+        
         header("Location: index.php?page=landing");
         exit();
     }
 
-    // Show Forgot Password Form
+   
     public function forgotPassword() {
         require_once __DIR__ . '/../Views/Buyer/forgot_password.php';
     }
 
-    // Process Reset
+   
     public function processResetPassword() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = $_POST['email'];
@@ -113,15 +113,9 @@ class AuthController {
                 return;
             }
 
-            // Load Model
-            $userModel = new UserModel($this->db); // Ensure $this->db is available in constructor
-            
-            // Hash the password (Recommended)
-            // If your login uses password_verify, use this. 
-            // If your login uses plain text, remove password_hash.
-            // $hashed_pass = password_hash($pass1, PASSWORD_DEFAULT); 
-            
-            // USING PLAIN TEXT FOR NOW TO MATCH YOUR PREVIOUS LOGIN CODE PATTERNS:
+           
+            $userModel = new UserModel($this->db); 
+          
             $result = $userModel->updatePasswordByEmail($email, $pass1);
 
             if ($result) {

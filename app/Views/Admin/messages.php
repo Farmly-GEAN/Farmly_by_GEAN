@@ -27,6 +27,7 @@
         
         .empty-state { padding: 20px; text-align: center; color: #777; font-style: italic; }
     </style>
+    <link rel="stylesheet" href="assets/CSS/Admin.css">
 </head>
 <body>
 

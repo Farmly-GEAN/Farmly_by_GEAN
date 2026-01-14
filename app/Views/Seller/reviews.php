@@ -36,10 +36,10 @@
             <?php if (!empty($reviews)): ?>
                 <?php foreach ($reviews as $review): ?>
                     <?php 
-                        // 1. ROBUST KEY CHECK (Try all variations)
+                        
                         $rating = $review['Rating'] ?? $review['rating'] ?? 5;
                         
-                        // Try to find the comment in 'Comment', 'comment', 'Review_Text', 'review_text', etc.
+                        
                         $r_text = $review['Comment'] 
                                ?? $review['comment'] 
                                ?? $review['Review_Text'] 
@@ -51,7 +51,6 @@
                         $r_date = $review['Review_Date'] ?? $review['review_date'] ?? date('Y-m-d');
                         $b_name = $review['Buyer_Name'] ?? $review['buyer_name'] ?? 'Anonymous';
 
-                        // Generate Stars
                         $stars = str_repeat("★", $rating) . str_repeat("☆", 5 - $rating);
                     ?>
                     <div class="review-card rating-<?php echo $rating; ?>">

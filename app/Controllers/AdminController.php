@@ -7,7 +7,7 @@ require_once __DIR__ . '/../Models/OrderModel.php';
 require_once __DIR__ . '/../Models/PageModel.php';
 
 class AdminController {
-    // 1. Define Properties
+   
     private $db;
     private $userModel;
     private $sellerModel;
@@ -16,7 +16,7 @@ class AdminController {
     private $pageModel;
 
     public function __construct() {
-        // 2. Initialize Database and Models
+        
         $database = new Database();
         $this->db = $database->getConnection();
         
@@ -31,9 +31,9 @@ class AdminController {
         }
     }
 
-    // ========================
+    
     // 1. AUTHENTICATION
-    // ========================
+    
 
         public function login() {
         if (session_status() === PHP_SESSION_NONE) session_start();
@@ -83,7 +83,7 @@ class AdminController {
         exit();
     }
 
-    // Helper: Check if User is Admin
+    // Check Admin Authentication
     private function checkAdminAuth() {
         if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
             header("Location: index.php?page=admin_login");
@@ -91,57 +91,56 @@ class AdminController {
         }
     }
 
-    // ========================
+    
     // 2. DASHBOARD
-    // ========================
+    
 
    public function dashboard() {
         $this->checkAdminAuth();
         
-        // 1. Count Sellers
+       
         $stmt = $this->db->query("SELECT COUNT(*) FROM Seller");
         $sellerCount = $stmt->fetchColumn();
 
-        // 2. Count Buyers (Users)
+        
         $stmt = $this->db->query("SELECT COUNT(*) FROM Buyer"); 
         $buyerCount = $stmt->fetchColumn();
 
-        // 3. Count Products
+        
         $stmt = $this->db->query("SELECT COUNT(*) FROM Product");
         $productCount = $stmt->fetchColumn();
 
-        // 4. Count Orders
+        
         $stmt = $this->db->query("SELECT COUNT(*) FROM Orders");
         $orderCount = $stmt->fetchColumn();
 
-        // 5. Calculate Revenue
-        // Ensure 'Total_Amount' matches your database column. If it crashes, try 'Total_Price'.
+       
         $stmt = $this->db->query("SELECT SUM(Total_Amount) FROM Orders");
         $revenue = $stmt->fetchColumn();
 
-        // 6. Prepare Data (Adding ALL variations to fix errors)
+      
         $stats = [
-            // Standard Keys
+            
             'total_sellers'  => $sellerCount,
             'total_orders'   => $orderCount,
             'total_products' => $productCount,
 
-            // Fix for Line 51 (Active Users)
-            'active_users'   => $buyerCount,  // <--- This fixes the "Active Users" error
-            'total_users'    => $buyerCount,  // Backup key
-            'total_buyers'   => $buyerCount,  // Backup key
+            
+            'active_users'   => $buyerCount,  
+            'total_users'    => $buyerCount,  
+            'total_buyers'   => $buyerCount,  
 
-            // Fix for Line 35 (Revenue)
-            'total_revenue'  => $revenue ?? 0, // <--- This fixes the "Revenue" error
-            'revenue'        => $revenue ?? 0  // Backup key
+            
+            'total_revenue'  => $revenue ?? 0, 
+            'revenue'        => $revenue ?? 0  
         ];
 
         require_once __DIR__ . '/../Views/Admin/dashboard.php';
     }
 
-    // ========================
+  
     // 3. MANAGE SELLERS
-    // ========================
+   
 
     public function manageSellers() {
         $this->checkAdminAuth();
@@ -167,13 +166,13 @@ class AdminController {
         exit();
     }
 
-    // ========================
+
     // 4. MANAGE BUYERS
-    // ========================
+
 
     public function manageBuyers() {
         $this->checkAdminAuth();
-        // FIXED: Using 'Buyer' table
+        
         $stmt = $this->db->query("SELECT * FROM Buyer"); 
         $buyers = $stmt->fetchAll(PDO::FETCH_ASSOC);
         require_once __DIR__ . '/../Views/Admin/manage_buyers.php';
@@ -184,7 +183,7 @@ class AdminController {
 
         if (isset($_GET['id'])) {
             $buyer_id = $_GET['id'];
-            // FIXED: Using 'Buyer' table and 'Buyer_ID' column
+            
             $stmt = $this->db->prepare("DELETE FROM Buyer WHERE Buyer_ID = :id");
             if ($stmt->execute([':id' => $buyer_id])) {
                 header("Location: index.php?page=admin_buyers&success=Buyer deleted successfully");
@@ -197,9 +196,9 @@ class AdminController {
         exit();
     }
 
-    // ========================
+
     // 5. MANAGE PRODUCTS
-    // ========================
+ 
 
     public function manageProducts() {
         $this->checkAdminAuth();
@@ -224,9 +223,9 @@ class AdminController {
         exit();
     }
 
-    // ========================
+
     // 6. MANAGE ORDERS
-    // ========================
+
     
     public function orders() {
         $this->checkAdminAuth();
@@ -235,14 +234,14 @@ class AdminController {
         require_once __DIR__ . '/../Views/Admin/all_orders.php';
     }
 
-    // ========================
+
     // 7. VIEW MESSAGES
-    // ========================
+
 
     public function viewMessages() {
         $this->checkAdminAuth();
 
-        // Use PageModel to get data
+      
         $contacts = $this->pageModel->getAllContactMessages();
         $feedbacks = $this->pageModel->getAllFeedbacks();
 

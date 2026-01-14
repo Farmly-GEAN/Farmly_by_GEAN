@@ -41,12 +41,10 @@
     </header>
 
 <?php
-    // Safe Key Handling for Order Info
     $o_id     = $order['Order_ID'] ?? $order['order_id'];
     $o_date   = $order['Order_Date'] ?? $order['order_date'];
     $o_status = $order['Status'] ?? $order['status'] ?? $order['Order_Status'] ?? $order['order_status'];
     $o_total  = $order['Total_Amount'] ?? $order['total_amount'];
-    // Handle Address (check if it exists, otherwise default)
     $o_addr   = $order['Shipping_Address'] ?? $order['shipping_address'] ?? $order['Delivery_Address'] ?? 'Pickup / As per record';
 ?>
 
@@ -83,7 +81,6 @@
                     $p_name = $item['Product_Name'] ?? $item['product_name'] ?? 'Unknown Item';
                     $p_id   = $item['Product_ID'] ?? $item['product_id'] ?? 0;
                     
-                    // --- FIX: ADDED Price_Per_Unit CHECK ---
                     $price  = $item['Price_Per_Unit'] ?? $item['price_per_unit'] ?? $item['Price'] ?? $item['price'] ?? 0;
                     
                     $qty    = $item['Quantity'] ?? $item['quantity'] ?? 1;

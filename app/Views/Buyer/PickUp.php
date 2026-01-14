@@ -86,7 +86,7 @@
     <div class="details-container">
         
         <div class="location-box">
-            <h4>📍 Pickup Location:</h4>
+            <h4>Pickup Location:</h4>
             <p><strong><?php echo htmlspecialchars($seller_name); ?></strong></p>
             <p><?php echo htmlspecialchars($seller_address); ?></p>
         </div>
@@ -127,8 +127,8 @@
             <div class="form-group">
                 <label>Payment Method</label>
                 <div class="radio-group">
-                    <label><input type="radio" name="payment_method" value="Online Payment" required> 💳 Online Payment</label>
-                    <label><input type="radio" name="payment_method" value="Pay at Store"> 🏪 Pay at Store</label>
+                    <label><input type="radio" name="payment_method" value="Online Payment" required>Online Payment</label>
+                    <label><input type="radio" name="payment_method" value="Pay at Store">Pay at Store</label>
                 </div>
             </div>
 

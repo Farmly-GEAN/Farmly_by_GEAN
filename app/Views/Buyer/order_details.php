@@ -71,8 +71,6 @@
 <body>
 
   <?php 
-    // The Controller sends $totalPrice as the FINAL amount (including shipping).
-    // We calculate subtotal backward for display purposes.
     $shippingCost = ($method === 'Home Delivery') ? 5.00 : 0.00;
     $subTotal = $totalPrice - $shippingCost;
   ?>

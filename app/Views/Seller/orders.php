@@ -59,7 +59,6 @@
             <?php if (!empty($orders)): ?>
                 <?php foreach ($orders as $order): ?>
                     <?php 
-                        // Data Extraction
                         $o_id     = $order['Order_ID'] ?? $order['order_id'];
                         $o_date   = $order['Order_Date'] ?? $order['order_date'];
                         $o_status = $order['Status'] ?? $order['status'] ?? 'Pending';
@@ -71,14 +70,13 @@
                         $p_name   = $order['Product_Name'] ?? $order['product_name'] ?? 'Unknown Item';
                         $qty      = $order['Quantity'] ?? $order['quantity'] ?? 1;
 
-                        // Logistics Logic
                         $is_pickup = (stripos($ship_addr, 'Pickup') !== false);
                         if ($is_pickup) {
-                            $logistics_type = "📍 Customer Pickup";
+                            $logistics_type = "Customer Pickup";
                             $pickup_time = date("l, M d - 10:00 AM", strtotime($o_date . ' +1 day'));
                             $logistics_note = "Customer will arrive at farm location.";
                         } else {
-                            $logistics_type = "🚚 Courier Pickup";
+                            $logistics_type = "Courier Pickup";
                             $pickup_time = date("l, M d - 05:00 PM", strtotime($o_date));
                             $logistics_note = "Have package ready for 3rd party courier.";
                         }
@@ -106,7 +104,7 @@
                             <div class="info-group">
                                 <label>Customer Contact</label>
                                 <p><?php echo htmlspecialchars($b_name); ?></p>
-                                <p style="color: #27ae60; font-weight:bold;">📞 <?php echo htmlspecialchars($b_phone); ?></p>
+                                <p style="color: #27ae60; font-weight:bold;"><?php echo htmlspecialchars($b_phone); ?></p>
                             </div>
                             <div class="info-group">
                                 <label>Shipping Address</label>

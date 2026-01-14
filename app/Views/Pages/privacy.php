@@ -21,7 +21,7 @@ $footerFile = $isSeller ? __DIR__ . '/../Seller/Seller_Footer.php' : __DIR__ . '
         }
         .page-title { text-align: center; color: #2c3e50; margin-bottom: 40px; border-bottom: 2px solid #eee; padding-bottom: 20px; }
         
-        h3 { color: #27ae60; margin-top: 30px; }
+        h3 { color: black; font-weight: bold; margin-top: 30px; }
         p { line-height: 1.6; color: #555; margin-bottom: 15px; }
 
         /* Header Link Style */
@@ -45,7 +45,7 @@ $footerFile = $isSeller ? __DIR__ . '/../Seller/Seller_Footer.php' : __DIR__ . '
         <p>At Farmly, we value your privacy. This policy explains how we collect, use, and protect your personal information.</p>
 
         <h3>1. Information We Collect</h3>
-        <p>We collect information you provide directly to us, such as your name, email address, phone number, and delivery address when you register or place an order.</p>
+        <p>The information we are collecting thaty are Name, Email, Phone Number, and Address.</p>
 
         <h3>2. How We Use Your Information</h3>
         <p>We use your data to:</p>
@@ -59,7 +59,7 @@ $footerFile = $isSeller ? __DIR__ . '/../Seller/Seller_Footer.php' : __DIR__ . '
         <p>We share your delivery details (Name, Address, Phone) with the specific <strong>Seller</strong> fulfilling your order so they can complete the delivery. We do not sell your data to third-party advertisers.</p>
 
         <h3>4. Security</h3>
-        <p>We implement security measures to protect your personal information. However, no internet transmission is completely secure.</p>
+        <p>We implement security measures to protect your personal information.</p>
 
         <h3>5. Contact Us</h3>
         <p>If you have questions about this policy, please reach out via our Contact Us page.</p>

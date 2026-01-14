@@ -43,14 +43,13 @@
                     <?php foreach ($orders as $o): ?>
                     
                     <?php 
-                        // SAFETY CHECK: Handle DB Case Sensitivity
                         $o_id     = $o['Order_ID'] ?? $o['order_id'];
                         $b_name   = $o['Buyer_Name'] ?? $o['buyer_name'] ?? 'Unknown';
                         $o_amount = $o['Total_Amount'] ?? $o['total_amount'];
                         $o_date   = $o['Order_Date'] ?? $o['order_date'];
                         $o_status = $o['Order_Status'] ?? $o['order_status'] ?? 'Pending';
                         
-                        // Badge Logic
+        
                         $badgeClass = 'status-pending';
                         if(stripos($o_status, 'Shipped') !== false) $badgeClass = 'status-shipped';
                         if(stripos($o_status, 'Delivered') !== false) $badgeClass = 'status-delivered';

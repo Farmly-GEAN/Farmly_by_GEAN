@@ -6,9 +6,9 @@ class SellerModel {
         $this->conn = $db;
     }
 
-    // ==========================================
+  
     // AUTHENTICATION FUNCTIONS
-    // ==========================================
+   
 
     // 1. Register Seller
     public function registerSeller($name, $email, $phone, $password, $address) {
@@ -17,7 +17,7 @@ class SellerModel {
         $stmt->execute([':email' => $email]);
         
         if ($stmt->fetch()) {
-            return false; // Email already exists
+            return false; 
         }
 
         // Hash Password
@@ -44,7 +44,7 @@ class SellerModel {
         $seller = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($seller) {
-            // ROBUST PASSWORD CHECK: Look for 'Seller_Password', 'seller_password', 'Password', or 'password'
+            
             $db_password = $seller['Seller_Password'] 
                         ?? $seller['seller_password'] 
                         ?? $seller['Password'] 
@@ -58,9 +58,9 @@ class SellerModel {
         return false;
     }
 
-    // ==========================================
+   
     // DASHBOARD STATS FUNCTIONS
-    // ==========================================
+    
 
     // 3. Get Total Earnings
     public function getTotalEarnings($seller_id) {
@@ -94,9 +94,9 @@ class SellerModel {
         return $stmt->fetchColumn();
     }
 
-    // ==========================================
+  
     // PROFILE & REVIEWS FUNCTIONS
-    // ==========================================
+    
 
     // 6. Get Seller Profile
     public function getSellerById($id) {
@@ -126,7 +126,6 @@ class SellerModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Update Password by Email
     public function updatePasswordByEmail($email, $new_password) {
         $checkSql = "SELECT Seller_ID FROM Seller WHERE Email = :email";
         $stmt = $this->db->prepare($checkSql);
