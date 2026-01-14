@@ -32,11 +32,11 @@
 
         <?php if(isset($_GET['success'])): ?>
             <p style="background:#d4edda; color:#155724; padding:10px; border-radius:5px; margin-bottom:20px;">
-                ✅ <?php echo htmlspecialchars($_GET['success']); ?>
+                <?php echo htmlspecialchars($_GET['success']); ?>
             </p>
         <?php elseif(isset($_GET['error'])): ?>
             <p style="background:#f8d7da; color:#721c24; padding:10px; border-radius:5px; margin-bottom:20px;">
-                ❌ <?php echo htmlspecialchars($_GET['error']); ?>
+            <?php echo htmlspecialchars($_GET['error']); ?>
             </p>
         <?php endif; ?>
 
@@ -55,7 +55,6 @@
                     <?php foreach ($sellers as $s): ?>
                     
                     <?php 
-                        // SAFETY CHECK: Handle Case Sensitivity (Seller_ID vs seller_id)
                         $s_id    = $s['Seller_ID'] ?? $s['seller_id'] ?? $s['id'] ?? 'N/A';
                         $s_name  = $s['Seller_Name'] ?? $s['seller_name'] ?? 'Unknown';
                         $s_email = $s['Seller_Email'] ?? $s['seller_email'] ?? 'No Email';

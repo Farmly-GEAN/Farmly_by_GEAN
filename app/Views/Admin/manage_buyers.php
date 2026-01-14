@@ -52,7 +52,7 @@
                     <?php foreach ($buyers as $b): ?>
                     
                     <?php 
-                        // FIX: Handle Case Sensitivity (Check both Upper & Lower case keys)
+                        
                         $b_id    = $b['Buyer_ID'] ?? $b['buyer_id'] ?? $b['id'] ?? 'N/A';
                         $b_name  = $b['Buyer_Name'] ?? $b['buyer_name'] ?? 'Unknown';
                         $b_email = $b['Buyer_Email'] ?? $b['buyer_email'] ?? 'No Email';
