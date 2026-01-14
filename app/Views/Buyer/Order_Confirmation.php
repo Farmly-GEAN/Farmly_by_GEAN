@@ -47,6 +47,6 @@
         </button>
       </div>
     </div>
-    <?php include 'Footer.php'; ?>
+    <?php include __DIR__ . '/Buyer_Footer.php'; ?>
   </body>
 </html>

@@ -1,0 +1,488 @@
+/* ==========================================================================
+   1. RESET & GLOBAL STYLES
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #f8f9fa;
+  font-family: "Segoe UI", "Roboto", Helvetica, Arial, sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* --- CRITICAL FIX: PREVENTS GIANT IMAGES OVERLAPPING UI --- */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* --- Main Layout Wrapper --- */
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Content Wrapper (Sidebar + Main Area) --- */
+.content {
+  display: flex;
+  flex: 1;
+  margin-top: 0;
+  /* This ensures the sidebar and main content fill the screen height */
+  min-height: calc(100vh - 70px);
+}
+
+/* --- Main Content Area --- */
+.main {
+  flex: 1;
+  padding: 40px;
+  background-color: #f8f9fa;
+  overflow-y: auto;
+}
+
+/* --- Section Headings --- */
+.main h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: #2c3e50;
+  border-bottom: none;
+  position: relative;
+  padding-left: 15px;
+}
+
+.main h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 5px;
+  bottom: 5px;
+  width: 5px;
+  background: #27ae60;
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   2. HEADER STYLES
+   ========================================================================== */
+header {
+  height: 70px;
+  background: white;
+  padding: 0 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eaeaea;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  z-index: 10;
+  position: relative; /* Ensures header stays on top */
+}
+
+.logo img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #555;
+  font-weight: 600;
+  padding: 5px 15px; /* Reduced padding */
+  border-radius: 30px;
+  background: #f1f1f1;
+  transition: 0.3s;
+}
+
+/* CRITICAL: Force Header Image Size via CSS too */
+.profile-btn img {
+  width: 35px !important;
+  height: 35px !important;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-btn:hover {
+  background-color: #e8f5e9;
+  color: #27ae60;
+}
+
+.logout {
+  text-decoration: none;
+  font-weight: 600;
+  color: #e74c3c;
+  font-size: 14px;
+  padding: 8px 15px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+.logout:hover {
+  background: #fff5f5;
+  border-color: #ffcccc;
+}
+/* ==========================================================================
+   3. SIDEBAR STYLES
+   ========================================================================== */
+.sidebar {
+  width: 280px;
+  background-color: #ffffff;
+  border-right: 1px solid #eaeaea;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 20px;
+  flex-shrink: 0;
+  height: auto;
+  min-height: 100%;
+}
+
+/* --- SIDEBAR PROFILE (Mini Profile on Left) --- */
+/* Renamed to .sidebar-profile to avoid conflict with Main Profile Page */
+.sidebar-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 25px;
+  padding-left: 10px;
+}
+
+.sidebar-profile img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #27ae60;
+  margin-bottom: 15px;
+  padding: 2px;
+}
+
+.seller-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.seller-role {
+  font-size: 0.85rem;
+  color: #95a5a6;
+  margin-top: 2px;
+}
+
+/* --- Navigation Menu --- */
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: #666;
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  border-left: 4px solid transparent;
+}
+
+.nav-item:hover {
+  background-color: #f0f9f4;
+  color: #27ae60;
+  border-left-color: #27ae60;
+  transform: translateX(5px);
+  box-shadow: 0 4px 10px rgba(39, 174, 96, 0.05);
+}
+
+.nav-item.logout {
+  margin-top: auto;
+  color: #c0392b;
+  border-left: none;
+  background: #fff5f5;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.nav-item.logout:hover {
+  background-color: #c0392b;
+  color: white;
+  transform: none;
+  box-shadow: 0 4px 10px rgba(192, 57, 43, 0.2);
+}
+
+/* ==========================================================================
+   4. PRODUCT FORM STYLES (Only for Add/Edit Product)
+   ========================================================================== */
+.form {
+  background: #fff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+  border: 1px solid #f0f0f0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+
+.select-product {
+  flex: 1;
+  min-width: 320px;
+}
+
+.select-product label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 8px;
+  display: block;
+  margin-top: 20px;
+}
+
+.select-product input,
+.select-product select,
+.select-product textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #dde2e5;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: 0.2s;
+  background: #fff;
+  font-family: inherit;
+}
+
+.select-product input:focus,
+.select-product select:focus,
+.select-product textarea:focus {
+  border-color: #27ae60;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(39, 174, 96, 0.1);
+}
+
+/* Upload Box */
+.upload-image {
+  flex: 1;
+  min-width: 320px;
+}
+
+.upload-box {
+  border: 2px dashed #dce0e6;
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  background: #fafbfc;
+  transition: 0.3s;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.upload-box:hover {
+  border-color: #27ae60;
+  background: #f0f9f4;
+}
+
+.add-btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #27ae60;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: 0.3s;
+}
+
+.add-btn:hover {
+  background-color: #219150;
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   5. TABLE STYLES
+   ========================================================================== */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+  margin-top: 20px;
+}
+
+th {
+  background-color: #f8f9fa;
+  color: #666;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  padding: 18px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+td {
+  padding: 18px 20px;
+  border-bottom: 1px solid #f4f4f4;
+  color: #444;
+  vertical-align: middle;
+}
+
+.btn-delete {
+  background: #ffe5e5;
+  color: #c0392b;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: 0.2s;
+}
+
+.btn-delete:hover {
+  background: #c0392b;
+  color: white;
+}
+
+/* ==========================================================================
+   6. ORDER CARDS
+   ========================================================================== */
+.order-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  border: 1px solid #f0f0f0;
+  position: relative;
+}
+
+.order-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #27ae60;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #f8f8f8;
+}
+
+.status-form {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.status-select {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 8px 12px;
+  min-width: 150px;
+}
+
+.btn-update {
+  background: #2c3e50;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   7. MESSAGES (Alerts)
+   ========================================================================== */
+p[style*="color:green"] {
+  background: #e8f5e9;
+  color: #1b5e20 !important;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 5px solid #27ae60;
+}
+
+p[style*="color:red"] {
+  background: #ffebee;
+  color: #b71c1c !important;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 5px solid #c62828;
+}
+
+/* ==========================================================================
+   8. RESPONSIVE DESIGN
+   ========================================================================== */
+@media (max-width: 900px) {
+  .content {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 15px;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .nav-menu {
+    flex-direction: row;
+    gap: 5px;
+  }
+
+  /* Responsive adjustment for sidebar profile */
+  .sidebar-profile {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    margin-right: 20px;
+    border-right: 1px solid #eee;
+    padding-right: 20px;
+  }
+
+  .main {
+    padding: 20px;
+  }
+}
