@@ -22,15 +22,8 @@
         
         /* Rate Button */
         .btn-review {
-            display: inline-block;
-            text-decoration: none;
-            background: #f1c40f;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 5px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            transition: 0.2s;
+            display: inline-block; text-decoration: none; background: #f1c40f; color: white;
+            padding: 6px 12px; border-radius: 5px; font-size: 0.85rem; font-weight: bold; transition: 0.2s;
         }
         .btn-review:hover { background: #f39c12; }
     </style>
@@ -42,7 +35,7 @@
             <a href="index.php?page=home"><img src="assets/images/Logo/Team Logo.png" alt="Farmly Logo"></a>
         </div>
         <div class="header-links">
-            <a href="index.php?page=profile">Back to Orders</a>
+            <a href="index.php?page=my_orders">Back to Orders</a>
             <a href="index.php?page=home">Shop</a>
         </div>
     </header>
@@ -53,7 +46,8 @@
     $o_date   = $order['Order_Date'] ?? $order['order_date'];
     $o_status = $order['Status'] ?? $order['status'] ?? $order['Order_Status'] ?? $order['order_status'];
     $o_total  = $order['Total_Amount'] ?? $order['total_amount'];
-    $o_addr   = $order['Delivery_Address'] ?? $order['delivery_address'] ?? 'Pickup / As per record';
+    // Handle Address (check if it exists, otherwise default)
+    $o_addr   = $order['Shipping_Address'] ?? $order['shipping_address'] ?? $order['Delivery_Address'] ?? 'Pickup / As per record';
 ?>
 
 <div class="receipt-container">
@@ -86,12 +80,11 @@
         <tbody>
             <?php foreach($items as $item): ?>
                 <?php 
-                    // Safely Get Product Details
                     $p_name = $item['Product_Name'] ?? $item['product_name'] ?? 'Unknown Item';
                     $p_id   = $item['Product_ID'] ?? $item['product_id'] ?? 0;
                     
-                    // CHECK ALL POSSIBLE PRICE KEYS
-                    $price  = $item['Price'] ?? $item['price'] ?? $item['Item_Price'] ?? $item['item_price'] ?? 0;
+                    // --- FIX: ADDED Price_Per_Unit CHECK ---
+                    $price  = $item['Price_Per_Unit'] ?? $item['price_per_unit'] ?? $item['Price'] ?? $item['price'] ?? 0;
                     
                     $qty    = $item['Quantity'] ?? $item['quantity'] ?? 1;
                 ?>
@@ -125,6 +118,8 @@
         <button onclick="window.print()" style="padding: 10px 20px; background: #333; color: white; border: none; cursor: pointer;">Print Receipt</button>
     </div>
 </div>
+
+<?php include __DIR__ . '/Buyer_Footer.php'; ?>
 
 </body>
 </html>

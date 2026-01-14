@@ -94,5 +94,43 @@ class AuthController {
         header("Location: index.php?page=landing");
         exit();
     }
+
+    // Show Forgot Password Form
+    public function forgotPassword() {
+        require_once __DIR__ . '/../Views/Buyer/forgot_password.php';
+    }
+
+    // Process Reset
+    public function processResetPassword() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_POST['email'];
+            $pass1 = $_POST['new-password'];
+            $pass2 = $_POST['confirm-password'];
+
+            if ($pass1 !== $pass2) {
+                $error = "Passwords do not match!";
+                require_once __DIR__ . '/../Views/Buyer/forgot_password.php';
+                return;
+            }
+
+            // Load Model
+            $userModel = new UserModel($this->db); // Ensure $this->db is available in constructor
+            
+            // Hash the password (Recommended)
+            // If your login uses password_verify, use this. 
+            // If your login uses plain text, remove password_hash.
+            // $hashed_pass = password_hash($pass1, PASSWORD_DEFAULT); 
+            
+            // USING PLAIN TEXT FOR NOW TO MATCH YOUR PREVIOUS LOGIN CODE PATTERNS:
+            $result = $userModel->updatePasswordByEmail($email, $pass1);
+
+            if ($result) {
+                header("Location: index.php?page=login&success=password_reset");
+            } else {
+                $error = "Email not found.";
+                require_once __DIR__ . '/../Views/Buyer/forgot_password.php';
+            }
+        }
+    }
 }
 ?>

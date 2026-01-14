@@ -47,7 +47,7 @@
                 <a href="index.php?page=seller_register">Register New Shop</a>
             </div>
             <div class="forgot">
-                <a href="#">Forgot Password?</a>
+                <a href="index.php?page=seller_forgot_password">Forgot Password?</a>
             </div>
         </div>
     </section>

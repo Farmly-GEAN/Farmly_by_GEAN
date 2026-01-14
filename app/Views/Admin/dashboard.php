@@ -30,13 +30,13 @@
 
         <div class="stats-grid">
             
-            <div class="stat-card stat-sales">
+            <!-- <div class="stat-card stat-sales">
                 <div class="stat-info">
                     <h3>$<?php echo number_format($stats['total_sales'], 2); ?></h3>
                     <p>Total Revenue</p>
                 </div>
                 <div class="stat-icon" style="color: #27ae60;">💰</div>
-            </div>
+            </div> -->
 
             <div class="stat-card stat-orders">
                 <div class="stat-info">

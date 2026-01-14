@@ -50,6 +50,7 @@
         .btn-view:hover { background: #f7ca00; }
         
         .btn-receipt { font-size: 0.85rem; color: #007185; text-decoration: none; margin-top: 5px; text-align: right; }
+        .btn-receipt:hover { text-decoration: underline; color: #c7511f; }
         
         @media (max-width: 768px) { .card-header { flex-direction: column; gap: 10px; } .product-row { flex-direction: column; } .p-actions { width: 100%; flex-direction: row; } }
     </style>
@@ -83,7 +84,8 @@
             <?php foreach ($orders as $order): ?>
                 <?php 
                     $o_id = $order['Order_ID'] ?? $order['order_id'];
-                    $o_status = $order['Status'] ?? $order['status'] ?? $order['Order_Status'] ?? $order['order_status'];
+                    // Logic to handle Order_Status or Status
+                    $o_status = $order['Order_Status'] ?? $order['order_status'] ?? $order['Status'] ?? 'Pending';
                     $o_date = date("F j, Y", strtotime($order['Order_Date'] ?? $order['order_date']));
                     $o_total = number_format($order['Total_Amount'] ?? $order['total_amount'], 2);
                     
@@ -105,7 +107,7 @@
                             <div class="header-col">
                                 <span class="label">SHIP TO</span>
                                 <span class="value link" style="color:#007185; cursor:pointer;">
-                                    <?php echo htmlspecialchars($_SESSION['user_name']); ?>
+                                    <?php echo htmlspecialchars($_SESSION['user_name'] ?? 'Customer'); ?>
                                 </span>
                             </div>
                         </div>
@@ -125,9 +127,10 @@
                                 <?php
                                     $p_id = $item['Product_ID'] ?? $item['product_id'];
                                     $p_name = $item['Product_Name'] ?? $item['product_name'] ?? 'Item';
-                                    $p_img = $item['Product_Image'] ?? $item['product_image'];
-                                    $seller_name = $item['Seller_Name'] ?? $item['seller_name'] ?? 'Unknown Seller'; // SHOWING NAME NOW
-                                    $price = $item['Price'] ?? $item['price'] ?? $item['Item_Price'] ?? $item['item_price'] ?? 0;
+                                    $p_img = $item['Product_Image'] ?? $item['product_image'] ?? 'assets/images/default.png';
+                                    $seller_name = $item['Seller_Name'] ?? $item['seller_name'] ?? 'Farmly Seller';
+                                    // Handle Price or Price_Per_Unit
+                                    $price = $item['Price_Per_Unit'] ?? $item['price_per_unit'] ?? $item['Price'] ?? 0;
                                 ?>
                                 <div class="product-row">
                                     <a href="index.php?page=product_detail&id=<?php echo $p_id; ?>">
@@ -167,5 +170,7 @@
             <p style="padding:20px; text-align:center;">No orders found.</p>
         <?php endif; ?>
     </div>
+
+    <?php include __DIR__ . '/Buyer_Footer.php'; ?>
 </body>
 </html>

@@ -159,5 +159,37 @@ class SellerAuthController {
         $reviews = $reviewModel->getSellerReviews($_SESSION['user_id']);
         require_once __DIR__ . '/../Views/Seller/reviews.php';
     }
+
+    // Show Form
+    public function forgotPassword() {
+        require_once __DIR__ . '/../Views/Seller/forgot_password.php';
+    }
+
+    // Process Reset
+    public function processResetPassword() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_POST['email'];
+            $pass1 = $_POST['new-password'];
+            $pass2 = $_POST['confirm-password'];
+
+            if ($pass1 !== $pass2) {
+                $error = "Passwords do not match!";
+                require_once __DIR__ . '/../Views/Seller/forgot_password.php';
+                return;
+            }
+
+            $sellerModel = new SellerModel($this->db);
+            
+            // Update Logic
+            $result = $sellerModel->updatePasswordByEmail($email, $pass1);
+
+            if ($result) {
+                header("Location: index.php?page=seller_login&success=password_reset");
+            } else {
+                $error = "Email not found.";
+                require_once __DIR__ . '/../Views/Seller/forgot_password.php';
+            }
+        }
+    }
 }
 ?>

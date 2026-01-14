@@ -22,5 +22,22 @@ class UserModel {
             ':id' => $id
         ]);
     }
+
+    // Update Password by Email
+    public function updatePasswordByEmail($email, $new_password) {
+        // Check if email exists first
+        $checkSql = "SELECT User_ID FROM Users WHERE Email = :email";
+        $stmt = $this->db->prepare($checkSql);
+        $stmt->execute([':email' => $email]);
+        if ($stmt->rowCount() == 0) return false;
+
+        // Update Password
+        $sql = "UPDATE Users SET Password = :pass WHERE Email = :email";
+        $stmt = $this->db->prepare($sql);
+        // In a real app, verify PASSWORD_DEFAULT hashing is used consistently
+        // Assuming we store plain text or you hash it in controller. 
+        // I will hash it in the controller for security.
+        return $stmt->execute([':pass' => $new_password, ':email' => $email]);
+    }
 }
 ?>

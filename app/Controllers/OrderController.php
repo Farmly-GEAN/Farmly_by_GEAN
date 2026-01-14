@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../Config/Database.php';
 require_once __DIR__ . '/../Models/CartModel.php';
 require_once __DIR__ . '/../Models/OrderModel.php';
-require_once __DIR__ . '/../Models/ProductModel.php';
+require_once __DIR__ . '/../Models/ProductModel.php'; // Required for stock check
 
 class OrderController {
     private $db;
@@ -15,7 +15,7 @@ class OrderController {
         $this->db = $database->getConnection();
         $this->cartModel = new CartModel($this->db);
         $this->orderModel = new OrderModel($this->db);
-        $this->productModel = new ProductModel($this->db);
+        $this->productModel = new ProductModel($this->db); // Initialized correctly
     }
 
     // 1. Show Checkout Page (Step 1: Select Delivery Method)
@@ -141,7 +141,7 @@ class OrderController {
 
             if ($method === 'Home Delivery') {
                 $door = $_POST['door_no'] ?? '';
-                $street = $_POST['street'] ?? ''; // Note: Ensure your Home_Delivery.php inputs have name="street", etc.
+                $street = $_POST['street'] ?? ''; 
                 // If using the single textarea from the new code:
                 if (isset($_POST['address'])) {
                     $final_address_string = $_POST['address'] . ", " . ($_POST['city'] ?? '') . " - " . ($_POST['postal_code'] ?? '');
@@ -191,32 +191,52 @@ class OrderController {
         }
     }
 
-    // 4. View Past Order (Receipt Page)
-    public function viewOrder() {
+    // 6. View Single Order (Receipt Page)
+    public function viewOrder($order_id) {
         if (session_status() === PHP_SESSION_NONE) session_start();
         if (!isset($_SESSION['user_id'])) { header("Location: index.php?page=login"); exit(); }
 
-        if (isset($_GET['id'])) {
-            $order_id = $_GET['id'];
-            
-            // Fetch Order Data
-            $order = $this->orderModel->getOrderById($order_id);
-            $items = $this->orderModel->getOrderItems($order_id);
+        // 1. Fetch Order Details
+        $order = $this->orderModel->getOrderById($order_id);
 
-            // FIX: Check both Upper and Lower case keys to prevent "Undefined array key" error
-            $db_buyer_id = $order['Buyer_ID'] ?? $order['buyer_id'] ?? null;
+        // --- FIX START: Handle Case Sensitivity ---
+        // We try to get 'Buyer_ID'. If not found, we try 'buyer_id'.
+        $db_buyer_id = $order['Buyer_ID'] ?? $order['buyer_id'] ?? null;
+        // --- FIX END ---
 
-            // Security Check: Ensure this order belongs to the logged-in user!
-            if (!$order || $db_buyer_id != $_SESSION['user_id']) {
-                echo "Access Denied or Order Not Found.";
-                exit();
-            }
-
-            // Load the View
-            require_once __DIR__ . '/../Views/Buyer/view_order.php';
-        } else {
-            header("Location: index.php?page=profile");
+        // Security Check: Ensure order exists AND belongs to the logged-in user
+        if (!$order || $db_buyer_id != $_SESSION['user_id']) {
+            echo "<h2>Error: Order not found or access denied.</h2>";
+            echo "<p>Order ID: " . htmlspecialchars($order_id) . "</p>";
+            echo "<a href='index.php?page=my_orders'>Back to Orders</a>";
+            exit();
         }
+
+        // 2. Fetch Items in that order
+        $items = $this->orderModel->getOrderItems($order_id);
+
+        // Load the View
+        require_once __DIR__ . '/../Views/Buyer/view_order.php';
+    }
+
+    public function myOrders() {
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        if (!isset($_SESSION['user_id'])) { header("Location: index.php?page=login"); exit(); }
+
+        $buyer_id = $_SESSION['user_id'];
+        
+        $orders = $this->orderModel->getOrdersByBuyer($buyer_id);
+
+        foreach ($orders as &$order) {
+            // FIX: Check for both 'Order_ID' OR 'order_id' to prevent the error
+            $oid = $order['Order_ID'] ?? $order['order_id'];
+            
+            // Pass the safe ID into the function
+            $order['items'] = $this->orderModel->getOrderItems($oid);
+        }
+        unset($order); 
+
+        require_once __DIR__ . '/../Views/Buyer/my_orders.php';
     }
 }
 ?>

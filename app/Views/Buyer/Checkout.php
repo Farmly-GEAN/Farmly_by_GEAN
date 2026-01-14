@@ -5,35 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Checkout - Farmly</title>
   
-  <!-- <link rel="stylesheet" href="assets/CSS/HomePage.css"> -->
-  
   <style>
     /* --- INTERNAL CSS TO MATCH CART UI --- */
     
     /* 1. Global Reset & Font */
     body {
-        background-color: #f9f9f9; /* Light grey background to make white card pop */
+        background-color: #f9f9f9;
         font-family: 'Segoe UI', sans-serif;
         color: #333;
+        margin: 0;
     }
 
-    /* 2. Header Adjustment (As Requested) */
-   .site-header {
+    /* 2. Header Adjustment */
+    .site-header {
         background: white;
-        padding: 15px 40px; /* Increased padding for better spacing */
+        padding: 15px 40px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         position: relative;
-        height: auto; /* CHANGE: Let the header grow with the logo */
+        height: auto;
         min-height: 80px;
     }
 
     .logo img { 
-        height: 90px; /* CHANGE: Increased from 50px to 90px */
-        width: auto;  /* Keeps the aspect ratio correct */
+        height: 90px;
+        width: auto;
     }
+    
     /* Centered Title */
     .header-center {
         position: absolute;
@@ -61,7 +61,7 @@
         color: white;
     }
 
-    /* 3. Main Container (Matches .cart-container) */
+    /* 3. Main Container */
     .checkout-container {
         max-width: 1000px;
         margin: 40px auto;
@@ -125,7 +125,7 @@
         transform: translateX(5px);
     }
 
-    /* 5. Right Column: Summary (Matches Cart Table Look) */
+    /* 5. Right Column: Summary */
     .summary-box {
         background-color: #fafafa;
         padding: 25px;
@@ -239,23 +239,40 @@
           <div class="summary-list">
             <?php if (!empty($cartItems)): ?>
                 <?php foreach ($cartItems as $item): ?>
+                    <?php 
+                        // --- SAFE VARIABLE HANDLING ---
+                        $p_name = $item['Product_Name'] ?? $item['product_name'] ?? 'Item';
+                        
+                        // Handle image path safely
+                        $raw_img = $item['Product_Image'] ?? $item['product_image'] ?? 'default.png';
+                        // Check if it's a full path or just filename
+                        if (strpos($raw_img, 'assets/') === false) {
+                            $p_img = "assets/uploads/products/" . basename($raw_img);
+                        } else {
+                            $p_img = $raw_img;
+                        }
+
+                        $price = $item['Price'] ?? $item['price'] ?? 0;
+                        $qty = $item['Quantity'] ?? $item['quantity'] ?? 1;
+                        $line_total = $price * $qty;
+                    ?>
                     <div class="summary-item">
-                        <img src="assets/uploads/products/<?php echo htmlspecialchars(basename($item['product_image'])); ?>" 
+                        <img src="<?php echo htmlspecialchars($p_img); ?>" 
                              class="summary-img" 
                              onerror="this.src='assets/images/default.png';">
                         
                         <div class="summary-details">
-                            <h4><?php echo htmlspecialchars($item['product_name']); ?></h4>
-                            <p>Qty: <?php echo $item['quantity']; ?> x $<?php echo number_format($item['price'], 2); ?></p>
+                            <h4><?php echo htmlspecialchars($p_name); ?></h4>
+                            <p>Qty: <?php echo $qty; ?> x $<?php echo number_format($price, 2); ?></p>
                         </div>
                         
                         <div style="margin-left: auto; font-weight: 600;">
-                            $<?php echo number_format($item['price'] * $item['quantity'], 2); ?>
+                            $<?php echo number_format($line_total, 2); ?>
                         </div>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
-                <p>Your cart is empty.</p>
+                <p style="padding: 10px; color: #777;">Your cart is empty.</p>
             <?php endif; ?>
           </div>
 

@@ -4,6 +4,7 @@
     <title>Seller Dashboard - Home</title>
     <link rel="stylesheet" href="assets/CSS/Seller_Dashboard.css">
     <style>
+        /* DASHBOARD SPECIFIC STYLES */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
         .stat-card { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); text-align: center; border-bottom: 4px solid #ddd; }
         
@@ -20,6 +21,7 @@
         table { width: 100%; border-collapse: collapse; }
         th { text-align: left; color: #777; font-size: 0.85rem; padding: 10px; border-bottom: 1px solid #eee; }
         td { padding: 12px 10px; color: #333; font-size: 0.95rem; border-bottom: 1px solid #f9f9f9; }
+        
         .status-badge { padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; }
         .status-Pending { background: #fff3cd; color: #856404; }
         .status-Delivered { background: #d4edda; color: #155724; }
@@ -72,10 +74,15 @@
                                     $o_id = $order['Order_ID'] ?? $order['order_id'];
                                     $o_date = date("M d", strtotime($order['Order_Date'] ?? $order['order_date']));
                                     $p_name = $order['Product_Name'] ?? $order['product_name'] ?? 'Item';
-                                    $o_status = $order['Status'] ?? $order['status'] ?? 'Pending';
                                     
-                                    // Calculate simplistic total for row (Qty * Price would be better, but Total_Amount works for order level)
-                                    $total = $order['Total_Amount'] ?? 0; 
+                                    // --- FIX: UPDATED VARIABLE NAME ---
+                                    // Previously it was checking for 'Status', now it checks 'Order_Status'
+                                    $o_status = $order['Order_Status'] ?? $order['order_status'] ?? 'Pending';
+                                    
+                                    // Amount Calculation
+                                    $price = $order['Price'] ?? $order['price'] ?? 0;
+                                    $qty = $order['Quantity'] ?? $order['quantity'] ?? 1;
+                                    $total = $price * $qty;
                                 ?>
                                 <tr>
                                     <td>#<?php echo $o_id; ?></td>

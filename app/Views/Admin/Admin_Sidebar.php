@@ -29,6 +29,10 @@
    📦 All Orders
 </a>
 
+         <a href="index.php?page=admin_messages" 
+       class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'admin_messages') ? 'active' : ''; ?>">
+       ✉️ Messages & Feedback
+    </a>
         <a href="index.php?page=admin_logout" class="logout">
            🔒 Logout
         </a>

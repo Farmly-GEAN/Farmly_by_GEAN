@@ -125,5 +125,17 @@ class SellerModel {
         $stmt->execute([':sid' => $seller_id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    // Update Password by Email
+    public function updatePasswordByEmail($email, $new_password) {
+        $checkSql = "SELECT Seller_ID FROM Seller WHERE Email = :email";
+        $stmt = $this->db->prepare($checkSql);
+        $stmt->execute([':email' => $email]);
+        if ($stmt->rowCount() == 0) return false;
+
+        $sql = "UPDATE Seller SET Password = :pass WHERE Email = :email";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([':pass' => $new_password, ':email' => $email]);
+    }
 }
 ?>

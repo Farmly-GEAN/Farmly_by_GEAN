@@ -11,6 +11,21 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'landing';
 
 switch ($page) {
     
+
+    // --- Put this AT THE TOP of the switch to ensure it works ---
+    case 'admin_messages':
+        require_once BASE_PATH . 'app/Controllers/AdminController.php';
+        $controller = new AdminController();
+        $controller->viewMessages();
+        break;
+    // ------------------------------------------------------------
+
+    case 'admin_dashboard':
+        require_once BASE_PATH . 'app/Controllers/AdminController.php';
+        $controller = new AdminController();
+        $controller->dashboard();
+        break;
+
     // --- LANDING PAGE ---
     case 'landing':
         require_once BASE_PATH . 'app/Views/landing.php';
@@ -61,14 +76,12 @@ switch ($page) {
         $controller->index();
         break;
 
-    // FIX: Show the Form (GET request)
     case 'seller_add_product':
         require_once BASE_PATH . 'app/Controllers/SellerDashboardController.php';
         $controller = new SellerDashboardController();
         $controller->showAddProduct(); 
         break;
 
-    // FIX: Process the Form (POST request)
     case 'seller_add_product_action':
         require_once BASE_PATH . 'app/Controllers/SellerDashboardController.php';
         $controller = new SellerDashboardController();
@@ -198,6 +211,12 @@ switch ($page) {
         $controller->checkout();
         break;
 
+        case 'order_details':
+        require_once BASE_PATH . 'app/Controllers/OrderController.php';
+        $controller = new OrderController();
+        $controller->orderDetails();
+        break;
+
     case 'place_order':
         require_once BASE_PATH . 'app/Controllers/OrderController.php';
         $controller = new OrderController();
@@ -208,11 +227,21 @@ switch ($page) {
         require_once BASE_PATH . 'app/Views/Buyer/order_success.php';
         break;
 
-    case 'order_details':
+    // --- FIX: THIS IS THE PART THAT WAS BROKEN ---
     case 'view_order':
         require_once BASE_PATH . 'app/Controllers/OrderController.php';
         $controller = new OrderController();
-        $controller->orderDetails(); // Consolidating view logic
+        
+        // Capture the ID from the URL
+        $id = $_GET['id'] ?? null;
+
+        if ($id) {
+            // Pass it to the function we created earlier
+            $controller->viewOrder($id); 
+        } else {
+            // Fallback if no ID is provided
+            header("Location: index.php?page=my_orders");
+        }
         break;
 
     // --- BUYER PROFILE ---
@@ -229,8 +258,8 @@ switch ($page) {
         break;
 
     case 'my_orders':
-        require_once BASE_PATH . 'app/Controllers/BuyerController.php';
-        $controller = new BuyerController();
+        require_once BASE_PATH . 'app/Controllers/OrderController.php';
+        $controller = new OrderController();
         $controller->myOrders();
         break;
 
@@ -301,7 +330,7 @@ switch ($page) {
         $controller->orders();
         break;
 
-        // --- FOOTER PAGES ---
+    // --- FOOTER PAGES ---
     case 'about':
         require_once BASE_PATH . 'app/Controllers/PageController.php';
         $controller = new PageController();
@@ -326,15 +355,60 @@ switch ($page) {
         $controller->privacy();
         break;
 
-    // --- SELLER FEEDBACK ---
     case 'seller_feedback':
         require_once BASE_PATH . 'app/Controllers/PageController.php';
         $controller = new PageController();
         $controller->feedback();
         break;
 
+        // --- BUYER FORGOT PASSWORD ---
+    case 'forgot_password':
+        require_once BASE_PATH . 'app/Controllers/AuthController.php';
+        $controller = new AuthController();
+        $controller->forgotPassword();
+        break;
+
+    case 'reset_password_action':
+        require_once BASE_PATH . 'app/Controllers/AuthController.php';
+        $controller = new AuthController();
+        $controller->processResetPassword();
+        break;
+
+    // --- SELLER FORGOT PASSWORD ---
+    case 'seller_forgot_password':
+        require_once BASE_PATH . 'app/Controllers/SellerAuthController.php';
+        $controller = new SellerAuthController();
+        $controller->forgotPassword();
+        break;
+
+    case 'seller_reset_action':
+        require_once BASE_PATH . 'app/Controllers/SellerAuthController.php';
+        $controller = new SellerAuthController();
+        $controller->processResetPassword();
+        break;
+
+        // Contact Us Submission
+    case 'submit_contact':
+        require_once BASE_PATH . 'app/Controllers/PageController.php';
+        $controller = new PageController();
+        $controller->submitContact();
+        break;
+
+    // Feedback Submission
+    case 'submit_feedback':
+        require_once BASE_PATH . 'app/Controllers/PageController.php';
+        $controller = new PageController();
+        $controller->submitFeedback();
+        break;
+
+   
+   
+
     default:
-        require_once BASE_PATH . 'app/Views/landing.php';
+        // This is where it was falling through to!
+        require_once BASE_PATH . 'app/Controllers/LandingController.php';
+        $controller = new LandingController();
+        $controller->index();
         break;
 }
 ?>

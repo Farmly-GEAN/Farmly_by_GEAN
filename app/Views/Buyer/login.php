@@ -51,10 +51,10 @@
           <?php endif; ?>
 
           <p class="forgot">
-            <a href="#">Forgot Password?</a>
-          </p>
+    <a href="index.php?page=forgot_password">Forgot Password?</a>
+</p>
 
-          <p class="create">
+          <p class="create">  
             Create a New Account?
             <a href="index.php?page=register"><b>Click Here!</b></a>
           </p>

@@ -6,23 +6,27 @@ class ProductModel {
         $this->conn = $db;
     }
 
-    // 1. Fetch all products
-    public function getAllProducts() {
+    // 1. Get all products
+
+   public function getAllProducts() {
         $sql = "SELECT p.Product_ID as product_id, 
                        p.Product_Name as product_name, 
                        p.Price as price, 
                        p.Product_Image as product_image, 
                        p.Stocks_Available as stocks_available, 
-                       c.Category_Name 
+                       c.Category_Name,
+                       s.Seller_Name as seller_name  /* <--- ADDED THIS */
                 FROM Product p
-                LEFT JOIN Category c ON p.Category_ID = c.Category_ID";
+                LEFT JOIN Category c ON p.Category_ID = c.Category_ID
+                LEFT JOIN Seller s ON p.Seller_ID = s.Seller_ID /* <--- ADDED JOIN */
+                ORDER BY p.Product_ID DESC";
         
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // 2. Search products (Updated with Aliases)
+    // 2. Search products
     public function searchProducts($keyword) {
         $searchTerm = "%" . $keyword . "%";
         
@@ -42,7 +46,7 @@ class ProductModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // 3. Filter by Category (Updated with Aliases)
+    // 3. Filter by Category
     public function getProductsByCategory($category_name) {
         $sql = "SELECT p.Product_ID as product_id, 
                        p.Product_Name as product_name, 
@@ -60,7 +64,7 @@ class ProductModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // 4. Check Stock
+    // 4. Check Stock (KEPT THIS ONE, REMOVED DUPLICATE AT BOTTOM)
     public function getStock($product_id) {
         $sql = "SELECT Stocks_Available FROM Product WHERE Product_ID = :pid";
         $stmt = $this->conn->prepare($sql);
@@ -178,8 +182,8 @@ class ProductModel {
 
     // 13. Add a Review
     public function addReview($product_id, $buyer_id, $rating, $comment) {
-        $sql = "INSERT INTO Reviews (Product_ID, Buyer_ID, Rating, Comment) 
-                VALUES (:pid, :bid, :rating, :comment)";
+        $sql = "INSERT INTO Reviews (Product_ID, Buyer_ID, Rating, Comment, Review_Date) 
+                VALUES (:pid, :bid, :rating, :comment, NOW())";
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute([
             ':pid' => $product_id,
@@ -189,11 +193,11 @@ class ProductModel {
         ]);
     }
 
-    // 14. Get Reviews for a Product
-    public function getProductReviews($product_id) {
-        $sql = "SELECT r.*, b.Buyer_Name 
+    // 14. Get Reviews for a Product (Renamed from getProductReviews to match Controller)
+    public function getReviews($product_id) {
+        $sql = "SELECT r.*, b.Name as Buyer_Name 
                 FROM Reviews r 
-                JOIN Buyer b ON r.Buyer_ID = b.Buyer_ID 
+                JOIN Users b ON r.Buyer_ID = b.User_ID 
                 WHERE r.Product_ID = :pid 
                 ORDER BY r.Review_Date DESC";
         $stmt = $this->conn->prepare($sql);
@@ -209,10 +213,27 @@ class ProductModel {
         return $stmt->rowCount() > 0;
     }
 
-    // 18. Update Product Details (Name, Description, Price, Stock, Image, Category)
+    // 16. Get Seller Reviews (RESTORED - Needed for Seller Dashboard)
+    public function getSellerReviews($seller_id) {
+        $sql = "SELECT 
+                    r.*, 
+                    p.Product_Name, 
+                    p.Product_Image, 
+                    b.Name AS Buyer_Name 
+                FROM Reviews r
+                JOIN Product p ON r.Product_ID = p.Product_ID
+                JOIN Users b ON r.Buyer_ID = b.User_ID
+                WHERE p.Seller_ID = :sid
+                ORDER BY r.Review_Date DESC";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':sid' => $seller_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // 18. Update Product Details
     public function updateProductDetails($product_id, $seller_id, $name, $description, $price, $stock, $category_id, $image_path = null) {
         if ($image_path) {
-            // Update with new image
             $sql = "UPDATE Product 
                     SET Product_Name = :name, 
                         Description = :desc, 
@@ -232,7 +253,6 @@ class ProductModel {
                 ':sid' => $seller_id
             ];
         } else {
-            // Update WITHOUT changing the image
             $sql = "UPDATE Product 
                     SET Product_Name = :name, 
                         Description = :desc, 
@@ -254,5 +274,6 @@ class ProductModel {
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute($params);
     }
-}
+
+} // End of Class
 ?>
