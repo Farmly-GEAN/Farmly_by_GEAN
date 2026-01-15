@@ -91,14 +91,12 @@ class AdminController {
         }
     }
 
-    // ========================
-    // 2. DASHBOARD
-    // ========================
+   
 
    public function dashboard() {
         $this->checkAdminAuth();
         
-        // 1. Count Sellers
+      
         $stmt = $this->db->query("SELECT COUNT(*) FROM Seller");
         $sellerCount = $stmt->fetchColumn();
 

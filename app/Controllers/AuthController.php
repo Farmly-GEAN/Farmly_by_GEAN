@@ -1,11 +1,11 @@
 <?php
-// Adjust paths to go up one level to 'app' then down to Config/Models
+
 require_once __DIR__ . '/../Config/Database.php';
 require_once __DIR__ . '/../Models/BuyerModel.php';
 
 class AuthController {
     
-    // --- LOGIN LOGIC ---
+   
     public function login() {
         $message = "";
 
@@ -13,12 +13,12 @@ class AuthController {
             $email = $_POST['email'];
             $password = $_POST['password'];
 
-            // Connect
+           
             $database = new Database();
             $db = $database->getConnection();
             $buyerModel = new BuyerModel($db);
 
-            // Find User
+           
             $user = $buyerModel->getBuyerByEmail($email);
 
             if ($user && password_verify($password, $user['buyer_password'])) {
@@ -34,7 +34,7 @@ class AuthController {
             }
         }
 
-        // Load the View (Make sure the dot . is here!)
+        
         require_once __DIR__ . '/../Views/Buyer/login.php';
     }
 
@@ -114,14 +114,9 @@ class AuthController {
             }
 
             // Load Model
-            $userModel = new UserModel($this->db); // Ensure $this->db is available in constructor
+            $userModel = new UserModel($this->db); 
             
-            // Hash the password (Recommended)
-            // If your login uses password_verify, use this. 
-            // If your login uses plain text, remove password_hash.
-            // $hashed_pass = password_hash($pass1, PASSWORD_DEFAULT); 
             
-            // USING PLAIN TEXT FOR NOW TO MATCH YOUR PREVIOUS LOGIN CODE PATTERNS:
             $result = $userModel->updatePasswordByEmail($email, $pass1);
 
             if ($result) {

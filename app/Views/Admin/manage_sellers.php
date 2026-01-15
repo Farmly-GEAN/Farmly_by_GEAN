@@ -55,7 +55,7 @@
                     <?php foreach ($sellers as $s): ?>
                     
                     <?php 
-                        // SAFETY CHECK: Handle Case Sensitivity (Seller_ID vs seller_id)
+                        
                         $s_id    = $s['Seller_ID'] ?? $s['seller_id'] ?? $s['id'] ?? 'N/A';
                         $s_name  = $s['Seller_Name'] ?? $s['seller_name'] ?? 'Unknown';
                         $s_email = $s['Seller_Email'] ?? $s['seller_email'] ?? 'No Email';

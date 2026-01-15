@@ -4,7 +4,7 @@
     <title>Admin Dashboard - Farmly</title>
     <link rel="stylesheet" href="assets/CSS/Admin.css">
     <style>
-        /* Dashboard Card Styling */
+        
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 30px; }
         .stat-card { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: space-between; }
         .stat-info h3 { margin: 0; font-size: 2rem; color: #2c3e50; }
@@ -36,7 +36,7 @@
                     <p>Total Revenue</p>
                 </div>
                 <div class="stat-icon" style="color: #27ae60;">💰</div>
-            </div> -->
+            </div>  -->
 
             <div class="stat-card stat-orders">
                 <div class="stat-info">

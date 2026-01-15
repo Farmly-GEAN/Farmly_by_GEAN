@@ -1,14 +1,14 @@
 <?php
 require_once __DIR__ . '/../Config/Database.php';
-require_once __DIR__ . '/../Models/PageModel.php'; // <--- ADDED THIS
+require_once __DIR__ . '/../Models/PageModel.php'; 
 
 class PageController {
     
-    // --- ADDED PROPERTIES ---
+
     private $db;
     private $pageModel;
 
-    // --- ADDED CONSTRUCTOR ---
+    
     public function __construct() {
         $database = new Database();
         $this->db = $database->getConnection();
