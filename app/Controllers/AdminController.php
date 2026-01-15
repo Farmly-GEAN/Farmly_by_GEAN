@@ -248,5 +248,91 @@ class AdminController {
         require_once __DIR__ . '/../Views/Admin/messages.php';
     }
 
+
+    // ========================
+    // 8. MANAGE CONTENT (Terms, Legal, etc.)
+    // ========================
+
+    public function manageContent() {
+        $this->checkAdminAuth();
+        
+        // Fetch current values
+        $stmt = $this->db->prepare("SELECT Setting_Value FROM Site_Settings WHERE Setting_Key = 'terms_content'");
+        $stmt->execute();
+        $terms_content = $stmt->fetchColumn();
+
+        $stmt = $this->db->prepare("SELECT Setting_Value FROM Site_Settings WHERE Setting_Key = 'legal_notice'");
+        $stmt->execute();
+        $legal_content = $stmt->fetchColumn();
+
+        require_once __DIR__ . '/../Views/Admin/manage_content.php';
+    }
+
+    public function updateContent() {
+        $this->checkAdminAuth();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $key = $_POST['content_type'];
+            $value = $_POST['content_text'];
+
+            // Upsert (Update if exists, Insert if not) - PostgreSQL Syntax
+            $sql = "INSERT INTO Site_Settings (Setting_Key, Setting_Value) 
+                    VALUES (:key, :val) 
+                    ON CONFLICT (Setting_Key) 
+                    DO UPDATE SET Setting_Value = :val, Updated_At = CURRENT_TIMESTAMP";
+            
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([':key' => $key, ':val' => $value]);
+
+            header("Location: index.php?page=admin_content&success=1");
+            exit();
+        }
+    }
+
+
+    // 9. MANAGE FAQ
+
+
+    public function manageFAQ() {
+        $this->checkAdminAuth();
+        
+        
+        $stmt = $this->db->query("SELECT * FROM FAQ ORDER BY Created_At DESC");
+        $faqs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        require_once __DIR__ . '/../Views/Admin/manage_faq.php';
+    }
+
+   public function addFAQ() {
+        $this->checkAdminAuth();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $question = $_POST['question'];
+            $answer = $_POST['answer'];
+            $target = $_POST['target_group']; 
+
+            if (!empty($question) && !empty($answer)) {
+                $stmt = $this->db->prepare("INSERT INTO FAQ (Question, Answer, Target_Group) VALUES (:q, :a, :t)");
+                $stmt->execute([':q' => $question, ':a' => $answer, ':t' => $target]);
+                header("Location: index.php?page=admin_faq&success=added");
+            } else {
+                header("Location: index.php?page=admin_faq&error=empty");
+            }
+            exit();
+        }
+    }
+
+    public function deleteFAQ() {
+        $this->checkAdminAuth();
+
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $stmt = $this->db->prepare("DELETE FROM FAQ WHERE FAQ_ID = :id");
+            $stmt->execute([':id' => $id]);
+            header("Location: index.php?page=admin_faq&success=deleted");
+            exit();
+        }
+    }
+
 }
 ?>

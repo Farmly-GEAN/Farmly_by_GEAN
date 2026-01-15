@@ -400,6 +400,37 @@ switch ($page) {
         $controller->submitFeedback();
         break;
 
+        case 'admin_content':
+    require_once BASE_PATH . 'app/Controllers/AdminController.php';
+    $controller = new AdminController();
+    $controller->manageContent();
+    break;
+
+case 'admin_update_content':
+    require_once BASE_PATH . 'app/Controllers/AdminController.php';
+    $controller = new AdminController();
+    $controller->updateContent();
+    break;
+
+    // --- MANAGE FAQ ROUTES ---
+    case 'admin_faq':
+        require_once BASE_PATH . 'app/Controllers/AdminController.php';
+        $controller = new AdminController();
+        $controller->manageFAQ();
+        break;
+
+    case 'admin_add_faq':
+        require_once BASE_PATH . 'app/Controllers/AdminController.php';
+        $controller = new AdminController();
+        $controller->addFAQ();
+        break;
+
+    case 'admin_delete_faq':
+        require_once BASE_PATH . 'app/Controllers/AdminController.php';
+        $controller = new AdminController();
+        $controller->deleteFAQ();
+        break;
+
    
    
 

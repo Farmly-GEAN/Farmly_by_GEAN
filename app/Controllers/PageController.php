@@ -44,11 +44,7 @@ class PageController {
         }
     }
 
-    // 3. Terms & Conditions
-    public function terms() {
-        if (session_status() === PHP_SESSION_NONE) session_start();
-        require_once __DIR__ . '/../Views/Pages/terms.php';
-    }
+    
 
     // 4. Privacy Policy
     public function privacy() {
@@ -95,6 +91,32 @@ class PageController {
             }
             exit();
         }
+    }
+
+    // Additional methods for admin to view messages and feedback can be added here
+
+   public function home() {
+        // Fetch the Welcome Message from DB
+        $welcomeMessage = $this->pageModel->getSetting('home_welcome');
+        
+        // If DB is empty, use a default fallback
+        if (!$welcomeMessage) {
+            $welcomeMessage = "Welcome to Farmly - Fresh from the farm!";
+        }
+
+        require_once __DIR__ . '/../Views/home.php';
+    }
+
+    // Example: The Terms & Conditions Page
+    public function terms() {
+        $termsContent = $this->pageModel->getSetting('terms_content');
+        require_once __DIR__ . '/../Views/terms.php';
+    }
+
+    // Example: The FAQ Page
+    public function faq() {
+        $faqs = $this->pageModel->getPublicFAQs();
+        require_once __DIR__ . '/../Views/faq.php';
     }
 }
 ?>

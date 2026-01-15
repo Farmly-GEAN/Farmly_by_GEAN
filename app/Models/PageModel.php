@@ -51,5 +51,31 @@ class PageModel {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    //FAQ and TERMS and CONDITION
+
+    // 1. Fetch Site Settings (e.g., 'home_welcome', 'terms_content')
+    public function getSetting($key) {
+        $stmt = $this->conn->prepare("SELECT Setting_Value FROM Site_Settings WHERE Setting_Key = :key");
+        $stmt->execute([':key' => $key]);
+        return $stmt->fetchColumn(); // Returns the text directly
+    }
+
+    // 2. Fetch All FAQs for the Public Page
+    public function getPublicFAQs() {
+        $stmt = $this->conn->query("SELECT Question, Answer FROM FAQ ORDER BY Created_At ASC");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getFAQsByGroup($group) {
+        // We fetch the specific group AND 'General' questions
+        $sql = "SELECT Question, Answer FROM FAQ 
+                WHERE Target_Group = :group OR Target_Group = 'General' 
+                ORDER BY Created_At ASC";
+                
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':group' => $group]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

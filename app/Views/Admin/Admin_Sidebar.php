@@ -33,6 +33,16 @@
        class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'admin_messages') ? 'active' : ''; ?>">
        Messages & Feedback
     </a>
+
+    <a href="index.php?page=admin_content" 
+       class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'admin_content') ? 'active' : ''; ?>">
+       Manage Content & FAQ
+    </a>
+
+    <a href="index.php?page=admin_faq" 
+       class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'admin_faq') ? 'active' : ''; ?>">
+       Manage FAQ
+    </a>
         <a href="index.php?page=admin_logout" class="logout">
            Logout
         </a>
