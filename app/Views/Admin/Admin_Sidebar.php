@@ -43,6 +43,9 @@
        class="<?php echo (isset($_GET['page']) && $_GET['page'] == 'admin_faq') ? 'active' : ''; ?>">
        Manage FAQ
     </a>
+
+
+    
         <a href="index.php?page=admin_logout" class="logout">
            Logout
         </a>

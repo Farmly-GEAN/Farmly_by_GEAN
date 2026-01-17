@@ -5,7 +5,7 @@
     <title>My Profile - Farmly</title>
     <link rel="stylesheet" href="assets/CSS/HomePage.css"> 
     <style>
-        /* --- LAYOUT FIXES --- */
+        
         body { font-family: 'Segoe UI', sans-serif; background-color: #f9f9f9; margin: 0; }
         .site-header { background: white; padding: 10px 40px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .logo img { height: 90px; width: auto; display: block; }

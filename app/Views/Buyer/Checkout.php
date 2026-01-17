@@ -225,7 +225,7 @@
         </button>
 
         <button type="submit" name="delivery_method" value="Pickup" class="delivery-btn">
-          <span>Store Pickup</span>
+          <span>Pickup</span>
         </button>
 
       </form>

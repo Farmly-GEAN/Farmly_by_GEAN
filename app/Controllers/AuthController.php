@@ -5,7 +5,7 @@ require_once __DIR__ . '/../Models/BuyerModel.php';
 
 class AuthController {
     
-    // --- LOGIN LOGIC ---
+    // LOGIN LOGIC 
     public function login() {
         $message = "";
 
@@ -38,7 +38,7 @@ class AuthController {
         require_once __DIR__ . '/../Views/Buyer/login.php';
     }
 
-    // --- REGISTER LOGIC ---
+    //  REGISTER LOGIC 
     public function register() {
         $message = "";
 

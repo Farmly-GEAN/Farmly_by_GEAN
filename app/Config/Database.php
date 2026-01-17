@@ -11,8 +11,6 @@ class Database {
     public function getConnection() {
         $this->conn = null;
         try {
-            // Check if using PostgreSQL (pgsql) or MySQL (mysql)
-            // Based on your previous screenshots, you are using PostgreSQL
             $dsn = "pgsql:host=" . $this->host . ";port=5432;dbname=" . $this->db_name;
             
             $this->conn = new PDO($dsn, $this->username, $this->password);

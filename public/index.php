@@ -429,9 +429,19 @@ case 'admin_update_content':
         require_once BASE_PATH . 'app/Controllers/AdminController.php';
         $controller = new AdminController();
         $controller->deleteFAQ();
+        break; 
+
+   case 'admin_view_message':
+        require_once BASE_PATH . 'app/Controllers/AdminController.php';
+        $controller = new AdminController();
+        $controller->viewMessage();
         break;
 
-   
+    case 'admin_reply_message':
+        require_once BASE_PATH . 'app/Controllers/AdminController.php';
+        $controller = new AdminController();
+        $controller->replyMessage();
+        break;
    
 
     default:
