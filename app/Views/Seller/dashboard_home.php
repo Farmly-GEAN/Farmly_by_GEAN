@@ -4,7 +4,6 @@
     <title>Seller Dashboard - Home</title>
     <link rel="stylesheet" href="assets/CSS/Seller_Dashboard.css">
     <style>
-        /* DASHBOARD SPECIFIC STYLES */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
         .stat-card { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); text-align: center; border-bottom: 4px solid #ddd; }
         

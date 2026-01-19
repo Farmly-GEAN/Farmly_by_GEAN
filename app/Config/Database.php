@@ -1,24 +1,36 @@
 <?php
 class Database {
-    // 1. Database Credentials
     private $host = "localhost";
-    private $db_name = "farmly"; // Ensure this matches your DBeaver DB name
-    private $username = "postgres"; // Your DBeaver username
-    private $password = "27579Ni@"; // Your DBeaver password
+    private $db_name = "farmly"; 
+    private $username = "postgres";
+    private $password = "27579Ni@";
     public $conn;
 
-    // 2. The Connection Function
     public function getConnection() {
         $this->conn = null;
+        if (getenv('PGHOST')) {
+            $this->host = getenv('PGHOST');
+            $this->db_name = getenv('PGDATABASE');
+            $this->username = getenv('PGUSER');
+            $this->password = getenv('PGPASSWORD');
+            $port = getenv('PGPORT');
+        } else {
+            
+            $port = "5432"; 
+        }
+
         try {
-            $dsn = "pgsql:host=" . $this->host . ";port=5432;dbname=" . $this->db_name;
+            
+            $dsn = "pgsql:host=" . $this->host . ";port=" . $port . ";dbname=" . $this->db_name;
             
             $this->conn = new PDO($dsn, $this->username, $this->password);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            
         } catch(PDOException $exception) {
+            
             echo "Connection error: " . $exception->getMessage();
         }
+
         return $this->conn;
     }
 }
