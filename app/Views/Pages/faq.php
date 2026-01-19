@@ -1,5 +1,4 @@
 <?php
-// Smart Back Button
 if (session_status() === PHP_SESSION_NONE) session_start();
 $backLink = 'index.php?page=home';
 $backText = 'Back to Home';
@@ -22,7 +21,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'seller') {
         .faq-question { font-weight: bold; font-size: 1.1rem; color: #27ae60; cursor: pointer; display: flex; justify-content: space-between; }
         .faq-answer { margin-top: 10px; color: #555; line-height: 1.6; display: none; } /* Hidden by default */
         
-        /* Simple toggle visual */
         .faq-question:after { content: '+'; font-weight: bold; }
         .active .faq-question:after { content: '-'; }
         .active .faq-answer { display: block; }
