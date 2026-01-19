@@ -10,7 +10,6 @@ class Database {
         $this->conn = null;
         $port = "5432"; 
 
-        e
         if (getenv('DATABASE_URL')) {
             $url = parse_url(getenv('DATABASE_URL'));
             
