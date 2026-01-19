@@ -20,7 +20,6 @@ class SellerModel {
             return false; 
         }
 
-        // Hash Password
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         $sql = "INSERT INTO Seller (Seller_Name, Seller_Email, Seller_Phone, Seller_Password, Seller_Address) 
@@ -36,7 +35,7 @@ class SellerModel {
         ]);
     }
 
-    // 2. Login Seller (FIXED: Checks for multiple password column names)
+    // 2. Login Seller 
     public function login($email, $password) {
         $sql = "SELECT * FROM Seller WHERE Seller_Email = :email";
         $stmt = $this->conn->prepare($sql);
@@ -61,8 +60,6 @@ class SellerModel {
    
     // DASHBOARD STATS FUNCTIONS
     
-
-    // 3. Get Total Earnings
     public function getTotalEarnings($seller_id) {
         $sql = "SELECT SUM(od.Quantity * od.Price_Per_Unit) as total
                 FROM Order_Details od

@@ -1,11 +1,9 @@
 <?php
-// Smart "Back" Button Logic
 if (session_status() === PHP_SESSION_NONE) session_start();
 
 $backLink = 'index.php?page=home';
 $backText = 'Back to Home';
 
-// If Seller, change destination
 if (isset($_SESSION['role']) && $_SESSION['role'] === 'seller') {
     $backLink = 'index.php?page=seller_dashboard';
     $backText = 'Back to Dashboard';

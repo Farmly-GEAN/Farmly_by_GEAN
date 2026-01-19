@@ -68,7 +68,6 @@
             <h3 style="margin-top: 0;">Quick Actions</h3>
             <p>What would you like to manage today?</p>
             <div style="display: flex; gap: 10px; margin-top: 20px;">
-                <a href="index.php?page=admin_users" style="text-decoration: none; padding: 10px 20px; background: #34495e; color: white; border-radius: 5px;">Manage Users</a>
                 <a href="index.php?page=admin_products" style="text-decoration: none; padding: 10px 20px; background: #34495e; color: white; border-radius: 5px;">Manage Products</a>
                 <a href="index.php?page=admin_orders" style="text-decoration: none; padding: 10px 20px; background: #27ae60; color: white; border-radius: 5px;">View Orders</a>
             </div>

@@ -48,6 +48,19 @@
       </nav>
     </header>
 
+    <?php if (isset($_GET['success']) && $_GET['success'] == 'added'): ?>
+        <div id="cart-msg" style="background: #d4edda; color: #155724; padding: 15px; text-align: center; border-bottom: 1px solid #c3e6cb; position: sticky; top: 0; z-index: 1000;">
+            <strong>Item added to cart!</strong> 
+            <a href="index.php?page=home" style="color: #155724; float: right; text-decoration: none; font-weight: bold;">✕</a>
+        </div>
+        <script>
+            setTimeout(function() {
+                var msg = document.getElementById('cart-msg');
+                if (msg) msg.style.display = 'none';
+            }, 3000);
+        </script>
+    <?php endif; ?>
+
     <div class="main-container">
       
       <aside class="sidebar-nav">

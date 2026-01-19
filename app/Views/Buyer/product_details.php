@@ -7,14 +7,13 @@
         body { font-family: 'Segoe UI', sans-serif; background-color: #f9f9f9; padding: 20px; }
         .container { max-width: 1000px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; display: flex; gap: 40px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         
-        /* LEFT: GALLERY SECTION */
+
         .gallery-section { flex: 1; }
         .main-image { width: 100%; height: 400px; object-fit: cover; border-radius: 10px; border: 1px solid #eee; margin-bottom: 15px; }
         .thumbnail-row { display: flex; gap: 10px; overflow-x: auto; }
         .thumb { width: 70px; height: 70px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 2px solid transparent; opacity: 0.7; transition: 0.3s; }
         .thumb:hover, .thumb.active { border-color: #27ae60; opacity: 1; transform: scale(1.05); }
 
-        /* RIGHT: INFO SECTION */
         .info-section { flex: 1; }
         .category { color: #888; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
         .title { font-size: 32px; margin: 10px 0; color: #333; }
@@ -24,11 +23,9 @@
         .btn-cart { background: #27ae60; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; transition: 0.3s; border: none; cursor: pointer; }
         .btn-cart:hover { background: #219150; }
         
-        /* Updated Back Link Style */
         .back-link { display: inline-block; margin-bottom: 20px; color: #666; text-decoration: none; font-weight: bold; cursor: pointer; }
         .back-link:hover { color: #27ae60; }
 
-        /* --- REVIEW SECTION STYLES --- */
         .reviews-container { max-width: 1000px; margin: 30px auto; }
         .review-card { background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; border-bottom: 1px solid #eee; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
         .star-rating { color: #f39c12; letter-spacing: 2px; }
@@ -36,7 +33,6 @@
         .review-date { font-size: 0.85rem; color: #888; }
         .review-comment { margin-top: 10px; color: #555; line-height: 1.5; }
 
-        /* Review Form */
         .review-form { background: white; padding: 25px; border-radius: 10px; margin-top: 20px; border: 1px solid #ddd; }
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; font-weight: bold; margin-bottom: 5px; color: #555; }

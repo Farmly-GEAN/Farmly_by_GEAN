@@ -1,8 +1,8 @@
 <?php
 class AdminModel {
-    private $db; // 1. Define the property
+    private $db; 
 
-    // 2. Add this Constructor (THIS IS MISSING)
+    
     public function __construct($db) {
         $this->db = $db;
     }
@@ -15,29 +15,25 @@ class AdminModel {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // 2. Get Dashboard Stats (The function causing errors previously)
+    // 2. Get Dashboard Stats 
     public function getDashboardStats() {
         $stats = [];
 
-        // Total Sales (Sum of Total_Amount)
         $sql = "SELECT SUM(Total_Amount) as total_sales FROM Orders";
         $stmt = $this->conn->query($sql);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         $stats['total_sales'] = $row['total_sales'] ?? 0;
 
-        // Total Orders Count
         $sql = "SELECT COUNT(*) as total_orders FROM Orders";
         $stmt = $this->conn->query($sql);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         $stats['total_orders'] = $row['total_orders'] ?? 0;
 
-        // Total Products Count
         $sql = "SELECT COUNT(*) as total_products FROM Product";
         $stmt = $this->conn->query($sql);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         $stats['total_products'] = $row['total_products'] ?? 0;
 
-        // Total Users (Buyers + Sellers)
         $sqlBuyer = "SELECT COUNT(*) as c FROM Buyer";
         $sqlSeller = "SELECT COUNT(*) as c FROM Seller";
         
@@ -82,7 +78,7 @@ class AdminModel {
         return $stmt->execute([':id' => $id]);
     }
 
-    // 7. Get All Products (with Seller Name)
+    // 7. Get All Products 
     public function getAllProducts() {
         $sql = "SELECT p.*, s.Seller_Name 
                 FROM Product p 
@@ -115,16 +111,15 @@ class AdminModel {
    
     // SITE CONTENT MANAGEMENT
 
-    // 1. Get a specific setting
+   
     public function getSetting($key) {
         $stmt = $this->db->prepare("SELECT Setting_Value FROM Site_Settings WHERE Setting_Key = :key");
         $stmt->execute([':key' => $key]);
         return $stmt->fetchColumn(); 
     }
 
-    // 2. Update a setting
     public function updateSetting($key, $value) {
-        // Upsert logic (Update if exists, Insert if new)
+        
         $sql = "INSERT INTO Site_Settings (Setting_Key, Setting_Value) 
                 VALUES (:key, :val) 
                 ON CONFLICT (Setting_Key) 

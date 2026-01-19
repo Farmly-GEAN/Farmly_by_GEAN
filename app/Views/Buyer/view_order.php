@@ -6,7 +6,6 @@
     <style>
         body { font-family: 'Segoe UI', sans-serif; background: #f9f9f9; margin: 0; }
         
-        /* Local Header */
         .site-header { background: white; padding: 10px 40px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 40px; }
         .logo img { height: 70px; width: auto; }
         .header-links a { text-decoration: none; color: #333; font-weight: bold; margin-left: 20px; }
@@ -20,7 +19,6 @@
         
         .status-delivered { background: #d4edda; color: #155724; padding: 5px 10px; border-radius: 15px; font-weight: bold; font-size: 0.9rem; }
         
-        /* Rate Button */
         .btn-review {
             display: inline-block; text-decoration: none; background: #f1c40f; color: white;
             padding: 6px 12px; border-radius: 5px; font-size: 0.85rem; font-weight: bold; transition: 0.2s;

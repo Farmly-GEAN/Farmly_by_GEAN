@@ -11,7 +11,6 @@ $footerFile = $isSeller ? __DIR__ . '/../Seller/Seller_Footer.php' : __DIR__ . '
 <head>
     <meta charset="UTF-8">
     <title>Privacy Policy - Farmly</title>
-    <!-- <link rel="stylesheet" href="assets/CSS/HomePage.css"> -->
     <style>
         body { background-color: #f9f9f9; font-family: 'Segoe UI', sans-serif; color: #333; }
         
@@ -24,7 +23,6 @@ $footerFile = $isSeller ? __DIR__ . '/../Seller/Seller_Footer.php' : __DIR__ . '
         h3 { color: black; font-weight: bold; margin-top: 30px; }
         p { line-height: 1.6; color: #555; margin-bottom: 15px; }
 
-        /* Header Link Style */
         .header-back-link {
             color: #27ae60; text-decoration: none; font-weight: 600; font-size: 1rem;
         }

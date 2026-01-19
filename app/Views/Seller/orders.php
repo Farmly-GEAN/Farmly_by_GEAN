@@ -17,7 +17,6 @@
         .info-group label { display: block; font-size: 0.85rem; font-weight: bold; color: #777; margin-bottom: 5px; text-transform: uppercase; }
         .info-group p { margin: 0; color: #333; font-weight: 500; }
         
-        /* Logistics Box */
         .logistics-box { background: #e8f6f3; padding: 15px; border-radius: 5px; margin-top: 15px; border: 1px solid #d1f2eb; }
         .logistics-title { font-weight: bold; color: #16a085; display: block; margin-bottom: 5px; }
         .logistics-time { font-size: 1.1rem; color: #2c3e50; font-weight: bold; }

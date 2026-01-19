@@ -35,7 +35,7 @@ class ReviewModel {
         ]);
     }
 
-    // 3. Get Seller Reviews (For Dashboard)
+    // 3. Get Seller Reviews For Dashboard
     public function getSellerReviews($seller_id) {
         $sql = "SELECT r.Review_ID, r.Rating, r.Comment AS Review_Text, r.Review_Date,
                        p.Product_Name, b.Buyer_Name 

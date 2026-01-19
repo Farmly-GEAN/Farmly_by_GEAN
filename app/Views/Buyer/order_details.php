@@ -6,11 +6,10 @@
   <title>Order Details - Farmly</title>
   
   <style>
-    /* --- INTERNAL CSS --- */
+
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
     body { background-color: #ffffff; color: #333; min-height: 100vh; display: flex; flex-direction: column; }
 
-    /* HEADER */
     .site-header { display: flex; align-items: center; justify-content: space-between; padding: 15px 40px; border-bottom: 2px solid #333; position: relative; }
     .header-left { display: flex; align-items: center; }
     .logo img { height: 50px; width: auto; }
@@ -18,10 +17,8 @@
     .header-right { display: flex; align-items: center; }
     .back-btn { text-decoration: none; color: #333; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
 
-    /* LAYOUT */
     .container { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; max-width: 1000px; margin: 40px auto; padding: 0 20px; width: 100%; }
 
-    /* FORMS */
     .section-label { font-size: 1.2rem; color: #666; margin-bottom: 20px; font-family: 'Courier New', monospace; font-weight: bold; }
     
     .input-group { margin-bottom: 15px; }
@@ -34,10 +31,8 @@
     }
     .text-input:focus { border-color: #27ae60; }
 
-    /* Two inputs in one row */
     .row-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
-    /* PICKUP STYLES */
     .store-info {
         border: 2px solid #333; border-radius: 20px; padding: 20px;
         background: #f9f9f9; line-height: 1.6; margin-bottom: 20px;
@@ -50,7 +45,6 @@
         background: white; font-size: 1rem; cursor: pointer;
     }
 
-    /* CONFIRM BTN */
     .confirm-btn {
         background: #27ae60; color: white;
         border: 2px solid #333; border-radius: 50px;
@@ -58,8 +52,6 @@
         cursor: pointer; transition: all 0.2s; text-align: center; width: 100%; margin-top: 20px;
     }
     .confirm-btn:hover { transform: scale(1.02); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-
-    /* SUMMARY RIGHT */
     .summary-card { border: 2px solid #333; border-radius: 30px; padding: 30px; position: relative; height: fit-content; }
     .summary-title { position: absolute; top: -12px; left: 30px; background: white; padding: 0 10px; font-family: 'Courier New', monospace; color: #666; }
     .math-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-family: 'Courier New', monospace; font-size: 0.9rem; }

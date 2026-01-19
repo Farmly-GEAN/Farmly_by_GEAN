@@ -6,9 +6,7 @@
   <title>Checkout - Farmly</title>
   
   <style>
-    /* --- INTERNAL CSS TO MATCH CART UI --- */
     
-    /* 1. Global Reset & Font */
     body {
         background-color: #f9f9f9;
         font-family: 'Segoe UI', sans-serif;
@@ -16,7 +14,6 @@
         margin: 0;
     }
 
-    /* 2. Header Adjustment */
     .site-header {
         background: white;
         padding: 15px 40px;
@@ -34,7 +31,7 @@
         width: auto;
     }
     
-    /* Centered Title */
+    
     .header-center {
         position: absolute;
         left: 50%;
@@ -45,9 +42,8 @@
         text-transform: uppercase;
     }
 
-    /* Right Side Link */
     .back-link {
-        color: #27ae60; /* Farmly Green */
+        color: #27ae60; 
         text-decoration: none;
         font-weight: 600;
         font-size: 1rem;
@@ -61,7 +57,6 @@
         color: white;
     }
 
-    /* 3. Main Container */
     .checkout-container {
         max-width: 1000px;
         margin: 40px auto;
@@ -70,11 +65,9 @@
         border-radius: 8px;
         box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         display: grid;
-        grid-template-columns: 1fr 1fr; /* 50% Left, 50% Right */
+        grid-template-columns: 1fr 1fr; 
         gap: 60px;
     }
-
-    /* 4. Left Column: Delivery Options */
     .section-title {
         font-size: 1.2rem;
         font-weight: bold;
@@ -90,7 +83,7 @@
         gap: 20px;
     }
 
-    /* Clean Buttons matching Cart Theme */
+    
     .delivery-btn {
         background: white;
         border: 2px solid #e0e0e0;
@@ -125,7 +118,7 @@
         transform: translateX(5px);
     }
 
-    /* 5. Right Column: Summary */
+    
     .summary-box {
         background-color: #fafafa;
         padding: 25px;
@@ -167,7 +160,7 @@
         color: #777;
     }
 
-    /* Totals Section */
+    
     .totals-row {
         display: flex;
         justify-content: space-between;
@@ -186,8 +179,6 @@
         font-weight: bold;
         color: #2c3e50;
     }
-
-    /* Responsive */
     @media (max-width: 768px) {
         .checkout-container { grid-template-columns: 1fr; gap: 40px; }
         .site-header { flex-direction: column; height: auto; padding: 15px; gap: 15px; }

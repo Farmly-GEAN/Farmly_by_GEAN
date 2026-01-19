@@ -69,7 +69,7 @@
                             <?php if(!empty($p_img)): ?>
                                 <img src="<?php echo htmlspecialchars($p_img); ?>" class="product-thumb" alt="Img">
                             <?php else: ?>
-                                <span style="font-size:30px;">🥦</span>
+                                <span style="font-size:30px;"></span>
                             <?php endif; ?>
                         </td>
                         <td>

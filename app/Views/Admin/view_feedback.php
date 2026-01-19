@@ -4,7 +4,6 @@
     <title>User Feedback - Admin</title>
     <link rel="stylesheet" href="assets/CSS/Admin.css">
     <style>
-        /* TAG STYLES */
         .role-tag { padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
         .tag-seller { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; } /* Yellow/Orange */
         .tag-buyer { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; } /* Blue */
@@ -22,7 +21,6 @@
         <?php if (!empty($feedbacks)): ?>
             <?php foreach ($feedbacks as $f): ?>
                 <?php 
-                    // Determine which class to use based on Role
                     $roleClass = ($f['User_Role'] === 'Seller') ? 'tag-seller' : 'tag-buyer';
                 ?>
                 <div class="feedback-card">

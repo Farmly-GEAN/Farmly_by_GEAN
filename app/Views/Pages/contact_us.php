@@ -1,17 +1,12 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) session_start();
-
-// DEFAULT: Assume Guest
 $headerInclude = null;
 $footerInclude = __DIR__ . '/../Buyer/Buyer_Footer.php';
 
-// 1. CHECK FOR SELLER (Check ID OR Role)
 if (isset($_SESSION['seller_id']) || (isset($_SESSION['role']) && $_SESSION['role'] === 'seller')) {
-    // Correct path relative to 'app/Views/Main/'
     $headerInclude = __DIR__ . '/../Seller/Seller_Header.php';
     $footerInclude = __DIR__ . '/../Seller/Seller_Footer.php';
 } 
-// 2. CHECK FOR BUYER
 elseif (isset($_SESSION['user_id'])) {
     $headerInclude = __DIR__ . '/../Buyer/Buyer_Header.php';
     $footerInclude = __DIR__ . '/../Buyer/Buyer_Footer.php';
@@ -39,7 +34,6 @@ elseif (isset($_SESSION['user_id'])) {
         .msg-success { background: #d4edda; color: #155724; padding: 15px; border-radius: 5px; margin-bottom: 20px; text-align: center; }
         .msg-error { background: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px; margin-bottom: 20px; text-align: center; }
 
-        /* Guest Header Style (if not logged in) */
         .simple-header { background: white; padding: 15px 40px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; }
         .home-link { color: #27ae60; text-decoration: none; font-weight: bold; }
     </style>

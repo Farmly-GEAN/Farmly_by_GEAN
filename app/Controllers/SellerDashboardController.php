@@ -18,7 +18,6 @@ class SellerDashboardController {
         $this->sellerModel = new SellerModel($this->db);
     }
 
-    // Helper: Verify Seller Login
     private function checkSellerAuth() {
         if (session_status() === PHP_SESSION_NONE) session_start();
         if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'seller') {
@@ -32,12 +31,10 @@ class SellerDashboardController {
         $this->checkSellerAuth();
         $seller_id = $_SESSION['user_id'];
 
-        // Stats
         $earnings = $this->sellerModel->getTotalEarnings($seller_id);
         $total_orders = $this->sellerModel->getTotalOrdersCount($seller_id);
         $total_products = $this->sellerModel->getTotalProductsCount($seller_id);
-        
-        // Recent Orders
+    
         $orderModel = new OrderModel($this->db);
         $all_orders = $orderModel->getSellerOrders($seller_id, 'all'); 
         $recent_orders = array_slice($all_orders, 0, 5);
@@ -45,14 +42,13 @@ class SellerDashboardController {
         require_once __DIR__ . '/../Views/Seller/dashboard_home.php';
     }
 
-    // 1.5 Show "Add Product" Page (The Logic needed for the blank page fix)
+    
     public function showAddProduct() {
         $this->checkSellerAuth();
         
-        // Fetch categories to populate the dropdown
+       
         $categories = $this->productModel->getCategories();
         
-        // Load the view
         require_once __DIR__ . '/../Views/Seller/add_product.php';
     }
 
@@ -68,7 +64,7 @@ class SellerDashboardController {
             $price = $_POST['price'];
             $description = $_POST['description'];
 
-            // Handle MAIN Image
+           
             $mainImagePath = null;
             $uploadDir = __DIR__ . '/../../public/assets/uploads/products/';
             
@@ -87,11 +83,11 @@ class SellerDashboardController {
                 }
             }
 
-            // Insert Product
+            
             $newProductID = $this->productModel->addProduct($seller_id, $category_id, $product_name, $stock, $price, $mainImagePath, $description);
 
             if ($newProductID) {
-                // Handle Gallery Images
+                
                 if (isset($_FILES['gallery_images'])) {
                     $galleryPaths = [];
                     $files = $_FILES['gallery_images'];
@@ -168,7 +164,7 @@ class SellerDashboardController {
         require_once BASE_PATH . 'app/Views/Seller/reviews.php';
     }
 
-    // 8. Existing Product (Legacy/Simple Stock Update)
+    // 8. Existing Product
     public function existingProduct() {
         $this->checkSellerAuth();
         $categories = $this->productModel->getCategories();

@@ -8,7 +8,6 @@
     <style>
         body { background-color: #f9f9f9; font-family: 'Segoe UI', sans-serif; color: #333; }
 
-        /* Header */
         .site-header {
             background: white; padding: 15px 40px; display: flex; align-items: center; 
             justify-content: space-between; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
@@ -21,20 +20,17 @@
             font-size: 1.5rem; font-weight: 600; color: #2c3e50; text-transform: uppercase;
         }
 
-        /* Shop Button Style */
         .back-link {
             color: #27ae60; text-decoration: none; font-weight: 600; font-size: 1rem;
             border: 1px solid #27ae60; padding: 8px 15px; border-radius: 5px; transition: 0.3s;
         }
         .back-link:hover { background-color: #27ae60; color: white; }
 
-        /* Main Form Container */
         .details-container {
             max-width: 600px; margin: 40px auto; background: white; padding: 40px;
             border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        /* Form Fields */
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: #555; }
         
@@ -44,14 +40,12 @@
         }
         .form-input:focus { border-color: #27ae60; outline: none; }
 
-        /* Radio Payment Box */
         .radio-group {
             background: #fafafa; padding: 15px; border: 1px solid #eee; border-radius: 5px;
             display: flex; flex-direction: column; gap: 10px;
         }
         .radio-group label { margin: 0; font-weight: normal; cursor: pointer; display: flex; align-items: center; gap: 10px; }
 
-        /* Button */
         .confirm-btn {
             width: 100%; background-color: #27ae60; color: white; padding: 15px;
             font-size: 1.1rem; font-weight: bold; border: none; border-radius: 8px;

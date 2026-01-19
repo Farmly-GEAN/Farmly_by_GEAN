@@ -11,7 +11,7 @@ $footerFile = $isSeller ? __DIR__ . '/../Seller/Seller_Footer.php' : __DIR__ . '
 <head>
     <meta charset="UTF-8">
     <title>About Us - Farmly</title>
-    <!-- <link rel="stylesheet" href="assets/CSS/HomePage.css"> -->
+
     <style>
         body { background-color: #f9f9f9; font-family: 'Segoe UI', sans-serif; color: #333; }
         .page-container {
@@ -44,12 +44,12 @@ $footerFile = $isSeller ? __DIR__ . '/../Seller/Seller_Footer.php' : __DIR__ . '
             
             <p><strong>Why Choose Us?</strong></p>
             <ul style="color: #555; line-height: 1.8; margin-bottom: 20px; margin-left: 20px;">
-                <li>🌱 <strong>100% Organic & Fresh:</strong> Produce harvested often the same day it is delivered.</li>
-                <li>🚜 <strong>Support Local:</strong> Your money goes directly to the farmers in your community.</li>
-                <li>🚚 <strong>Convenience:</strong> Easy home delivery or pickup options to suit your schedule.</li>
+                <li><strong>100% Organic & Fresh:</strong> Produce harvested often the same day it is delivered.</li>
+                <li><strong>Support Local:</strong> Your money goes directly to the farmers in your community.</li>
+                <li><strong>Convenience:</strong> Easy home delivery or pickup options to suit your schedule.</li>
             </ul>
 
-            <p>Founded in 2025, Farmly has helped hundreds of local sellers bring their harvest straight to your table. We are committed to building a sustainable future, one vegetable at a time.</p>
+            <p>Founded in 2025, Farmly is trying to help local farmers and buyers connect directly, making it easier to access fresh, organic produce while supporting the local economy.</p>
         </div>
     </div>
     

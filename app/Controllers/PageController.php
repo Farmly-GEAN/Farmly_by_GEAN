@@ -37,14 +37,14 @@ class PageController {
     public function feedback() {
         if (session_status() === PHP_SESSION_NONE) session_start();
 
-        // Detect Role to customize the view
+        
         $role = 'Guest';
         if (isset($_SESSION['seller_id']) || (isset($_SESSION['role']) && $_SESSION['role'] === 'seller')) {
             $role = 'Seller';
         } elseif (isset($_SESSION['user_id'])) {
             $role = 'Buyer';
         } else {
-            // Guests shouldn't give feedback, redirect to login
+            
             header("Location: index.php?page=login");
             exit();
         }
@@ -57,9 +57,9 @@ class PageController {
         if (session_status() === PHP_SESSION_NONE) session_start();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Determine who is sending it
+           
             if (isset($_SESSION['seller_id']) || (isset($_SESSION['role']) && $_SESSION['role'] === 'seller')) {
-                $user_id = $_SESSION['user_id']; // or seller_id
+                $user_id = $_SESSION['user_id']; 
                 $name    = $_SESSION['user_name'] ?? 'Seller';
                 $role    = 'Seller';
             } elseif (isset($_SESSION['user_id'])) {

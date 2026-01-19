@@ -1,16 +1,16 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) session_start();
 
-// 1. DYNAMIC SETTINGS
-$role = 'Buyer'; // Default
-$dashboardLink = 'index.php?page=home';
-$footerFile = __DIR__ . '/../Buyer/Buyer_Footer.php'; // Default path
 
-// Check if Seller
+$role = 'Buyer'; 
+$dashboardLink = 'index.php?page=home';
+$footerFile = __DIR__ . '/../Buyer/Buyer_Footer.php'; 
+
+
 if (isset($_SESSION['seller_id']) || (isset($_SESSION['role']) && $_SESSION['role'] === 'seller')) {
     $role = 'Seller';
     $dashboardLink = 'index.php?page=seller_dashboard';
-    $footerFile = __DIR__ . '/../Seller/Seller_Footer.php'; // Adjust path if needed
+    $footerFile = __DIR__ . '/../Seller/Seller_Footer.php'; 
 }
 ?>
 

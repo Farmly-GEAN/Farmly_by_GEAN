@@ -41,17 +41,8 @@
 
         <?php if ($msg): ?>
             <?php 
-                // ==========================================
-                // 🛠️ SMART DETECTION (Fixes Errors)
-                // ==========================================
-                
-                // 1. Determine Type: Use variable from Controller OR fallback to URL parameter
                 $current_type = $type ?? $_GET['type'] ?? 'contact';
-
-                // 2. Determine ID: Check ALL possible keys (Case-insensitive)
                 $safe_id = $msg['contact_id'] ?? $msg['Contact_ID'] ?? $msg['feedback_id'] ?? $msg['Feedback_ID'] ?? $msg['message_id'] ?? null;
-
-                // 3. Safe Data Extraction
                 $subject = $msg['Subject'] ?? $msg['subject'] ?? '(No Subject)';
                 $name    = $msg['Name'] ?? $msg['name'] ?? 'User';
                 $email   = $msg['Email'] ?? $msg['email'] ?? 'No Email';

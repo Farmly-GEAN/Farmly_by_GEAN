@@ -24,11 +24,11 @@ class SellerAuthController {
                 if (session_status() === PHP_SESSION_NONE) session_start();
                 
                 // Set Session Variables
-                $_SESSION['user_id'] = $seller['seller_id']; // Using 'user_id' to keep session key consistent
-                $_SESSION['seller_name'] = $seller['seller_name']; // Specific to seller
-                $_SESSION['role'] = 'seller'; // CRITICAL: This distinguishes them from buyers
+                $_SESSION['user_id'] = $seller['seller_id']; 
+                $_SESSION['seller_name'] = $seller['seller_name']; 
+                $_SESSION['role'] = 'seller'; 
                 
-                // Redirect to Dashboard
+                
                 header("Location: index.php?page=seller_dashboard");
                 exit();
             } else {
@@ -36,7 +36,7 @@ class SellerAuthController {
                 require_once __DIR__ . '/../Views/Seller/login.php';
             }
         } else {
-            // Show the login form
+            
             require_once __DIR__ . '/../Views/Seller/login.php';
         }
     }
@@ -61,7 +61,7 @@ class SellerAuthController {
             // Image Upload Handling
             $imagePath = null;
             if (isset($_FILES['seller_image']) && $_FILES['seller_image']['error'] === 0) {
-                // Ensure this folder exists in your public directory
+                
                 $uploadDir = __DIR__ . '/../../public/assets/uploads/sellers/';
                 
                 if (!is_dir($uploadDir)) {
@@ -81,9 +81,9 @@ class SellerAuthController {
                 }
             }
 
-            // Attempt Registration
+            
             if ($this->sellerModel->register($name, $email, $password, $phone, $address, $imagePath)) {
-                // Success
+                
                 header("Location: index.php?page=seller_login&success=1");
                 exit();
             } else {
@@ -91,7 +91,7 @@ class SellerAuthController {
                 require_once __DIR__ . '/../Views/Seller/register.php';
             }
         } else {
-            // Show the register form
+            
             require_once __DIR__ . '/../Views/Seller/register.php';
         }
     }

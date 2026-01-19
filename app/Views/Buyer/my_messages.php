@@ -58,17 +58,14 @@
 <?php if (!empty($my_messages)): ?>
         <?php foreach ($my_messages as $msg): ?>
             <?php 
-                // FIX: Check for lowercase keys (PostgreSQL default) or Capitalized (MySQL default)
                 $subject = $msg['subject'] ?? $msg['Subject'] ?? '(No Subject)';
                 $message = $msg['message'] ?? $msg['Message'] ?? '';
                 $status  = $msg['status'] ?? $msg['Status'] ?? 'New';
                 $reply   = $msg['admin_reply'] ?? $msg['Admin_Reply'] ?? '';
                 
-                // Handle Date
                 $created_at = $msg['created_at'] ?? $msg['Created_At'] ?? date('Y-m-d');
                 $date = date("M d, Y", strtotime($created_at));
 
-                // Status Color Logic
                 $statusClass = 'status-new';
                 if ($status === 'Replied') $statusClass = 'status-replied';
                 if ($status === 'Read') $statusClass = 'status-read';

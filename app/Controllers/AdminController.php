@@ -8,10 +8,10 @@ class AdminController {
     private $productModel;
     private $orderModel;
     private $pageModel;
-    private $adminModel; // <--- ADD THIS LINE (1)
+    private $adminModel; 
 
     public function __construct() {
-        // 1. LOAD THE DATABASE FILE (This line was missing!)
+        
         require_once __DIR__ . '/../Config/Database.php';
 
         $database = new Database();
@@ -39,9 +39,9 @@ class AdminController {
     }
 
 
-    // ========================
+   
     // 1. AUTHENTICATION
-    // ========================
+  
 
     public function login() {
         if (session_status() === PHP_SESSION_NONE) session_start();
@@ -62,7 +62,7 @@ class AdminController {
             $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($admin) {
-                // Handle case-insensitive keys
+                
                 $id = $admin['Admin_ID'] ?? $admin['admin_id'];
                 $name = $admin['Admin_Name'] ?? $admin['admin_name'];
 
@@ -97,9 +97,9 @@ class AdminController {
         }
     }
 
-    // ========================
+    
     // 2. DASHBOARD
-    // ========================
+
 
     public function dashboard() {
         $this->checkAdminAuth();
@@ -133,10 +133,9 @@ class AdminController {
         require_once __DIR__ . '/../Views/Admin/dashboard.php';
     }
 
-    // ========================
+    
     // 3. MANAGE SELLERS
-    // ========================
-
+    
     public function manageSellers() {
         $this->checkAdminAuth();
         $stmt = $this->db->query("SELECT * FROM Seller");
@@ -161,9 +160,9 @@ class AdminController {
         exit();
     }
 
-    // ========================
+    
     // 4. MANAGE BUYERS
-    // ========================
+    
 
     public function manageBuyers() {
         $this->checkAdminAuth();
@@ -190,9 +189,9 @@ class AdminController {
         exit();
     }
 
-    // ========================
+    
     // 5. MANAGE PRODUCTS
-    // ========================
+    
 
     public function manageProducts() {
         $this->checkAdminAuth();
@@ -217,47 +216,53 @@ class AdminController {
         exit();
     }
 
-    // ========================
+    
     // 6. MANAGE ORDERS
-    // ========================
+  
     
     public function orders() {
         $this->checkAdminAuth();
-        $stmt = $this->db->query("SELECT * FROM Orders ORDER BY Order_Date DESC");
+
+       
+        $sql = "SELECT o.*, b.Buyer_Name, b.buyer_name 
+                FROM Orders o
+                LEFT JOIN Buyer b ON o.Buyer_ID = b.Buyer_ID
+                ORDER BY o.Order_Date DESC";
+
+        $stmt = $this->db->query($sql);
         $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
         require_once __DIR__ . '/../Views/Admin/all_orders.php';
     }
 
-    // ========================
-    // 7. VIEW ALL MESSAGES (The List)
-    // ========================
+   
+    // 7. VIEW ALL MESSAGES 
+    
     public function viewMessages() {
         $this->checkAdminAuth();
 
-        // 1. Fetch Feedback (Assuming Feedback table exists)
-        // If you deleted the Feedback table, comment out these lines:
         $feedbacks = [];
         try {
             $feedbacks = $this->db->query("SELECT * FROM Feedback ORDER BY Created_At DESC")->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) { /* Ignore if table missing */ }
 
-        // 2. Fetch Contacts (The "Contact Us" Form Data)
+        
         $contacts = $this->db->query("SELECT * FROM Contact ORDER BY Created_At DESC")->fetchAll(PDO::FETCH_ASSOC);
 
-        // 3. SMART LOGIC: Check if the sender is a Buyer or Seller
+        
         foreach ($contacts as &$msg) {
-            $email = $msg['Email'] ?? $msg['email']; // Get email from Contact table
-            $msg['user_role'] = 'Guest'; // Default
+            $email = $msg['Email'] ?? $msg['email']; 
+            $msg['user_role'] = 'Guest'; 
 
             if ($email) {
                 try {
-                    // FIX: Check Buyer Table using 'Buyer_Email'
+                    
                     $stmt = $this->db->prepare("SELECT COUNT(*) FROM Buyer WHERE Buyer_Email = :e");
                     $stmt->execute([':e' => $email]);
                     if ($stmt->fetchColumn() > 0) {
                         $msg['user_role'] = 'Buyer';
                     } else {
-                        // FIX: Check Seller Table using 'Seller_Email'
+                        
                         $stmt = $this->db->prepare("SELECT COUNT(*) FROM Seller WHERE Seller_Email = :e");
                         $stmt->execute([':e' => $email]);
                         if ($stmt->fetchColumn() > 0) {
@@ -265,20 +270,20 @@ class AdminController {
                         }
                     }
                 } catch (Exception $e) {
-                    // If tables/columns are missing, just keep as Guest
+                   
                     $msg['user_role'] = 'Guest';
                 }
             }
         }
-        unset($msg); // Clean up reference
+        unset($msg); 
 
-        // Load the View you provided
+        
         require_once __DIR__ . '/../Views/Admin/messages.php';
     }
 
-    // ========================
+   
     // 8. READ SINGLE MESSAGE
-    // ========================
+  
     public function viewMessage() {
         $this->checkAdminAuth();
         $id = $_GET['id'] ?? null;
@@ -288,7 +293,7 @@ class AdminController {
             exit();
         }
 
-        // FIX: Use 'contact_id' (lowercase) based on your Debug Report
+        
         $stmt = $this->db->prepare("SELECT * FROM Contact WHERE contact_id = :id");
         $stmt->execute([':id' => $id]);
         $msg = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -302,16 +307,15 @@ class AdminController {
         require_once __DIR__ . '/../Views/Admin/read_message.php';
     }
 
-    // ========================
+    
     // 9. REPLY TO MESSAGE
-    // ========================
+    
     public function replyMessage() {
         $this->checkAdminAuth();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['msg_id'];
             $reply = $_POST['reply_text'];
 
-            // FIX: Update using 'contact_id'
             $stmt = $this->db->prepare("UPDATE Contact SET admin_reply = :r, status = 'Replied', replied_at = CURRENT_TIMESTAMP WHERE contact_id = :id");
             $stmt->execute([':r' => $reply, ':id' => $id]);
 
@@ -330,7 +334,7 @@ class AdminController {
             $key = $_POST['content_type'];
             $value = $_POST['content_text'];
 
-            // Upsert for PostgreSQL
+            
             $sql = "INSERT INTO Site_Settings (Setting_Key, Setting_Value) 
                     VALUES (:key, :val) 
                     ON CONFLICT (Setting_Key) 
@@ -347,7 +351,7 @@ class AdminController {
    public function manageContent() {
         $this->checkAdminAuth();
         
-        // Fetch current values to fill the textareas
+        
         $home_welcome  = $this->adminModel->getSetting('home_welcome');
         $terms_content = $this->adminModel->getSetting('terms_content');
         $legal_content = $this->adminModel->getSetting('legal_notice');
@@ -356,13 +360,12 @@ class AdminController {
     }
 
 
-    // ========================
+    
     // MANAGE FAQ
-    // ========================
+    
 
     public function manageFAQ() {
         $this->checkAdminAuth();
-        // Fetch all existing FAQs to show in a list
         $faqs = $this->adminModel->getAllFAQs();
         require_once __DIR__ . '/../Views/Admin/manage_faq.php';
     }
@@ -391,7 +394,7 @@ class AdminController {
 
     public function viewFeedback() {
         $this->checkAdminAuth();
-        // Fetch from the NEW Feedback table
+        
         $feedbacks = $this->db->query("SELECT * FROM Feedback ORDER BY Created_At DESC")->fetchAll(PDO::FETCH_ASSOC);
         require_once __DIR__ . '/../Views/Admin/view_feedback.php';
     }

@@ -14,12 +14,12 @@
         .comment { color: #555; line-height: 1.5; font-style: italic; }
         .buyer { font-weight: bold; color: #27ae60; margin-top: 10px; display: block; font-size: 0.9rem; }
         
-        /* Dynamic border colors based on rating */
-        .rating-5 { border-left-color: #27ae60; } /* Green */
+       
+        .rating-5 { border-left-color: #27ae60; } 
         .rating-4 { border-left-color: #aadd28; }
-        .rating-3 { border-left-color: #f1c40f; } /* Yellow */
+        .rating-3 { border-left-color: #f1c40f; } 
         .rating-2 { border-left-color: #e67e22; }
-        .rating-1 { border-left-color: #c0392b; } /* Red */
+        .rating-1 { border-left-color: #c0392b; } 
     </style>
 </head>
 <body>

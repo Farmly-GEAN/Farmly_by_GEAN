@@ -35,7 +35,7 @@ class CartController {
     }
 
     // 2. Add Item to Cart
-    public function add() {
+   public function add() {
         if (session_status() === PHP_SESSION_NONE) session_start();
 
         if (!isset($_SESSION['user_id'])) {
@@ -48,13 +48,23 @@ class CartController {
             $product_id = $_POST['product_id'];
             $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 1;
 
+            // 1. Keep the existing logic to add to DB
             $this->cartModel->addToCart($buyer_id, $product_id, $quantity);
 
-            header("Location: index.php?page=cart");
+            // 2. UPDATED REDIRECT LOGIC
+            // Instead of going to 'cart', we go back to where they came from
+            $referer = $_SERVER['HTTP_REFERER'] ?? 'index.php?page=home';
+            
+            // Smartly append the success message (check if URL already has '?' or not)
+            if (strpos($referer, '?') !== false) {
+                header("Location: $referer&success=added");
+            } else {
+                header("Location: $referer?success=added");
+            }
             exit();
         }
     }
-
+    
     // 3. Remove Item from Cart
     public function remove() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cart_id'])) {
@@ -80,7 +90,6 @@ class CartController {
             } else {
                 $new_qty = $current_qty - 1;
             }
-            // update to cart if the quantity is one
             if ($new_qty >= 1) {
                 $this->cartModel->updateQuantity($cart_id, $new_qty);
             }

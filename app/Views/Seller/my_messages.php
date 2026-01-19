@@ -36,7 +36,6 @@
     <?php if (!empty($my_messages)): ?>
         <?php foreach ($my_messages as $msg): ?>
             <?php 
-                // Handle Lowercase/Uppercase keys
                 $subject = $msg['subject'] ?? $msg['Subject'] ?? '(No Subject)';
                 $message = $msg['message'] ?? $msg['Message'] ?? '';
                 $status  = $msg['status'] ?? $msg['Status'] ?? 'New';
@@ -44,7 +43,6 @@
                 $created_at = $msg['created_at'] ?? $msg['Created_At'] ?? date('Y-m-d');
                 $date = date("M d, Y", strtotime($created_at));
 
-                // Status Logic
                 $statusClass = 'status-new';
                 if ($status === 'Replied') $statusClass = 'status-replied';
                 if ($status === 'Read') $statusClass = 'status-read';

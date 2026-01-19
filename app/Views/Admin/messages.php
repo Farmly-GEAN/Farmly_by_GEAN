@@ -48,17 +48,17 @@
                     <tbody>
                         <?php foreach ($feedbacks as $fb): ?>
                             <?php 
-                                // 1. Safe Data Extraction
+                                
                                 $date = $fb['Created_At'] ?? $fb['created_at'] ?? date('Y-m-d');
                                 
-                                // FIX: Correctly get Name and Role from the $fb array
+                                
                                 $userName = $fb['User_Name'] ?? $fb['user_name'] ?? 'Unknown';
                                 $role     = $fb['User_Role'] ?? $fb['user_role'] ?? 'Guest';
                                 $subj     = $fb['Subject']   ?? $fb['subject']   ?? '(No Subject)';
                                 $msg      = $fb['Message']   ?? $fb['message']   ?? '';
                                 
-                                // Badge Logic
-                                $badgeClass = 'badge-Guest'; // Default CSS class
+                               
+                                $badgeClass = 'badge-Guest'; 
                                 if (strcasecmp($role, 'Buyer') === 0) $badgeClass = 'badge-Buyer';
                                 if (strcasecmp($role, 'Seller') === 0) $badgeClass = 'badge-Seller';
                             ?>
@@ -106,7 +106,7 @@
                     <tbody>
                         <?php foreach ($contacts as $msg): ?>
                             <?php 
-                                // FIX: Use the key found in your debug output
+                                
                               $msg_id = $msg['message_id'] ?? $msg['contact_id'] ?? $msg['Contact_ID'];
 
                                 $date = $msg['Created_At'] ?? $msg['created_at'] ?? date('Y-m-d');
@@ -121,14 +121,14 @@
         <strong><?php echo htmlspecialchars($name); ?></strong><br>
         
         <?php 
-            // Color Logic for the Badge
+            
             $role = $msg['user_role'] ?? 'Guest'; 
-            $badgeColor = '#e2e3e5; color:#383d41'; // Default Gray (Guest)
+            $badgeColor = '#e2e3e5; color:#383d41'; 
             
             if ($role === 'Buyer') {
-                $badgeColor = '#d1ecf1; color:#0c5460'; // Blue
+                $badgeColor = '#d1ecf1; color:#0c5460'; 
             } elseif ($role === 'Seller') {
-                $badgeColor = '#fff3cd; color:#856404'; // Yellow
+                $badgeColor = '#fff3cd; color:#856404'; 
             }
         ?>
         <span style="background: <?php echo $badgeColor; ?>; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; font-weight:bold;">
