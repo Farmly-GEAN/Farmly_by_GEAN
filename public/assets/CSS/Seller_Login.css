@@ -1,0 +1,151 @@
+/* ==========================================================================
+   Seller_Login.css (Bigger & Bolder)
+   ========================================================================== */
+
+/* 1. PAGE LAYOUT */
+body {
+  margin: 0;
+  font-family: "Segoe UI", "Roboto", Helvetica, sans-serif;
+  background: #f4f6f8; /* Slightly cleaner gray */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* 2. HEADER */
+.top-header {
+  padding: 25px 0; /* Taller header */
+  text-align: center;
+  background: white;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.header-logo {
+  width: 110px; /* Bigger Logo */
+  transition: transform 0.3s ease;
+}
+.header-logo:hover {
+  transform: scale(1.05);
+}
+
+/* 3. MAIN SECTION */
+.main-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Vertically centers the card */
+  padding: 60px 20px;
+}
+
+/* --- THE CARD (Made Bigger) --- */
+.login-card {
+  width: 550px; /* Increased width (was ~400px) */
+  background: white;
+  padding: 60px 50px; /* More breathing room inside */
+  border-radius: 20px;
+  border: 1px solid #ccc; /* Softer border */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); /* Softer, larger shadow */
+  text-align: center;
+}
+
+/* Title Styling */
+.login-title {
+  font-size: 32px; /* Bigger text */
+  color: #0073e6;
+  font-weight: 700;
+  margin-bottom: 40px;
+  border: 3px solid #0073e6; /* Thicker border */
+  display: inline-block;
+  padding: 12px 30px;
+  border-radius: 12px;
+}
+
+/* 4. FORM FIELDS */
+.form-field {
+  text-align: left;
+  margin-bottom: 25px; /* More space between inputs */
+}
+
+.form-field label {
+  font-size: 22px; /* Bigger label text */
+  font-weight: 600;
+  color: #333;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.form-field input {
+  width: 100%;
+  padding: 16px; /* Taller text box */
+  border: 2px solid #aaa; /* Slightly thicker border */
+  border-radius: 10px;
+  font-size: 18px; /* Bigger typing text */
+  font-family: "Segoe UI", sans-serif;
+  transition: 0.3s ease;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.form-field input:focus {
+  border-color: #0073e6;
+  box-shadow: 0 0 10px rgba(0, 115, 230, 0.3);
+  outline: none;
+}
+
+/* 5. BUTTONS */
+.login-btn {
+  width: 100%;
+  padding: 18px; /* Bigger button */
+  background: #0073e6;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 22px; /* Bigger button text */
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s ease;
+  margin-top: 25px;
+  letter-spacing: 0.5px;
+}
+
+.login-btn:hover {
+  background: #005bbd;
+  transform: translateY(-3px);
+  box-shadow: 0px 8px 15px rgba(0, 115, 230, 0.3);
+}
+
+/* Links (Register / Forgot Password) */
+.create,
+.forgot {
+  margin-top: 25px;
+  font-size: 18px; /* Bigger link text */
+}
+
+.create a,
+.forgot a {
+  color: #0073e6;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.create a:hover,
+.forgot a:hover {
+  text-decoration: underline;
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+  .login-card {
+    width: 90%;
+    padding: 40px 25px;
+  }
+  .login-title {
+    font-size: 26px;
+  }
+  .site-footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+  }
+}

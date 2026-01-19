@@ -1,0 +1,186 @@
+/* ==========================================================================
+   Seller_Register.css (Wide 88% Width)
+   ========================================================================== */
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: #f5f7fa;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* HEADER */
+.top-header {
+  padding: 20px 0;
+  text-align: center;
+  background: white;
+  border-bottom: 1px solid #ddd;
+}
+.header-logo {
+  width: 90px;
+  transition: transform 0.3s ease;
+}
+.header-logo:hover {
+  transform: scale(1.05);
+}
+
+/* MAIN SECTION */
+.main-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.login-card {
+  /* --- THE WIDTH CHANGE --- */
+  /* 88% Width leaves exactly 6% on the left and 6% on the right */
+  width: 88%;
+  max-width: 1400px; /* Safety limit for giant 4k screens */
+
+  background: white;
+  padding: 45px 40px;
+  border-radius: 20px;
+  border: 2px solid #bbb;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.login-title {
+  font-size: 26px;
+  color: #0073e6;
+  font-weight: 700;
+  margin-bottom: 30px;
+  border: 2px solid #0073e6;
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 12px;
+}
+
+/* FORM FIELDS */
+.form-field {
+  text-align: left;
+  margin-bottom: 20px;
+}
+.form-field label {
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* INPUT STYLES */
+.form-field input[type="text"],
+.form-field input[type="email"],
+.form-field input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  border: 1.8px solid #555;
+  border-radius: 8px;
+  font-size: 18px;
+  font-family: "Segoe UI", sans-serif;
+  transition: 0.3s ease;
+  box-sizing: border-box;
+}
+.form-field input:focus {
+  border-color: #0073e6;
+  box-shadow: 0 0 8px rgba(0, 115, 230, 0.4);
+  outline: none;
+}
+
+/* FILE INPUT */
+.form-field input[type="file"] {
+  display: none;
+}
+.custom-file-label {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border: 1.8px solid #555;
+  border-radius: 8px;
+  font-size: 16px;
+  background: white;
+  cursor: pointer;
+  text-align: center;
+  box-sizing: border-box;
+  color: #555;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.custom-file-label:hover {
+  background-color: #f0f0f0;
+  border-color: #0073e6;
+  color: #0073e6;
+}
+
+/* HORIZONTAL GRID */
+.form-row {
+  display: flex;
+  gap: 30px; /* Increased gap since card is wider now */
+  margin-bottom: 20px;
+}
+
+.form-field.half {
+  flex: 1; /* Equal 50% width */
+  margin-bottom: 0;
+}
+
+/* BUTTONS */
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  background: #0073e6;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 22px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s ease;
+  margin-top: 20px;
+}
+.login-btn:hover {
+  background: #005bbd;
+  transform: translateY(-3px);
+  box-shadow: 0px 6px 12px rgba(0, 115, 230, 0.35);
+}
+
+.create {
+  margin-top: 20px;
+  font-size: 18px;
+}
+.create a {
+  color: #0073e6;
+  text-decoration: none;
+  font-weight: 600;
+}
+.create a:hover {
+  text-decoration: underline;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .login-card {
+    width: 92%;
+    padding: 30px 20px;
+  } /* Slightly more space on mobile */
+  .site-footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+  }
+
+  /* Stack horizontal fields on mobile phones */
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+  .form-field.half {
+    margin-bottom: 20px;
+  }
+}
