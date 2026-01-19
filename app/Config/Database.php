@@ -1,19 +1,33 @@
 <?php
 class Database {
+    // Default to local (XAMPP) settings
     private $host = "localhost";
-    private $db_name = "farmly"; 
+    private $db_name = "farmly";
     private $username = "postgres";
     private $password = "27579Ni@";
     public $conn;
 
     public function getConnection() {
         $this->conn = null;
-        if (getenv('PGHOST')) {
+
+        
+        if (getenv('PGHOST') || getenv('RAILWAY_ENVIRONMENT')) {
+            
+    
             $this->host = getenv('PGHOST');
-            $this->db_name = getenv('PGDATABASE');
-            $this->username = getenv('PGUSER');
-            $this->password = getenv('PGPASSWORD');
-            $port = getenv('PGPORT');
+
+        
+            $this->db_name = getenv('PGDATABASE') ?: getenv('POSTGRES_DB');
+
+            
+            $this->username = getenv('PGUSER') ?: getenv('POSTGRES_USER');
+
+            
+            $this->password = getenv('PGPASSWORD') ?: getenv('POSTGRES_PASSWORD');
+            
+            
+            $port = getenv('PGPORT') ?: "5432";
+            
         } else {
             
             $port = "5432"; 
@@ -27,7 +41,6 @@ class Database {
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
         } catch(PDOException $exception) {
-            
             echo "Connection error: " . $exception->getMessage();
         }
 
