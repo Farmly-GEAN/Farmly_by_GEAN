@@ -15,7 +15,7 @@
     <div class="logo">
         <a href="index.php?page=seller_dashboard" style="text-decoration:none;">
             <img src="assets/images/Logo/Team Logo.png" alt="Farmly" 
-                 style="height: 50px; width: auto;" 
+                 style="height: 80px; width: 80px;" 
                  onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
             <span style="display:none; font-weight:bold; color:#27ae60; font-size:24px;">🌱 FARMLY</span>
         </a>

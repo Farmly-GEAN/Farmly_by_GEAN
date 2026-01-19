@@ -1,10 +1,4 @@
 <?php
-require_once __DIR__ . '/../Config/Database.php';
-require_once __DIR__ . '/../Models/UserModel.php';
-require_once __DIR__ . '/../Models/SellerModel.php';
-require_once __DIR__ . '/../Models/ProductModel.php';
-require_once __DIR__ . '/../Models/OrderModel.php';
-require_once __DIR__ . '/../Models/PageModel.php';
 
 class AdminController {
     
@@ -14,21 +8,36 @@ class AdminController {
     private $productModel;
     private $orderModel;
     private $pageModel;
+    private $adminModel; // <--- ADD THIS LINE (1)
 
     public function __construct() {
+        // 1. LOAD THE DATABASE FILE (This line was missing!)
+        require_once __DIR__ . '/../Config/Database.php';
+
         $database = new Database();
         $this->db = $database->getConnection();
         
+        // 2. Load Models
+        require_once __DIR__ . '/../Models/UserModel.php';
+        require_once __DIR__ . '/../Models/SellerModel.php';
+        require_once __DIR__ . '/../Models/ProductModel.php';
+        require_once __DIR__ . '/../Models/OrderModel.php';
+        require_once __DIR__ . '/../Models/PageModel.php';
+        require_once __DIR__ . '/../Models/AdminModel.php'; 
+        
+        // 3. Initialize Models
         $this->userModel = new UserModel($this->db);
         $this->sellerModel = new SellerModel($this->db);
         $this->productModel = new ProductModel($this->db);
         $this->orderModel = new OrderModel($this->db);
         $this->pageModel = new PageModel($this->db);
+        $this->adminModel = new AdminModel($this->db); 
         
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
     }
+
 
     // ========================
     // 1. AUTHENTICATION
@@ -220,31 +229,35 @@ class AdminController {
     }
 
     // ========================
-    // 7. MESSAGE LIST (Smart Version with Buyer/Seller Tags)
+    // 7. VIEW ALL MESSAGES (The List)
     // ========================
-public function viewMessages() { 
+    public function viewMessages() {
         $this->checkAdminAuth();
 
-        // 1. Fetch Feedback
-        $feedbacks = $this->db->query("SELECT * FROM Feedback ORDER BY Created_At DESC")->fetchAll(PDO::FETCH_ASSOC);
+        // 1. Fetch Feedback (Assuming Feedback table exists)
+        // If you deleted the Feedback table, comment out these lines:
+        $feedbacks = [];
+        try {
+            $feedbacks = $this->db->query("SELECT * FROM Feedback ORDER BY Created_At DESC")->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) { /* Ignore if table missing */ }
 
-        // 2. Fetch Contacts
+        // 2. Fetch Contacts (The "Contact Us" Form Data)
         $contacts = $this->db->query("SELECT * FROM Contact ORDER BY Created_At DESC")->fetchAll(PDO::FETCH_ASSOC);
 
-        // 3. SMART LOGIC: Tag Users as Buyer, Seller, or Guest
+        // 3. SMART LOGIC: Check if the sender is a Buyer or Seller
         foreach ($contacts as &$msg) {
-            $email = $msg['Email'] ?? $msg['email'];
-            $msg['user_role'] = 'Guest'; // Default role
+            $email = $msg['Email'] ?? $msg['email']; // Get email from Contact table
+            $msg['user_role'] = 'Guest'; // Default
 
             if ($email) {
                 try {
-                    // Check Buyer Table (using Buyer_Email)
+                    // FIX: Check Buyer Table using 'Buyer_Email'
                     $stmt = $this->db->prepare("SELECT COUNT(*) FROM Buyer WHERE Buyer_Email = :e");
                     $stmt->execute([':e' => $email]);
                     if ($stmt->fetchColumn() > 0) {
                         $msg['user_role'] = 'Buyer';
                     } else {
-                        // Check Seller Table (using Seller_Email)
+                        // FIX: Check Seller Table using 'Seller_Email'
                         $stmt = $this->db->prepare("SELECT COUNT(*) FROM Seller WHERE Seller_Email = :e");
                         $stmt->execute([':e' => $email]);
                         if ($stmt->fetchColumn() > 0) {
@@ -252,101 +265,64 @@ public function viewMessages() {
                         }
                     }
                 } catch (Exception $e) {
+                    // If tables/columns are missing, just keep as Guest
                     $msg['user_role'] = 'Guest';
                 }
             }
         }
-        unset($msg); 
+        unset($msg); // Clean up reference
 
+        // Load the View you provided
         require_once __DIR__ . '/../Views/Admin/messages.php';
     }
-    
 
     // ========================
-    // 8. MESSAGE & FEEDBACK DETAILS (Single View & Reply)
+    // 8. READ SINGLE MESSAGE
     // ========================
-
     public function viewMessage() {
         $this->checkAdminAuth();
-
         $id = $_GET['id'] ?? null;
-        $type = $_GET['type'] ?? null;
-
-        if (!$id || !$type) {
+        
+        if (!$id) {
             header("Location: index.php?page=admin_messages");
             exit();
         }
 
-        $msg = null;
+        // FIX: Use 'contact_id' (lowercase) based on your Debug Report
+        $stmt = $this->db->prepare("SELECT * FROM Contact WHERE contact_id = :id");
+        $stmt->execute([':id' => $id]);
+        $msg = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($type === 'contact') {
-            // FIX: Using 'contact_id' (lowercase)
-            $stmt = $this->db->prepare("SELECT * FROM Contact WHERE contact_id = :id");
-            $stmt->execute([':id' => $id]);
-            $msg = $stmt->fetch(PDO::FETCH_ASSOC);
-            
-            // Mark as Read
-            if ($msg && ($msg['status'] ?? 'New') === 'New') {
-                $upd = $this->db->prepare("UPDATE Contact SET status = 'Read' WHERE contact_id = :id");
-                $upd->execute([':id' => $id]);
-            }
-
-        } elseif ($type === 'feedback') {
-            $stmt = $this->db->prepare("SELECT * FROM Feedback WHERE Feedback_ID = :id");
-            $stmt->execute([':id' => $id]);
-            $msg = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if ($msg && ($msg['Status'] ?? 'New') === 'New') {
-                $upd = $this->db->prepare("UPDATE Feedback SET Status = 'Read' WHERE Feedback_ID = :id");
-                $upd->execute([':id' => $id]);
-            }
+        // Mark as Read
+        if ($msg && ($msg['status'] ?? 'New') === 'New') {
+            $upd = $this->db->prepare("UPDATE Contact SET status = 'Read' WHERE contact_id = :id");
+            $upd->execute([':id' => $id]);
         }
 
         require_once __DIR__ . '/../Views/Admin/read_message.php';
     }
 
-
+    // ========================
+    // 9. REPLY TO MESSAGE
+    // ========================
     public function replyMessage() {
         $this->checkAdminAuth();
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['msg_id'];
-            $type = $_POST['msg_type'];
             $reply = $_POST['reply_text'];
 
-            if ($type === 'contact') {
-                // FIX: Use 'contact_id' (lowercase)
-                $stmt = $this->db->prepare("UPDATE Contact SET Admin_Reply = :r, Status = 'Replied', Replied_At = CURRENT_TIMESTAMP WHERE contact_id = :id");
-                $stmt->execute([':r' => $reply, ':id' => $id]);
-                
-            } elseif ($type === 'feedback') {
-                $stmt = $this->db->prepare("UPDATE Feedback SET Admin_Reply = :r, Status = 'Replied', Replied_At = CURRENT_TIMESTAMP WHERE Feedback_ID = :id");
-                $stmt->execute([':r' => $reply, ':id' => $id]);
-            }
+            // FIX: Update using 'contact_id'
+            $stmt = $this->db->prepare("UPDATE Contact SET admin_reply = :r, status = 'Replied', replied_at = CURRENT_TIMESTAMP WHERE contact_id = :id");
+            $stmt->execute([':r' => $reply, ':id' => $id]);
 
-            header("Location: index.php?page=admin_view_message&type=$type&id=$id&success=replied");
+            header("Location: index.php?page=admin_view_message&type=contact&id=$id&success=replied");
             exit();
         }
     }
     
-    // ========================
-    // 9. MANAGE CONTENT (Terms, Legal, etc.)
-    // ========================
-
-    public function manageContent() {
-        $this->checkAdminAuth();
-        
-        $stmt = $this->db->prepare("SELECT Setting_Value FROM Site_Settings WHERE Setting_Key = 'terms_content'");
-        $stmt->execute();
-        $terms_content = $stmt->fetchColumn();
-
-        $stmt = $this->db->prepare("SELECT Setting_Value FROM Site_Settings WHERE Setting_Key = 'legal_notice'");
-        $stmt->execute();
-        $legal_content = $stmt->fetchColumn();
-
-        require_once __DIR__ . '/../Views/Admin/manage_content.php';
-    }
-
+   
+    // 10. MANAGE CONTENT (Terms, Legal, etc.)
+    
     public function updateContent() {
         $this->checkAdminAuth();
 
@@ -368,48 +344,60 @@ public function viewMessages() {
         }
     }
 
+   public function manageContent() {
+        $this->checkAdminAuth();
+        
+        // Fetch current values to fill the textareas
+        $home_welcome  = $this->adminModel->getSetting('home_welcome');
+        $terms_content = $this->adminModel->getSetting('terms_content');
+        $legal_content = $this->adminModel->getSetting('legal_notice');
+
+        require_once __DIR__ . '/../Views/Admin/manage_content.php';
+    }
+
+
     // ========================
-    // 10. MANAGE FAQ
+    // MANAGE FAQ
     // ========================
 
     public function manageFAQ() {
         $this->checkAdminAuth();
-        
-        $stmt = $this->db->query("SELECT * FROM FAQ ORDER BY Created_At DESC");
-        $faqs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+        // Fetch all existing FAQs to show in a list
+        $faqs = $this->adminModel->getAllFAQs();
         require_once __DIR__ . '/../Views/Admin/manage_faq.php';
     }
 
     public function addFAQ() {
         $this->checkAdminAuth();
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $question = $_POST['question'];
-            $answer = $_POST['answer'];
-            $target = $_POST['target_group']; 
-
-            if (!empty($question) && !empty($answer)) {
-                $stmt = $this->db->prepare("INSERT INTO FAQ (Question, Answer, Target_Group) VALUES (:q, :a, :t)");
-                $stmt->execute([':q' => $question, ':a' => $answer, ':t' => $target]);
-                header("Location: index.php?page=admin_faq&success=added");
-            } else {
-                header("Location: index.php?page=admin_faq&error=empty");
-            }
+            $q = $_POST['question'];
+            $a = $_POST['answer'];
+            
+            $this->adminModel->addFAQ($q, $a);
+            
+            header("Location: index.php?page=admin_faq&success=added");
             exit();
         }
     }
 
     public function deleteFAQ() {
         $this->checkAdminAuth();
-
         if (isset($_GET['id'])) {
-            $id = $_GET['id'];
-            $stmt = $this->db->prepare("DELETE FROM FAQ WHERE FAQ_ID = :id");
-            $stmt->execute([':id' => $id]);
-            header("Location: index.php?page=admin_faq&success=deleted");
-            exit();
+            $this->adminModel->deleteFAQ($_GET['id']);
         }
+        header("Location: index.php?page=admin_faq&success=deleted");
+        exit();
     }
+
+    public function viewFeedback() {
+        $this->checkAdminAuth();
+        // Fetch from the NEW Feedback table
+        $feedbacks = $this->db->query("SELECT * FROM Feedback ORDER BY Created_At DESC")->fetchAll(PDO::FETCH_ASSOC);
+        require_once __DIR__ . '/../Views/Admin/view_feedback.php';
+    }
+   
+   
+
+    
 }
 ?>

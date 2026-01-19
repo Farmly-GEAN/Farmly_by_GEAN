@@ -41,7 +41,17 @@
 
         <?php if ($msg): ?>
             <?php 
+                // ==========================================
+                // 🛠️ SMART DETECTION (Fixes Errors)
+                // ==========================================
                 
+                // 1. Determine Type: Use variable from Controller OR fallback to URL parameter
+                $current_type = $type ?? $_GET['type'] ?? 'contact';
+
+                // 2. Determine ID: Check ALL possible keys (Case-insensitive)
+                $safe_id = $msg['contact_id'] ?? $msg['Contact_ID'] ?? $msg['feedback_id'] ?? $msg['Feedback_ID'] ?? $msg['message_id'] ?? null;
+
+                // 3. Safe Data Extraction
                 $subject = $msg['Subject'] ?? $msg['subject'] ?? '(No Subject)';
                 $name    = $msg['Name'] ?? $msg['name'] ?? 'User';
                 $email   = $msg['Email'] ?? $msg['email'] ?? 'No Email';
@@ -54,12 +64,6 @@
                 $admin_reply = $msg['Admin_Reply'] ?? $msg['admin_reply'] ?? '';
                 $replied_at_raw = $msg['Replied_At'] ?? $msg['replied_at'] ?? null;
                 $replied_date = $replied_at_raw ? date("M d, Y", strtotime($replied_at_raw)) : '';
-
-                if ($type === 'contact') {
-                    $safe_id = $msg['message_id'] ?? $msg['Contact_ID'] ?? $msg['contact_id'];
-                } else {
-                    $safe_id = $msg['Feedback_ID'] ?? $msg['feedback_id'];
-                }
             ?>
 
             <div class="msg-container">
@@ -94,7 +98,7 @@
                         <form action="index.php?page=admin_reply_message" method="POST">
                             
                             <input type="hidden" name="msg_id" value="<?php echo $safe_id; ?>">
-                            <input type="hidden" name="msg_type" value="<?php echo $type; ?>">
+                            <input type="hidden" name="msg_type" value="<?php echo $current_type; ?>">
                             
                             <textarea name="reply_text" placeholder="Type your reply here to send to the user..." required></textarea>
                             <button type="submit" class="btn-reply">Send Reply</button>
@@ -104,7 +108,7 @@
 
             </div>
         <?php else: ?>
-            <p style="padding: 20px;">Message not found or deleted.</p>
+            <p style="padding: 20px; color: red;">Message not found or deleted.</p>
         <?php endif; ?>
     </div>
 </div>

@@ -36,6 +36,10 @@
            class="nav-item <?php echo (isset($_GET['page']) && $_GET['page'] == 'seller_reviews') ? 'active' : ''; ?>">
            Reviews
         </a>
+
+        <a href="index.php?page=seller_messages" class="nav-item <?php echo (isset($_GET['page']) && $_GET['page'] == 'seller_messages') ? 'active' : ''; ?>">
+     Seller Inbox
+</a>
         
         <a href="index.php?page=seller_profile" 
            class="nav-item <?php echo (isset($_GET['page']) && $_GET['page'] == 'seller_profile') ? 'active' : ''; ?>">

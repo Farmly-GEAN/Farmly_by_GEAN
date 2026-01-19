@@ -268,6 +268,12 @@ switch ($page) {
         $controller->cancelOrder();
         break;
 
+        case 'my_messages':
+        require_once __DIR__ . '/../app/Controllers/PageController.php';
+        $controller = new PageController();
+        $controller->myMessages();
+        break;
+
     // ADMIN ROUTES
     case 'admin_login':
         require_once BASE_PATH . 'app/Controllers/AdminController.php';
@@ -360,6 +366,29 @@ switch ($page) {
         $controller->feedback();
         break;
 
+        // FEEDBACK ROUTES
+    // ========================
+    case 'feedback':
+        require_once __DIR__ . '/../app/Controllers/PageController.php';
+        $controller = new PageController();
+        $controller->feedback();
+        break;
+
+    case 'submit_feedback':
+        require_once __DIR__ . '/../app/Controllers/PageController.php';
+        $controller = new PageController();
+        $controller->submitFeedback();
+        break;
+        
+    // ========================
+    // ADMIN VIEW FEEDBACK ROUTE
+    // ========================
+    case 'admin_feedback':
+        require_once __DIR__ . '/../app/Controllers/AdminController.php';
+        $controller = new AdminController();
+        $controller->viewFeedback();
+        break;
+
         // BUYER FORGOT PASSWORD
     case 'forgot_password':
         require_once BASE_PATH . 'app/Controllers/AuthController.php';
@@ -386,20 +415,7 @@ switch ($page) {
         $controller->processResetPassword();
         break;
 
-        // Contact Us Submission
-    case 'submit_contact':
-        require_once BASE_PATH . 'app/Controllers/PageController.php';
-        $controller = new PageController();
-        $controller->submitContact();
-        break;
-
-    // Feedback Submission
-    case 'submit_feedback':
-        require_once BASE_PATH . 'app/Controllers/PageController.php';
-        $controller = new PageController();
-        $controller->submitFeedback();
-        break;
-
+      
         case 'admin_content':
     require_once BASE_PATH . 'app/Controllers/AdminController.php';
     $controller = new AdminController();
@@ -412,43 +428,79 @@ case 'admin_update_content':
     $controller->updateContent();
     break;
 
-    // --- MANAGE FAQ ROUTES ---
-    case 'admin_faq':
-        require_once BASE_PATH . 'app/Controllers/AdminController.php';
+    case 'admin_messages':
+        require_once __DIR__ . '/../app/Controllers/AdminController.php';
         $controller = new AdminController();
-        $controller->manageFAQ();
+        $controller->viewMessages(); // Matches the function name above
         break;
 
-    case 'admin_add_faq':
-        require_once BASE_PATH . 'app/Controllers/AdminController.php';
-        $controller = new AdminController();
-        $controller->addFAQ();
-        break;
-
-    case 'admin_delete_faq':
-        require_once BASE_PATH . 'app/Controllers/AdminController.php';
-        $controller = new AdminController();
-        $controller->deleteFAQ();
-        break; 
-
-   case 'admin_view_message':
-        require_once BASE_PATH . 'app/Controllers/AdminController.php';
+    case 'admin_view_message':
+        require_once __DIR__ . '/../app/Controllers/AdminController.php';
         $controller = new AdminController();
         $controller->viewMessage();
         break;
 
     case 'admin_reply_message':
-        require_once BASE_PATH . 'app/Controllers/AdminController.php';
+        require_once __DIR__ . '/../app/Controllers/AdminController.php';
         $controller = new AdminController();
         $controller->replyMessage();
         break;
-   
+
+        case 'submit_contact':
+        require_once __DIR__ . '/../app/Controllers/PageController.php';
+        $controller = new PageController();
+        $controller->submitContact(); // This calls the function we added to PageController
+        break;
+
+        case 'contact_us':
+        require_once __DIR__ . '/../app/Controllers/PageController.php';
+        $controller = new PageController();
+        $controller->contact();
+        break;
+
+        case 'seller_messages':
+        require_once __DIR__ . '/../app/Controllers/PageController.php';
+        $controller = new PageController();
+        $controller->sellerMessages();
+        break;
+
+        case 'legal':
+        require_once __DIR__ . '/../app/Controllers/PageController.php';
+        $controller = new PageController();
+        $controller->legal();
+        break;
+
+        // Admin Routes
+    case 'admin_faq':
+        require_once __DIR__ . '/../app/Controllers/AdminController.php';
+        $controller = new AdminController();
+        $controller->manageFAQ();
+        break;
+    case 'admin_add_faq':
+        require_once __DIR__ . '/../app/Controllers/AdminController.php';
+        $controller = new AdminController();
+        $controller->addFAQ();
+        break;
+    case 'admin_delete_faq':
+        require_once __DIR__ . '/../app/Controllers/AdminController.php';
+        $controller = new AdminController();
+        $controller->deleteFAQ();
+        break;
+
+    // Public Route
+    case 'faq':
+        require_once __DIR__ . '/../app/Controllers/PageController.php';
+        $controller = new PageController();
+        $controller->faq();
+        break;
+
+
 
     default:
         
-        require_once BASE_PATH . 'app/Controllers/LandingController.php';
-        $controller = new LandingController();
-        $controller->index();
+       require_once __DIR__ . '/../app/Controllers/PageController.php';
+        $controller = new PageController();
+        $controller->home(); // or $controller->index(), whichever function loads your homepage
         break;
 }
 ?>

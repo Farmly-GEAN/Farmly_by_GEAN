@@ -23,7 +23,9 @@
         <h3>Useful Links</h3>
         <a href="index.php?page=seller_feedback">Feedback</a>
         <a href="index.php?page=terms">Terms and Conditions</a>
+        <a href="index.php?page=legal">Legal Notice</a>
         <a href="index.php?page=privacy">Privacy Policy</a>
+        <a href="index.php?page=faq">FAQ</a>
     </div>
 
     <div class="footer-column">

@@ -39,59 +39,57 @@
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>User Type</th>
+                            <th>User Role</th>
+                            <th>Name</th>
                             <th>Subject</th>
-                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($feedbacks as $fb): ?>
                             <?php 
-                                // FIX 1: Handle Case Sensitivity for Feedback ID
-                                $fb_id = $fb['Feedback_ID'] ?? $fb['feedback_id']; 
-                                
+                                // 1. Safe Data Extraction
                                 $date = $fb['Created_At'] ?? $fb['created_at'] ?? date('Y-m-d');
-                                $type = $fb['User_Type'] ?? $fb['user_type'] ?? 'Guest';
-                                $subj = $fb['Subject'] ?? $fb['subject'] ?? '(No Subject)';
-                                $status = $fb['Status'] ?? $fb['status'] ?? 'New';
+                                
+                                // FIX: Correctly get Name and Role from the $fb array
+                                $userName = $fb['User_Name'] ?? $fb['user_name'] ?? 'Unknown';
+                                $role     = $fb['User_Role'] ?? $fb['user_role'] ?? 'Guest';
+                                $subj     = $fb['Subject']   ?? $fb['subject']   ?? '(No Subject)';
+                                $msg      = $fb['Message']   ?? $fb['message']   ?? '';
+                                
+                                // Badge Logic
+                                $badgeClass = 'badge-Guest'; // Default CSS class
+                                if (strcasecmp($role, 'Buyer') === 0) $badgeClass = 'badge-Buyer';
+                                if (strcasecmp($role, 'Seller') === 0) $badgeClass = 'badge-Seller';
                             ?>
                             <tr>
-    <td class="msg-date"><?php echo date("M d, Y", strtotime($date)); ?></td>
-    
-    <td>
-        <strong><?php echo htmlspecialchars($name); ?></strong><br>
-        
-        <?php 
-            // Display the Role Badge we calculated in the Controller
-            $role = $msg['user_role'] ?? 'Guest'; 
-            $badgeColor = ($role === 'Buyer') ? '#d1ecf1; color:#0c5460' : (($role === 'Seller') ? '#fff3cd; color:#856404' : '#e2e3e5; color:#383d41');
-        ?>
-        <span style="background: <?php echo $badgeColor; ?>; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem;">
-            <?php echo $role; ?>
-        </span>
-    </td>
+                                <td class="msg-date"><?php echo date("M d, Y", strtotime($date)); ?></td>
+                                
+                                <td>
+                                    <span class="badge <?php echo $badgeClass; ?>">
+                                        <?php echo htmlspecialchars($role); ?>
+                                    </span>
+                                </td>
 
-    <td>
-        <?php echo htmlspecialchars($subj); ?>
-        <?php if($status === 'Replied') echo '<span class="status-replied">✓ Replied</span>'; ?>
-    </td>
-    
-    <td><?php echo htmlspecialchars($status); ?></td>
-    <td>
-        <a href="index.php?page=admin_view_message&type=contact&id=<?php echo $msg_id; ?>" class="btn-view">
-            Read / Reply
-        </a>
-    </td>
-</tr>
+                                <td>
+                                    <strong><?php echo htmlspecialchars($userName); ?></strong>
+                                </td>
+
+                                <td><?php echo htmlspecialchars($subj); ?></td>
+                                
+                                <td>
+                                    <button onclick="alert('<?php echo htmlspecialchars(addslashes($msg)); ?>')" class="btn-view" style="cursor:pointer; border:none;">
+                                        Read
+                                    </button>
+                                </td>
+                            </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
             <?php else: ?>
-                <div class="empty-state">No feedback received yet.</div>
+                <div style="padding:20px; text-align:center; color:#777;">No feedback received yet.</div>
             <?php endif; ?>
         </div>
-
         <div class="card">
             <h3>General Inquiries (Contact Us)</h3>
             <?php if (!empty($contacts)): ?>

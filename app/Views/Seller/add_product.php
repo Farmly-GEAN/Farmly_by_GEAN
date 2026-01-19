@@ -23,18 +23,23 @@
                     <input type="text" name="product_name" placeholder="e.g. Organic Carrots" required>
 
                     <label>Category</label>
-                    <select name="category_id" required>
-                        <option value="" disabled selected>Select Category</option>
-                        <?php if (!empty($categories)): ?>
-                            <?php foreach ($categories as $cat): ?>
-                                <option value="<?php echo $cat['Category_ID']; ?>">
-                                    <?php echo htmlspecialchars($cat['Category_Name']); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <option value="">No categories found</option>
-                        <?php endif; ?>
-                    </select>
+<select name="category_id" required>
+    <option value="" disabled selected>Select Category</option>
+    <?php if (!empty($categories)): ?>
+        <?php foreach ($categories as $cat): ?>
+            <?php 
+                
+                $cat_id = $cat['Category_ID'] ?? $cat['category_id'];
+                $cat_name = $cat['Category_Name'] ?? $cat['category_name'];
+            ?>
+            <option value="<?php echo htmlspecialchars($cat_id); ?>">
+                <?php echo htmlspecialchars($cat_name); ?>
+            </option>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <option value="">No categories found (Please ask Admin to add categories)</option>
+    <?php endif; ?>
+</select>
 
                     <label>Price (per kg/unit)</label>
                     <input type="number" name="price" step="0.01" placeholder="0.00" required>

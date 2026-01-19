@@ -1,9 +1,10 @@
 <?php
 class AdminModel {
-    private $conn;
+    private $db; // 1. Define the property
 
+    // 2. Add this Constructor (THIS IS MISSING)
     public function __construct($db) {
-        $this->conn = $db;
+        $this->db = $db;
     }
 
     // 1. Admin Login
@@ -108,6 +109,43 @@ class AdminModel {
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+   
+    // SITE CONTENT MANAGEMENT
+
+    // 1. Get a specific setting
+    public function getSetting($key) {
+        $stmt = $this->db->prepare("SELECT Setting_Value FROM Site_Settings WHERE Setting_Key = :key");
+        $stmt->execute([':key' => $key]);
+        return $stmt->fetchColumn(); 
+    }
+
+    // 2. Update a setting
+    public function updateSetting($key, $value) {
+        // Upsert logic (Update if exists, Insert if new)
+        $sql = "INSERT INTO Site_Settings (Setting_Key, Setting_Value) 
+                VALUES (:key, :val) 
+                ON CONFLICT (Setting_Key) 
+                DO UPDATE SET Setting_Value = :val";
+                
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([':key' => $key, ':val' => $value]);
+    }
+
+    public function getAllFAQs() {
+        return $this->db->query("SELECT * FROM FAQ ORDER BY Created_At DESC")->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function addFAQ($question, $answer) {
+        $stmt = $this->db->prepare("INSERT INTO FAQ (Question, Answer) VALUES (:q, :a)");
+        return $stmt->execute([':q' => $question, ':a' => $answer]);
+    }
+
+    public function deleteFAQ($id) {
+        $stmt = $this->db->prepare("DELETE FROM FAQ WHERE FAQ_ID = :id");
+        return $stmt->execute([':id' => $id]);
     }
 }
 ?> 

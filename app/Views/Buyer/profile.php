@@ -58,6 +58,7 @@
             <a href="index.php?page=my_orders" style="margin-left: 15px;">My Orders</a>
             
             <a href="index.php?page=home">Shop</a>
+            <a href="index.php?page=my_messages" class="btn-inbox" style="text-decoration:none;">Inbox</a>
             <a href="index.php?page=logout" style="color: #e74c3c;">Logout</a>
         </div>
     </header>

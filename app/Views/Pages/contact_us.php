@@ -1,16 +1,19 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) session_start();
 
-// Determine Header/Footer based on login status
-if (isset($_SESSION['seller_id'])) {
+// DEFAULT: Assume Guest
+$headerInclude = null;
+$footerInclude = __DIR__ . '/../Buyer/Buyer_Footer.php';
+
+// 1. CHECK FOR SELLER (Check ID OR Role)
+if (isset($_SESSION['seller_id']) || (isset($_SESSION['role']) && $_SESSION['role'] === 'seller')) {
+    // Correct path relative to 'app/Views/Main/'
     $headerInclude = __DIR__ . '/../Seller/Seller_Header.php';
     $footerInclude = __DIR__ . '/../Seller/Seller_Footer.php';
-} elseif (isset($_SESSION['user_id'])) {
+} 
+// 2. CHECK FOR BUYER
+elseif (isset($_SESSION['user_id'])) {
     $headerInclude = __DIR__ . '/../Buyer/Buyer_Header.php';
-    $footerInclude = __DIR__ . '/../Buyer/Buyer_Footer.php';
-} else {
-    // Guest User Layout
-    $headerInclude = null; // Or a Guest Header
     $footerInclude = __DIR__ . '/../Buyer/Buyer_Footer.php';
 }
 ?>
