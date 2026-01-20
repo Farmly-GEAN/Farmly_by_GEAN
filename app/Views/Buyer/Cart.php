@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Cart</title>
+    <title>Cart</title>
     <link rel="stylesheet" href="assets/CSS/HomePage.css"> 
     <style>
         .cart-container { max-width: 900px; margin: 50px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
