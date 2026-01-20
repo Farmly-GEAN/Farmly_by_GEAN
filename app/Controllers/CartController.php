@@ -30,12 +30,11 @@ class CartController {
             $qty   = $item['quantity'] ?? $item['Quantity'] ?? 0;
             $grandTotal += ($price * $qty);
         }
-
-        require_once __DIR__ . '/../Views/Buyer/cart.php';
+        require_once __DIR__ . '/../Views/Buyer/Cart.php'; 
     }
 
     // 2. Add Item to Cart
-   public function add() {
+    public function add() {
         if (session_status() === PHP_SESSION_NONE) session_start();
 
         if (!isset($_SESSION['user_id'])) {
@@ -48,14 +47,11 @@ class CartController {
             $product_id = $_POST['product_id'];
             $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 1;
 
-            // 1. Keep the existing logic to add to DB
             $this->cartModel->addToCart($buyer_id, $product_id, $quantity);
 
-            // 2. UPDATED REDIRECT LOGIC
-            // Instead of going to 'cart', we go back to where they came from
+            // Redirect Logic
             $referer = $_SERVER['HTTP_REFERER'] ?? 'index.php?page=home';
             
-            // Smartly append the success message (check if URL already has '?' or not)
             if (strpos($referer, '?') !== false) {
                 header("Location: $referer&success=added");
             } else {
@@ -76,7 +72,7 @@ class CartController {
         }
     }
 
-    // 4.Update Quantity 
+    // 4. Update Quantity 
     public function update() {
         if (session_status() === PHP_SESSION_NONE) session_start();
 
@@ -94,7 +90,6 @@ class CartController {
                 $this->cartModel->updateQuantity($cart_id, $new_qty);
             }
 
-            
             header("Location: index.php?page=cart");
             exit();
         }

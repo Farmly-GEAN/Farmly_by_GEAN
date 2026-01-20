@@ -37,11 +37,7 @@ $footerFile = $isSeller ? __DIR__ . '/../Seller/Seller_Footer.php' : __DIR__ . '
 
         <div class="content">
             <p>Welcome to <strong>Farmly</strong>, your direct connection to fresh, locally sourced produce. We believe that everyone deserves access to healthy, organic food, and that farmers deserve fair prices for their hard work.</p>
-            
-            <div class="mission-box">
-                "To bridge the gap between local farmers and community buyers, eliminating the middleman to ensure freshness and transparency."
-            </div>
-            
+                
             <p><strong>Why Choose Us?</strong></p>
             <ul style="color: #555; line-height: 1.8; margin-bottom: 20px; margin-left: 20px;">
                 <li><strong>100% Organic & Fresh:</strong> Produce harvested often the same day it is delivered.</li>
