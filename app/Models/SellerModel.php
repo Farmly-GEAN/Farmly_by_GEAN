@@ -11,7 +11,9 @@ class SellerModel {
    
 
     // 1. Register Seller
-    public function registerSeller($name, $email, $phone, $password, $address) {
+    public function register($name, $email, $phone, $address, $password, $imagePath = null) {
+        
+      
         $checkSql = "SELECT Seller_ID FROM Seller WHERE Seller_Email = :email";
         $stmt = $this->conn->prepare($checkSql);
         $stmt->execute([':email' => $email]);
@@ -20,18 +22,22 @@ class SellerModel {
             return false; 
         }
 
+        
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO Seller (Seller_Name, Seller_Email, Seller_Phone, Seller_Password, Seller_Address) 
-                VALUES (:name, :email, :phone, :pass, :addr)";
+        
+        $sql = "INSERT INTO Seller (Seller_Name, Seller_Email, Seller_Phone_Number, Seller_Address, Seller_Password, Seller_Image_Url) 
+                VALUES (:name, :email, :phone, :addr, :pass, :img)";
         
         $stmt = $this->conn->prepare($sql);
+        
         return $stmt->execute([
-            ':name' => $name,
-            ':email' => $email,
-            ':phone' => $phone,
-            ':pass' => $hashed_password, 
-            ':addr' => $address
+            ':name'   => $name,
+            ':email'  => $email,
+            ':phone'  => $phone,
+            ':addr'   => $address,
+            ':pass'   => $hashed_password,
+            ':img'    => $imagePath 
         ]);
     }
 

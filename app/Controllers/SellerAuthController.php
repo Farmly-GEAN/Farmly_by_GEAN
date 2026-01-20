@@ -44,29 +44,25 @@ class SellerAuthController {
     // 2. Seller Registration
     public function register() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $name = $_POST['seller_name'];
-            $email = $_POST['seller_email'];
-            $phone = $_POST['seller_phone'];
-            $address = $_POST['seller_address'];
-            $password = $_POST['seller_password'];
-            $confirmPass = $_POST['confirm_password'];
+            
+            $name        = $_POST['seller_name'] ?? '';
+            $email       = $_POST['seller_email'] ?? '';
+            $phone       = $_POST['seller_phone'] ?? '';
+            $address     = $_POST['seller_address'] ?? '';
+            $password    = $_POST['seller_password'] ?? '';
+            $confirmPass = $_POST['confirm_password'] ?? '';
 
-            // Validation: Passwords match?
+           
             if ($password !== $confirmPass) {
-                $error = "Passwords do not match!";
-                require_once __DIR__ . '/../Views/Seller/register.php';
+                echo "<script>alert('Passwords do not match!'); window.history.back();</script>";
                 return;
             }
 
-            // Image Upload Handling
+           
             $imagePath = null;
             if (isset($_FILES['seller_image']) && $_FILES['seller_image']['error'] === 0) {
-                
                 $uploadDir = __DIR__ . '/../../public/assets/uploads/sellers/';
-                
-                if (!is_dir($uploadDir)) {
-                    mkdir($uploadDir, 0777, true);
-                }
+                if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
 
                 $fileExt = pathinfo($_FILES['seller_image']['name'], PATHINFO_EXTENSION);
                 $fileName = "seller_" . time() . "." . $fileExt;
@@ -74,24 +70,21 @@ class SellerAuthController {
 
                 if (move_uploaded_file($_FILES['seller_image']['tmp_name'], $targetFile)) {
                     $imagePath = "assets/uploads/sellers/" . $fileName; 
-                } else {
-                    $error = "Failed to upload image.";
-                    require_once __DIR__ . '/../Views/Seller/register.php';
-                    return;
                 }
             }
 
             
-            if ($this->sellerModel->register($name, $email, $password, $phone, $address, $imagePath)) {
+            if ($this->sellerModel->register($name, $email, $phone, $address, $password, $imagePath)) {
                 
-                header("Location: index.php?page=seller_login&success=1");
+                
+                header("Location: index.php?page=seller_login&success=registered");
                 exit();
+                
             } else {
-                $error = "Registration failed. Email might already exist.";
-                require_once __DIR__ . '/../Views/Seller/register.php';
+                echo "<script>alert('Registration failed. Email might already exist.'); window.history.back();</script>";
             }
-        } else {
             
+        } else {
             require_once __DIR__ . '/../Views/Seller/register.php';
         }
     }
